@@ -1,12 +1,16 @@
 import './index.css'
+import {Route, Routes} from 'react-router-dom'
+import LoginComponent from './component/LoginComponent'
 
 function App() {
     return (
         <div>
             <header>
             </header>
-            <section >
-
+            <section>
+                <Routes>
+                    <Route path="/login" element={<LoginComponent />} />
+                </Routes>
             </section>
         </div>
     )

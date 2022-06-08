@@ -1,11 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 
+const JWT_STORAGE_KEY = "jwt"
+
 interface JwtState {
-    jwtToken: string
+    jwtToken: string | null
 }
 
 const initialState: JwtState = {
-    jwtToken: ""
+    jwtToken: localStorage.getItem(JWT_STORAGE_KEY)
 }
 
 export const authenticationSlice = createSlice({
@@ -14,6 +16,7 @@ export const authenticationSlice = createSlice({
     reducers: {
         setJwtToken: (state, action: PayloadAction<string>) => {
             state.jwtToken = action.payload
+            localStorage.setItem(JWT_STORAGE_KEY, action.payload)
         }
     }
 })
