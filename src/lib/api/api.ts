@@ -16,7 +16,7 @@ import * as url from "url";
 import * as isomorphicFetch from "isomorphic-fetch";
 import { Configuration } from "./configuration";
 
-const BASE_PATH = "https://localhost:9001".replace(/\/+$/, "");
+const BASE_PATH = "http://localhost:9001".replace(/\/+$/, "");
 
 /**
  *
@@ -187,6 +187,24 @@ export interface AuthenticationResponseDtoV1 {
      * @memberof AuthenticationResponseDtoV1
      */
     token: string;
+    /**
+     * 
+     * @type {Date}
+     * @memberof AuthenticationResponseDtoV1
+     */
+    issueAtDate: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof AuthenticationResponseDtoV1
+     */
+    expireAtDate: Date;
+    /**
+     * 
+     * @type {AppUserResponseDtoV1}
+     * @memberof AuthenticationResponseDtoV1
+     */
+    me: AppUserResponseDtoV1;
 }
 /**
  * 
@@ -534,6 +552,19 @@ export interface CourseSemesterRolesResponseDtoV1 {
 /**
  * 
  * @export
+ * @interface ExchangeRequestDtoV1
+ */
+export interface ExchangeRequestDtoV1 {
+    /**
+     * 
+     * @type {string}
+     * @memberof ExchangeRequestDtoV1
+     */
+    authToken: string;
+}
+/**
+ * 
+ * @export
  * @interface FileAttachmentResponseDtoV1
  */
 export interface FileAttachmentResponseDtoV1 {
@@ -656,19 +687,6 @@ export interface Link {
 export interface Links {
     [key: string]: Link;
 
-}
-/**
- * 
- * @export
- * @interface MicrosoftOAuthResponseDtoV1
- */
-export interface MicrosoftOAuthResponseDtoV1 {
-    /**
-     * 
-     * @type {string}
-     * @memberof MicrosoftOAuthResponseDtoV1
-     */
-    redirectURI: string;
 }
 /**
  * 
@@ -3477,83 +3495,30 @@ export const MicrosoftAuthenticationV1ApiFetchParamCreator = function (configura
     return {
         /**
          * 
-         * @summary Finish user authentication using Microsoft services.
-         * @param {string} code 
-         * @param {string} [redirectURI] 
-         * @param {string} [state] 
-         * @param {string} [adminConsent] 
-         * @param {string} [error] 
-         * @param {string} [errorDescription] 
+         * @summary Exchange code to JWT authentication token.
+         * @param {ExchangeRequestDtoV1} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        finish(code: string, redirectURI?: string, state?: string, adminConsent?: string, error?: string, errorDescription?: string, options: any = {}): FetchArgs {
-            // verify required parameter 'code' is not null or undefined
-            if (code === null || code === undefined) {
-                throw new RequiredError('code','Required parameter code was null or undefined when calling finish.');
+        exchange(body: ExchangeRequestDtoV1, options: any = {}): FetchArgs {
+            // verify required parameter 'body' is not null or undefined
+            if (body === null || body === undefined) {
+                throw new RequiredError('body','Required parameter body was null or undefined when calling exchange.');
             }
-            const localVarPath = `/v1/authentication/microsoft/finish`;
+            const localVarPath = `/v1/authentication/microsoft/exchange`;
             const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (redirectURI !== undefined) {
-                localVarQueryParameter['redirectURI'] = redirectURI;
-            }
-
-            if (code !== undefined) {
-                localVarQueryParameter['code'] = code;
-            }
-
-            if (state !== undefined) {
-                localVarQueryParameter['state'] = state;
-            }
-
-            if (adminConsent !== undefined) {
-                localVarQueryParameter['adminConsent'] = adminConsent;
-            }
-
-            if (error !== undefined) {
-                localVarQueryParameter['error'] = error;
-            }
-
-            if (errorDescription !== undefined) {
-                localVarQueryParameter['errorDescription'] = errorDescription;
-            }
+            localVarHeaderParameter['Content-Type'] = 'application/json';
 
             localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-
-            return {
-                url: url.format(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Start user authentication using Microsoft services.
-         * @param {string} [redirectURI] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        start(redirectURI?: string, options: any = {}): FetchArgs {
-            const localVarPath = `/v1/authentication/microsoft/start`;
-            const localVarUrlObj = url.parse(localVarPath, true);
-            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (redirectURI !== undefined) {
-                localVarQueryParameter['redirectURI'] = redirectURI;
-            }
-
-            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
-            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
-            delete localVarUrlObj.search;
-            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+            const needsSerialization = (<any>"ExchangeRequestDtoV1" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
                 url: url.format(localVarUrlObj),
@@ -3571,37 +3536,13 @@ export const MicrosoftAuthenticationV1ApiFp = function(configuration?: Configura
     return {
         /**
          * 
-         * @summary Finish user authentication using Microsoft services.
-         * @param {string} code 
-         * @param {string} [redirectURI] 
-         * @param {string} [state] 
-         * @param {string} [adminConsent] 
-         * @param {string} [error] 
-         * @param {string} [errorDescription] 
+         * @summary Exchange code to JWT authentication token.
+         * @param {ExchangeRequestDtoV1} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        finish(code: string, redirectURI?: string, state?: string, adminConsent?: string, error?: string, errorDescription?: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<AuthenticationResponseDtoV1> {
-            const localVarFetchArgs = MicrosoftAuthenticationV1ApiFetchParamCreator(configuration).finish(code, redirectURI, state, adminConsent, error, errorDescription, options);
-            return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
-                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
-                    if (response.status >= 200 && response.status < 300) {
-                        return response.json();
-                    } else {
-                        throw response;
-                    }
-                });
-            };
-        },
-        /**
-         * 
-         * @summary Start user authentication using Microsoft services.
-         * @param {string} [redirectURI] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        start(redirectURI?: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<MicrosoftOAuthResponseDtoV1> {
-            const localVarFetchArgs = MicrosoftAuthenticationV1ApiFetchParamCreator(configuration).start(redirectURI, options);
+        exchange(body: ExchangeRequestDtoV1, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<AuthenticationResponseDtoV1> {
+            const localVarFetchArgs = MicrosoftAuthenticationV1ApiFetchParamCreator(configuration).exchange(body, options);
             return (fetch: FetchAPI = isomorphicFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -3623,28 +3564,13 @@ export const MicrosoftAuthenticationV1ApiFactory = function (configuration?: Con
     return {
         /**
          * 
-         * @summary Finish user authentication using Microsoft services.
-         * @param {string} code 
-         * @param {string} [redirectURI] 
-         * @param {string} [state] 
-         * @param {string} [adminConsent] 
-         * @param {string} [error] 
-         * @param {string} [errorDescription] 
+         * @summary Exchange code to JWT authentication token.
+         * @param {ExchangeRequestDtoV1} body 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        finish(code: string, redirectURI?: string, state?: string, adminConsent?: string, error?: string, errorDescription?: string, options?: any) {
-            return MicrosoftAuthenticationV1ApiFp(configuration).finish(code, redirectURI, state, adminConsent, error, errorDescription, options)(fetch, basePath);
-        },
-        /**
-         * 
-         * @summary Start user authentication using Microsoft services.
-         * @param {string} [redirectURI] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        start(redirectURI?: string, options?: any) {
-            return MicrosoftAuthenticationV1ApiFp(configuration).start(redirectURI, options)(fetch, basePath);
+        exchange(body: ExchangeRequestDtoV1, options?: any) {
+            return MicrosoftAuthenticationV1ApiFp(configuration).exchange(body, options)(fetch, basePath);
         },
     };
 };
@@ -3658,31 +3584,14 @@ export const MicrosoftAuthenticationV1ApiFactory = function (configuration?: Con
 export class MicrosoftAuthenticationV1Api extends BaseAPI {
     /**
      * 
-     * @summary Finish user authentication using Microsoft services.
-     * @param {string} code 
-     * @param {string} [redirectURI] 
-     * @param {string} [state] 
-     * @param {string} [adminConsent] 
-     * @param {string} [error] 
-     * @param {string} [errorDescription] 
+     * @summary Exchange code to JWT authentication token.
+     * @param {ExchangeRequestDtoV1} body 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MicrosoftAuthenticationV1Api
      */
-    public finish(code: string, redirectURI?: string, state?: string, adminConsent?: string, error?: string, errorDescription?: string, options?: any) {
-        return MicrosoftAuthenticationV1ApiFp(this.configuration).finish(code, redirectURI, state, adminConsent, error, errorDescription, options)(this.fetch, this.basePath);
-    }
-
-    /**
-     * 
-     * @summary Start user authentication using Microsoft services.
-     * @param {string} [redirectURI] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MicrosoftAuthenticationV1Api
-     */
-    public start(redirectURI?: string, options?: any) {
-        return MicrosoftAuthenticationV1ApiFp(this.configuration).start(redirectURI, options)(this.fetch, this.basePath);
+    public exchange(body: ExchangeRequestDtoV1, options?: any) {
+        return MicrosoftAuthenticationV1ApiFp(this.configuration).exchange(body, options)(this.fetch, this.basePath);
     }
 
 }

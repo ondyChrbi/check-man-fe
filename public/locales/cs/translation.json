@@ -1,0 +1,14 @@
+{
+  "authentication": {
+    "error": {
+      "not-valid-account": "Not valid Microsoft university account",
+      "already-authenticated": "Already logged in"
+    }
+  },
+
+  "dashboard": {
+    "courses": {
+      "available": "Žádné kurzy nejsou dostupné"
+    }
+  }
+}

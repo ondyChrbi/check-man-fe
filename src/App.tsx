@@ -1,6 +1,8 @@
 import './index.css'
 import {Route, Routes} from 'react-router-dom'
-import LoginComponent from './component/LoginComponent'
+import Login from './pages/Login'
+import AvailableCourses from "./pages/AvailableCourses";
+import ProtectedRoute from "./features/authentication/component/ProtectedRoute";
 
 function App() {
     return (
@@ -9,7 +11,13 @@ function App() {
             </header>
             <section>
                 <Routes>
-                    <Route path="/login" element={<LoginComponent />} />
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/courses" element={
+                        <ProtectedRoute>
+                            <AvailableCourses/>
+                        </ProtectedRoute>
+                    }
+                    />
                 </Routes>
             </section>
         </div>
