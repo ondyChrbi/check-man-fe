@@ -1,6 +1,6 @@
 import {gql} from "@apollo/client";
 
-export const GET_AVAILABLE_COURSES_QUERY = gql`
+export const getAvailableCoursesQuery = gql`
     query GetAvailableCourses {
         availableCourses {
             id,
@@ -8,10 +8,62 @@ export const GET_AVAILABLE_COURSES_QUERY = gql`
             name,
             dateCreation,
             icon,
-            template
+            template,
+            semesters {
+                id,
+                note,
+                dateStart,
+                dateEnd
+            }
         }
     }
 `;
+
+export const getCourseSemesterQuery = gql`
+    query GetCourseSemester($id: ID!) {
+        semester(id: $id) {
+            id,
+            note,
+            dateStart,
+            dateEnd
+        }
+    }
+`;
+
+export const getCourseDashboard = gql`
+    query GetCourseDashboard {
+        courseDashboard {
+            availableCourses {
+                id,
+                stagId,
+                name,
+                dateCreation,
+                icon,
+                template,
+                semesters {
+                    id,
+                    note,
+                    dateStart,
+                    dateEnd
+                }
+            },
+            myCourses {
+                id,
+                stagId,
+                name,
+                dateCreation,
+                icon,
+                template,
+                semesters {
+                    id,
+                    note,
+                    dateStart,
+                    dateEnd
+                }
+            }
+        }
+    }
+`
 
 export interface Course {
     id: number;
@@ -30,6 +82,19 @@ export interface Semester {
     dateEnd: string;
 }
 
-export interface CourseData {
+export interface SemesterQuery {
+    semester?: Semester;
+}
+
+export interface AvailableCoursesQuery {
+    availableCourses: Array<Course>;
+}
+
+export interface CourseDashboardQuery {
+    courseDashboard: CourseDashboard;
+}
+
+export interface CourseDashboard {
+    availableCourses: Array<Course>;
     myCourses: Array<Course>;
 }

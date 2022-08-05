@@ -9,7 +9,7 @@ interface RequireAuthorizationParams {
 const ProtectedRoute = ({children} : RequireAuthorizationParams) => {
     const authenticationInfo = useAppSelector((state) => state.authentication);
 
-    if (AuthenticationService.isNotAuthenticated(authenticationInfo.jwtInfo)) {
+    if (AuthenticationService.isNotAuthenticated(authenticationInfo)) {
         return <Navigate to={"/login"} replace />
     }
 

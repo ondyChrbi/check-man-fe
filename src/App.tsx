@@ -1,25 +1,27 @@
 import './index.css'
 import {Route, Routes} from 'react-router-dom'
 import Login from './pages/Login'
-import AvailableCourses from "./pages/AvailableCourses";
+import CourseDashboard from "./pages/CourseDashboard";
 import ProtectedRoute from "./features/authentication/component/ProtectedRoute";
+import CourseSemesterDetail from "./components/CourseSemesterDetail";
 
 function App() {
     return (
         <div>
             <header>
             </header>
-            <section>
+            <main>
                 <Routes>
                     <Route path="/login" element={<Login/>}/>
-                    <Route path="/courses" element={
+                    <Route path="/dashboard" element={
                         <ProtectedRoute>
-                            <AvailableCourses/>
+                            <CourseDashboard/>
                         </ProtectedRoute>
                     }
                     />
+                    <Route path="/semester/:semesterId" element={<CourseSemesterDetail/>}/>
                 </Routes>
-            </section>
+            </main>
         </div>
     )
 }

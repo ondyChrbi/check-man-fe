@@ -1,15 +1,14 @@
-import {JwtInfo} from "../helper";
 import {AuthenticationInfo} from "../store/authenticationSlice";
 
 const AuthenticationService = {
-    isAuthenticated: (authenticationInfo: AuthenticationInfo | null | undefined) => {
+    isAuthenticated: (authenticationInfo: AuthenticationInfo) => {
         return (authenticationInfo.jwtInfo && authenticationInfo.jwtInfo.token
             && authenticationInfo.jwtInfo.expiresAtDate
             && (Date.parse(authenticationInfo.jwtInfo.expiresAtDate) >= Date.now())) as Boolean;
     },
 
-    isNotAuthenticated: (jwtInfo: JwtInfo | null | undefined) => {
-        return !AuthenticationService.isAuthenticated(jwtInfo)
+    isNotAuthenticated: (authenticationInfo: AuthenticationInfo) => {
+        return !AuthenticationService.isAuthenticated(authenticationInfo)
     }
 }
 
