@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useQuery} from "@apollo/client";
-import {getCourseSemesterQuery, SemesterQuery} from "../lib/graphql/meQuery";
+import {getCourseSemesterQuery, SemesterQuery} from "../../lib/graphql/meQuery";
 
 const CourseSemesterDetail = () => {
     const {semesterId} = useParams<'courseId' | 'semesterId'>();

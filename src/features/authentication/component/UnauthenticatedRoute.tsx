@@ -3,18 +3,18 @@ import AuthenticationService from "../services/authentication-service";
 import {Navigate} from "react-router-dom";
 
 interface Props {
+    redirectUrl: string,
     children : JSX.Element
 }
 
-const ProtectedRoute = ({children} : Props) => {
+const UnauthenticatedRoute = ({redirectUrl, children} : Props) => {
     const authenticationInfo = useAppSelector((state) => state.authentication);
 
-    if (AuthenticationService.isNotAuthenticated(authenticationInfo)) {
-        return <Navigate to={"/login"} replace />
+    if (AuthenticationService.isAuthenticated(authenticationInfo)) {
+        return <Navigate to={redirectUrl} replace />
     }
 
-
     return children;
-};
+}
 
-export default ProtectedRoute;
+export default UnauthenticatedRoute;

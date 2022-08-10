@@ -30,7 +30,7 @@ export const getCourseSemesterQuery = gql`
     }
 `;
 
-export const getCourseDashboard = gql`
+export const getCourseDashboardQuery = gql`
     query GetCourseDashboard {
         courseDashboard {
             availableCourses {
@@ -64,6 +64,35 @@ export const getCourseDashboard = gql`
         }
     }
 `
+
+export const createSemesterAccessRequestMutation = gql`
+    mutation CreateSemesterAccessRequestMutation($semesterId: ID!) {
+        createSemesterAccessRequest(semesterId: $semesterId) {
+            creationDate
+            expirationDate
+        }
+    }
+`
+
+export interface SemesterAccessRequestVariables {
+    semesterId: number
+}
+
+export interface CreateSemesterAccessRequestMutation {
+    createSemesterAccessRequest: SemesterAccessRequest,
+}
+
+export interface SemesterAccessRequest {
+    appUser: AppUser,
+    semester: Semester,
+    creationDate: string,
+    expirationDate: string
+    id: string
+}
+
+export interface AppUser {
+    id: number
+}
 
 export interface Course {
     id: number;

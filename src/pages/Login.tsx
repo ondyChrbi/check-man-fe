@@ -1,43 +1,30 @@
-import {useAppDispatch, useAppSelector} from '../features/authentication/hooks/hooks';
-import React, {ReactElement} from 'react';
-import {disableJwtToken, setJwtToken} from "../features/authentication/store/authenticationSlice";
-import MicrosoftAuthenticationService from "../features/authentication/services/microsoft-authentication-service";
+import {Grid} from "@mui/material";
+import LoginForm from "../components/login/LoginForm";
+import {useAppSelector} from "../features/authentication/hooks/hooks";
+import {useEffect} from "react";
 import AuthenticationService from "../features/authentication/services/authentication-service";
+import {useNavigate} from "react-router-dom";
 
-const Login: React.FC = (): ReactElement => {
-    const jwtInfo = useAppSelector((state) => state.authentication);
-    const dispatch = useAppDispatch();
+const Login = () => {
+    const authenticationInfo = useAppSelector((state) => state.authentication);
+    const navigate = useNavigate();
 
-    const loginToMicrosoftAccount = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        if (MicrosoftAuthenticationService.isNotAlreadyAuthenticated()) {
-            await MicrosoftAuthenticationService.initMicrosoftAuthentication();
+    useEffect(() => {
+        if (AuthenticationService.isAuthenticated(authenticationInfo)) {
+            return navigate('/dashboard', {replace: true})
         }
+    }, [])
 
-        const microsoftAuthToken = await MicrosoftAuthenticationService.getAuthenticationToken();
-        const authResponse = await MicrosoftAuthenticationService.exchangeAuthToken(microsoftAuthToken);
-
-        dispatch(setJwtToken({
-            token: authResponse.token,
-            issueAtDate: authResponse.issueAtDate.toString(),
-            expiresAtDate: authResponse.expireAtDate.toString()
-        }));
-    }
-
-    const logout = async (event: React.MouseEvent<HTMLElement>) => {
-        event.preventDefault();
-
-        await MicrosoftAuthenticationService.logoutAll();
-        dispatch(disableJwtToken());
-    };
-
-    return (<>
-        {AuthenticationService.isNotAuthenticated(jwtInfo.jwtInfo) &&
-            <button onClick={loginToMicrosoftAccount}>Microsoft UPCE account</button>
-        }
-        <button onClick={logout}>Logout</button>
-    </>)
+    return <>
+        <Grid container spacing={2}>
+            <Grid item xs={12} md={5}>
+                <LoginForm />
+            </Grid>
+            <Grid item xs={12} md={7}>
+                Some text
+            </Grid>
+        </Grid>
+    </>;
 }
 
-export default Login
+export default Login;

@@ -1,14 +1,30 @@
 {
+  "application": {
+    "title": "Check Man",
+    "subtitle": "Your friendly neighborhood",
+    "instructions": "Přihlašte se jednou z níže uvedených možností"
+  },
   "authentication": {
+    "login": {
+      "button": "Univerzitní Microsoft účet"
+    },
     "error": {
-      "not-valid-account": "Not valid Microsoft university account",
-      "already-authenticated": "Already logged in"
+      "not-valid-account": "Tento účet není pod správou Univerzity Pardubice",
+      "already-authenticated": "Uživatel je již přihlášen"
     }
   },
 
   "dashboard": {
     "courses": {
-      "available": "Žádné kurzy nejsou dostupné"
+      "me": "Zapsané kurzy",
+      "not-available": "Žádné kurzy nejsou dostupné",
+      "available": "Dostupné kurzy"
+    }
+  },
+
+  "course": {
+    "available": {
+      "join": "Zažádat o zapsání"
     }
   }
 }
