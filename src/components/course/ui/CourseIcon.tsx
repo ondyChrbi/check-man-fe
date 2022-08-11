@@ -9,7 +9,6 @@ import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useMutation} from "@apollo/client";
 import './CourseIcon.css';
-import {Typography} from "@mui/material";
 
 interface Props {
     course: Course,
@@ -52,9 +51,7 @@ const CourseIcon = ({course, available = false}: Props) => {
             <div className="course-icon rounded-3xl shadow hover:shadow-lg" style={{backgroundColor: course.template}}>
                 <img className="m-5" src={course.icon} alt={course.name} />
             </div>
-            <div className="my-4">
-                <Typography align="center" component="h2" variant="subtitle1">{course.name}</Typography>
-            </div>
+            <div className="my-4">{course.name}</div>
         </div>
     </>
 }

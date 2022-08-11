@@ -1,4 +1,3 @@
-import {Grid} from "@mui/material";
 import LoginForm from "../components/login/LoginForm";
 import {useAppSelector} from "../features/authentication/hooks/hooks";
 import {useEffect} from "react";
@@ -16,14 +15,7 @@ const Login = () => {
     }, [])
 
     return <>
-        <Grid container spacing={2}>
-            <Grid item xs={12} md={5}>
-                <LoginForm />
-            </Grid>
-            <Grid item xs={12} md={7}>
-                Some text
-            </Grid>
-        </Grid>
+        <LoginForm />
     </>;
 }
 

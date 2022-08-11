@@ -26,5 +26,9 @@
     "available": {
       "join": "Zažádat o zapsání"
     }
+  },
+
+  "challenge": {
+    "not-available": "Žádné úkoly"
   }
 }

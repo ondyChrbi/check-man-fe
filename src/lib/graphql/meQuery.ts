@@ -32,34 +32,32 @@ export const getCourseSemesterQuery = gql`
 
 export const getCourseDashboardQuery = gql`
     query GetCourseDashboard {
-        courseDashboard {
-            availableCourses {
+        availableCourses {
+            id,
+            stagId,
+            name,
+            dateCreation,
+            icon,
+            template,
+            semesters {
                 id,
-                stagId,
-                name,
-                dateCreation,
-                icon,
-                template,
-                semesters {
-                    id,
-                    note,
-                    dateStart,
-                    dateEnd
-                }
-            },
-            myCourses {
+                note,
+                dateStart,
+                dateEnd
+            }
+        },
+        myCourses {
+            id,
+            stagId,
+            name,
+            dateCreation,
+            icon,
+            template,
+            semesters {
                 id,
-                stagId,
-                name,
-                dateCreation,
-                icon,
-                template,
-                semesters {
-                    id,
-                    note,
-                    dateStart,
-                    dateEnd
-                }
+                note,
+                dateStart,
+                dateEnd
             }
         }
     }
@@ -120,10 +118,6 @@ export interface AvailableCoursesQuery {
 }
 
 export interface CourseDashboardQuery {
-    courseDashboard: CourseDashboard;
-}
-
-export interface CourseDashboard {
     availableCourses: Array<Course>;
     myCourses: Array<Course>;
 }

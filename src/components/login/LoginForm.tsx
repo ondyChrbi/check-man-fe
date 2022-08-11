@@ -3,8 +3,6 @@ import {useAppDispatch, useAppSelector} from '../../features/authentication/hook
 import {disableJwtToken, setJwtToken} from "../../features/authentication/store/authenticationSlice";
 import MicrosoftAuthenticationService from "../../features/authentication/services/microsoft-authentication-service";
 import AuthenticationService from "../../features/authentication/services/authentication-service";
-import {Box, Button} from "@mui/material";
-import {Login as LoginIcon} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
 
 const LoginForm = () => {
@@ -37,18 +35,17 @@ const LoginForm = () => {
     };
 
     return (<>
-        <Box sx={{my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <div className="flex flex-col m-8">
             <h1>{t('application.title')}</h1>
             <h2>{t('application.subtitle')}</h2>
 
             <p>{t('application.instructions')}</p>
             {AuthenticationService.isNotAuthenticated(authenticationInfo) &&
-                <Button variant="outlined" startIcon={<LoginIcon/>}
-                        onClick={loginToMicrosoftAccount}>{t('authentication.login.button')}</Button>
+                <button onClick={loginToMicrosoftAccount}>{t('authentication.login.button')}</button>
             }
 
             <button onClick={logout}>Logout</button>
-        </Box>
+        </div>
     </>)
 }
 

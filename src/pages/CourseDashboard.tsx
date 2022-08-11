@@ -22,8 +22,8 @@ const CourseDashboard: React.FC = (): ReactElement => {
         return <p>Error</p>
     }
 
-    if (!data?.courseDashboard.availableCourses && !data?.courseDashboard.myCourses) {
-        return <p>{t('dashboard.courses.not-available')}</p>;
+    if (!data?.availableCourses && !data?.myCourses) {
+        return <p>{t('challenge.courses.not-available')}</p>;
     }
 
     return <>
@@ -32,7 +32,7 @@ const CourseDashboard: React.FC = (): ReactElement => {
                     <h1>{t('dashboard.courses.me')}</h1>
                 </div>
                 <div className="flex flex-row">
-                    {data?.courseDashboard.myCourses?.map((course) =>
+                    {data?.myCourses?.map((course) =>
                         course.semesters?.map((semester) =>
                             <CourseIcon key={course.id} course={course}/>
                         ))}
@@ -41,7 +41,7 @@ const CourseDashboard: React.FC = (): ReactElement => {
                     {t('dashboard.courses.available')}
                 </div>
                 <div className="flex flex-row">
-                    {data?.courseDashboard.availableCourses?.map((course) =>
+                    {data?.availableCourses?.map((course) =>
                         <CourseIcon key={course.id} course={course} available={true}/>
                     )}
                 </div>
