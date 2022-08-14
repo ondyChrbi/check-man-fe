@@ -1,9 +1,17 @@
 {
+  "common": {
+    "button" : {
+      "save": "Uložit",
+      "publish": "Publikovat"
+    }
+  },
+
   "application": {
     "title": "Check Man",
     "subtitle": "Your friendly neighborhood",
     "instructions": "Přihlašte se jednou z níže uvedených možností"
   },
+
   "authentication": {
     "login": {
       "button": "Univerzitní Microsoft účet"
@@ -29,6 +37,21 @@
   },
 
   "challenge": {
-    "not-available": "Žádné úkoly"
+    "not-available": "Žádné úkoly",
+    "optional" : "Dobrovolné úkoly",
+    "mandatory" : "Povinné úkoly",
+    "credit" : "Zápočtové úkoly",
+    "exam" : "Zkouškové úkoly",
+    "action" : {
+      "create" : "Přidat úkol",
+      "title" : {
+        "name" : "Název úlohy",
+        "place-holder" : ""
+      },
+      "text" : {
+        "name" : "Zadání úlohy",
+        "place-holder" : ""
+      }
+    }
   }
 }

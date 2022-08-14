@@ -32,10 +32,7 @@ const CourseDashboard: React.FC = (): ReactElement => {
                     <h1>{t('dashboard.courses.me')}</h1>
                 </div>
                 <div className="flex flex-row">
-                    {data?.myCourses?.map((course) =>
-                        course.semesters?.map((semester) =>
-                            <CourseIcon key={course.id} course={course}/>
-                        ))}
+                    {data?.myCourses?.map((course) => <CourseIcon key={course.id} course={course}/>)}
                 </div>
                 <div className="my-3">
                     {t('dashboard.courses.available')}

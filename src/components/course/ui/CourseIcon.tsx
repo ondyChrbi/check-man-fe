@@ -1,14 +1,13 @@
-import React from "react";
-import {
-    Course,
-    CreateSemesterAccessRequestMutation,
-    createSemesterAccessRequestMutation,
-    Semester, SemesterAccessRequestVariables
-} from "../../../lib/graphql/meQuery";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useMutation} from "@apollo/client";
-import './CourseIcon.css';
+import {
+    Course, createSemesterAccessRequestMutation,
+    CreateSemesterAccessRequestMutation,
+    Semester,
+    SemesterAccessRequestVariables
+} from "../../../lib/graphql/courseQuery";
 
 interface Props {
     course: Course,
@@ -27,11 +26,17 @@ const CourseIcon = ({course, available = false}: Props) => {
         CreateSemesterAccessRequestMutation,
         SemesterAccessRequestVariables>(createSemesterAccessRequestMutation);
 
+    const [showSign, setShowSign] = useState(false);
 
     const semesters = course.semesters ?? [];
 
-    const iconClickHandler = (event: React.MouseEvent<HTMLElement>) => {
+    const iconClickHandler = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
+
+        if (available && course && course.semesters) {
+            await joinCourseHandler(course.semesters[0])
+            return;
+        }
 
         if (semesters.length === MODAL_OPEN_LIMIT) {
             const semester = semesters[0];
@@ -40,16 +45,31 @@ const CourseIcon = ({course, available = false}: Props) => {
         }
     }
 
-    const joinCourseHandler = async (event: React.MouseEvent<HTMLElement>, semester: Semester) => {
-        event.preventDefault();
-
+    const joinCourseHandler = async (semester: Semester) => {
         await sendAccessRequest({variables: {semesterId: semester.id}});
     }
 
+
+    const mouseIconEnterHandler = (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        if (available) { setShowSign(true); }
+    }
+
+    const mouseIconLeaveHandler = (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        if (available) { setShowSign(false); }
+    }
+
     return <>
-        <div onClick={iconClickHandler} className="course-container flex flex-col items-center mx-10 hover:cursor-pointer">
-            <div className="course-icon rounded-3xl shadow hover:shadow-lg" style={{backgroundColor: course.template}}>
-                <img className="m-5" src={course.icon} alt={course.name} />
+        <div className="course-container flex flex-col mx-10 hover:cursor-pointer"
+             onClick={iconClickHandler}
+             onMouseEnter={mouseIconEnterHandler}
+             onMouseLeave={mouseIconLeaveHandler}>
+            <div className="flex flex-col justify-center course-icon rounded-3xl w-40 h-40 shadow hover:shadow-lg" style={{backgroundColor: course.template}}>
+                {(!available || (available && !showSign)) && <img className="m-5" src={course.icon} alt={course.name} />}
+                {available && showSign && <button>{t('course.available.join')}</button>}
             </div>
             <div className="my-4">{course.name}</div>
         </div>
