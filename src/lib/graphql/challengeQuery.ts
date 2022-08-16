@@ -30,6 +30,22 @@ export const getChallengeQuery = gql`
     }
 `;
 
+export const createChallengeMutation = gql`
+    mutation CreateChallengeMutation($semesterId: ID!, $input: ChallengeInput!) {
+        createChallenge(semesterId: $semesterId, input: $input) {
+            id
+        }
+    }
+`
+
+export const editChallengeMutation = gql`
+    mutation EditChallengeMutation($challengeId: ID!, $input: ChallengeInput!) {
+        editChallenge(challengeId: $challengeId, input: $input) {
+            id
+        }
+    }
+`
+
 export enum ChallengeKind {
     OPTIONAL = 'OPTIONAL',
     MANDATORY = 'MANDATORY',
@@ -39,6 +55,32 @@ export enum ChallengeKind {
 
 export interface ChallengeQuery {
     challenge: Challenge
+}
+
+export interface ChallengeInput {
+    name: string,
+    description: string,
+    deadlineDate?: string,
+    startDate?: string,
+    challengeKind: ChallengeKind
+}
+
+export interface CreateChallengeVariables{
+    semesterId: string,
+    input: ChallengeInput
+}
+
+export interface EditChallengeVariables{
+    challengeId: string,
+    input: ChallengeInput
+}
+
+export interface CreateChallengeMutation{
+    createChallenge : Challenge
+}
+
+export interface EditChallengeMutation{
+    editChallenge : Challenge
 }
 
 export interface ChallengesQuery {

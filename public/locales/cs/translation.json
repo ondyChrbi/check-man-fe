@@ -7,7 +7,7 @@
   },
 
   "application": {
-    "title": "Check Man",
+    "name": "Check Man",
     "subtitle": "Your friendly neighborhood",
     "instructions": "Přihlašte se jednou z níže uvedených možností"
   },
@@ -42,15 +42,36 @@
     "mandatory" : "Povinné úkoly",
     "credit" : "Zápočtové úkoly",
     "exam" : "Zkouškové úkoly",
+    "new" : {
+      "title" : "Vytvořit novovu úlohu"
+    },
     "action" : {
       "create" : "Přidat úkol",
-      "title" : {
+      "name": {
         "name" : "Název úlohy",
         "place-holder" : ""
       },
-      "text" : {
+      "description": {
         "name" : "Zadání úlohy",
         "place-holder" : ""
+      },
+      "start-date": {
+        "name": "Začátek plnění",
+        "place-holder": ""
+      },
+      "end-date": {
+        "name": "Konec plnění",
+        "place-holder": ""
+      },
+      "challenge-kind" : {
+        "name" : "Typ úlohy",
+        "place-holder" : "",
+        "option" : {
+          "optional" : "Dobrovolný úkol",
+          "mandatory" : "Povinný úkol",
+          "credit" : "Zápočtový úkol",
+          "exam" : "Zkouškový úkol"
+        }
       }
     }
   }

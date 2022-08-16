@@ -25,7 +25,7 @@ const CourseSemesterDetail = () => {
             <aside className="md:w-80 md:h-full flex flex-col-reverse items-end bg-slate-300">
                 <ChallengeAside semesterId={semesterId} courseId={courseId} />
             </aside>
-            <section className="md:w-full m-8">
+            <section className="w-full m-8">
                 <div className="my-5 w-full flex flex-row items-end justify-end">
                     <AdministratorToolbar semesterRoles={data?.courseRoles} />
                 </div>

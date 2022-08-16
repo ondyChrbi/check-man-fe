@@ -24,7 +24,7 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
 
     return <>
         <h1 className="font-roboto">{data?.challenge.name}</h1>
-        <p className="font-roboto">{data?.challenge.description}</p>
+        {data?.challenge && <div dangerouslySetInnerHTML={{__html: data?.challenge.description}}></div>}
     </>
 }
 

@@ -19,7 +19,7 @@ const ChallengeCard = ({challenge, onClick, selected = false} : Props) => {
 
     return <>
         <li onClick={onChallengeClickHandler} className={`my-1 py-2.5 md:w-80 flex flex-row bg-white shadow hover:shadow-lg hover:cursor-pointer border-r-${borderWidth} border-r-teal-400`}>
-            <div className="mx-2 w-10 h-full flex items-center justify-center">
+            <div className="m-2 w-10 h-full flex items-center justify-center">
                 <object className="w-8 h-8 fill-teal-400" data={`/icons/${challenge.challengeKind.toLowerCase()}-course.svg`} type="image/svg+xml" />
             </div>
             <div className="w-full">

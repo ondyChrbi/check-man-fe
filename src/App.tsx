@@ -16,6 +16,7 @@ function App() {
             <Route path="/courses/:courseId/semester/:semesterId" element={<ProtectedRoute><CourseSemesterDetail/></ProtectedRoute>}>
                 <Route path="challenge/:challengeId" element={<ChallengeDetail />} />
                 <Route path="challenge/create" element={<ChallengeEditor />} />
+                <Route path="challenge/:challengeId/edit" element={<ChallengeEditor />} />
             </Route>
         </Routes>
     )
