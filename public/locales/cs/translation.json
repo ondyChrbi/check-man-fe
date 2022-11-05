@@ -1,27 +1,32 @@
 {
   "common": {
-    "button" : {
+    "button": {
       "save": "Uložit",
       "publish": "Publikovat"
     }
   },
-
   "application": {
     "name": "Check Man",
     "subtitle": "Your friendly neighborhood",
     "instructions": "Přihlašte se jednou z níže uvedených možností"
   },
-
   "authentication": {
+    "title": "Přihlešte se ke svému účtu",
     "login": {
       "button": "Univerzitní Microsoft účet"
+    },
+    "logout": {
+      "button": "Odhlásit se"
+    },
+    "troubleshooting": {
+      "login": "Nemůžete se přihlásit?",
+      "report-bug": "Nahlásit chybu"
     },
     "error": {
       "not-valid-account": "Tento účet není pod správou Univerzity Pardubice",
       "already-authenticated": "Uživatel je již přihlášen"
     }
   },
-
   "dashboard": {
     "courses": {
       "me": "Zapsané kurzy",
@@ -29,31 +34,29 @@
       "available": "Dostupné kurzy"
     }
   },
-
   "course": {
     "available": {
       "join": "Zažádat o zapsání"
     }
   },
-
   "challenge": {
     "not-available": "Žádné úkoly",
-    "optional" : "Dobrovolné úkoly",
-    "mandatory" : "Povinné úkoly",
-    "credit" : "Zápočtové úkoly",
-    "exam" : "Zkouškové úkoly",
-    "new" : {
-      "title" : "Vytvořit novovu úlohu"
+    "optional": "Dobrovolné úkoly",
+    "mandatory": "Povinné úkoly",
+    "credit": "Zápočtové úkoly",
+    "exam": "Zkouškové úkoly",
+    "new": {
+      "title": "Vytvořit novovu úlohu"
     },
-    "action" : {
-      "create" : "Přidat úkol",
+    "action": {
+      "create": "Přidat úkol",
       "name": {
-        "name" : "Název úlohy",
-        "place-holder" : ""
+        "name": "Název úlohy",
+        "place-holder": ""
       },
       "description": {
-        "name" : "Zadání úlohy",
-        "place-holder" : ""
+        "name": "Zadání úlohy",
+        "place-holder": ""
       },
       "start-date": {
         "name": "Začátek plnění",
@@ -63,14 +66,14 @@
         "name": "Konec plnění",
         "place-holder": ""
       },
-      "challenge-kind" : {
-        "name" : "Typ úlohy",
-        "place-holder" : "",
-        "option" : {
-          "optional" : "Dobrovolný úkol",
-          "mandatory" : "Povinný úkol",
-          "credit" : "Zápočtový úkol",
-          "exam" : "Zkouškový úkol"
+      "challenge-kind": {
+        "name": "Typ úlohy",
+        "place-holder": "",
+        "option": {
+          "optional": "Dobrovolný úkol",
+          "mandatory": "Povinný úkol",
+          "credit": "Zápočtový úkol",
+          "exam": "Zkouškový úkol"
         }
       }
     }

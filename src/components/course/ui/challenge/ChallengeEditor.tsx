@@ -11,12 +11,12 @@ import {
     CreateChallengeMutation,
     CreateChallengeVariables, editChallengeMutation, EditChallengeMutation, EditChallengeVariables,
     getChallengeQuery
-} from "../../lib/graphql/challengeQuery";
+} from "../../../../lib/graphql/challengeQuery";
 import DatePicker, {DateObject} from "react-multi-date-picker";
-import {serializeAll} from "../../lib/slack/slack-serializer";
+import {serializeAll} from "../../../../lib/slack/slack-serializer";
 import {useMutation, useQuery} from "@apollo/client";
 import {useParams} from "react-router-dom";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../../../LoadingSpinner";
 
 type CustomElement = { type: 'paragraph'; children: CustomText[] }
 type CustomText = { text: string; bold?: true }
@@ -45,9 +45,9 @@ const ChallengeEditor = ({}: Props) => {
     const {t} = useTranslation();
 
     const editor = useMemo(() => withHistory(withReact(createEditor())), []);
-    const {register, handleSubmit, control, formState: {errors}} = useForm<Inputs>();
+    const {register, handleSubmit, control} = useForm<Inputs>();
 
-    const {loading, error, data} = useQuery<ChallengeQuery>(getChallengeQuery, {
+    const {loading, data} = useQuery<ChallengeQuery>(getChallengeQuery, {
         variables: { "id" : challengeId }
     });
 
@@ -122,7 +122,7 @@ const ChallengeEditor = ({}: Props) => {
                     <div
                         className="h-52 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                         <Controller control={control} name="description" rules={{required: true}}
-                                    render={({field: {onChange, name, value}}) => (
+                                    render={({field: {onChange}}) => (
                                         <Slate editor={editor} value={initialValue} onChange={(descendant) => {
                                             onChange(serializeAll(descendant))
                                         }}>
@@ -140,7 +140,7 @@ const ChallengeEditor = ({}: Props) => {
                 <div className="mx-5 flex flex-col items-start justify-start">
                     <label>{t('challenge.action.start-date.name')}</label>
                     <Controller control={control} name="startDate" rules={{required: false}}
-                                render={({field: {onChange, name, value}}) => (
+                                render={({field: {onChange, value}}) => (
                                     <DatePicker value={value || defaultInputs.startDate || new DateObject()}
                                                 onChange={(date) => {
                                                     //@ts-ignore
@@ -154,7 +154,7 @@ const ChallengeEditor = ({}: Props) => {
                 <div className="mx-5 flex flex-col items-start justify-start">
                     <label>{t('challenge.action.end-date.name')}</label>
                     <Controller control={control} name="deadlineDate" rules={{required: false}}
-                                render={({field: {onChange, name, value}}) => (
+                                render={({field: {onChange, value}}) => (
                                     <DatePicker value={value || defaultInputs.deadlineDate || new DateObject().add(1, "days")}
                                                 onChange={(date) => {
                                                     //@ts-ignore

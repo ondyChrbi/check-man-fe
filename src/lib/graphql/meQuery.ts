@@ -1,6 +1,15 @@
 import {gql} from "@apollo/client";
 import {Course} from "./courseQuery";
 
+export const meQuery = gql`
+    query Me {
+        me {
+            mail
+            displayName
+        }
+    }
+`;
+
 export const getAvailableCoursesQuery = gql`
     query GetAvailableCourses {
         availableCourses {
@@ -51,10 +60,12 @@ export const getCourseDashboardQuery = gql`
             }
         }
     }
-`
+`;
 
 export interface AppUser {
     id: number
+    mail: string | undefined
+    displayName: string | undefined
 }
 
 export interface AvailableCoursesQuery {
@@ -64,4 +75,8 @@ export interface AvailableCoursesQuery {
 export interface CourseDashboardQuery {
     availableCourses: Array<Course>;
     myCourses: Array<Course>;
+}
+
+export interface MeQuery {
+    me: AppUser
 }

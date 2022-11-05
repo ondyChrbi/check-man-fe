@@ -1,6 +1,6 @@
 import {Outlet, useParams} from "react-router-dom";
 import {useQuery} from "@apollo/client";
-import ChallengeAside from "../components/course/ChallengeAside";
+import ChallengeAside from "../components/course/ui/challenge/ChallengeAside";
 import LoadingSpinner from "../components/LoadingSpinner";
 import React from "react";
 import {courseQuery, SemesterQuery} from "../lib/graphql/courseQuery";
@@ -22,9 +22,7 @@ const CourseSemesterDetail = () => {
 
     return <>
         <main className="w-full h-full flex flex-row">
-            <aside className="md:w-80 md:h-full flex flex-col-reverse items-end bg-slate-300">
-                <ChallengeAside semesterId={semesterId} courseId={courseId} />
-            </aside>
+            <ChallengeAside semesterId={semesterId} courseId={courseId} />
             <section className="w-full m-8">
                 <div className="my-5 w-full flex flex-row items-end justify-end">
                     <AdministratorToolbar semesterRoles={data?.courseRoles} />

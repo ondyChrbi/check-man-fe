@@ -36,11 +36,11 @@ const MicrosoftAuthenticationService = {
     exchangeAuthToken: async (accessToken: string) => {
         const response = await MicrosoftAuthenticationV1ApiFp().exchange({authToken: accessToken});
 
-        return (await response());
+        return await response();
     },
 
     isAlreadyAuthenticated: () => {
-        return msalInstance.getAllAccounts() && msalInstance.getAllAccounts()[0];
+        return !!(msalInstance.getAllAccounts() && msalInstance.getAllAccounts()[0]);
     },
 
     isNotAlreadyAuthenticated: () => {
