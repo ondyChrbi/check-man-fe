@@ -1,7 +1,4 @@
-import React, {useMemo} from 'react'
-import {BaseEditor, createEditor, Descendant} from 'slate'
-import {Editable, ReactEditor, Slate, withReact} from 'slate-react'
-import {HistoryEditor, withHistory} from 'slate-history'
+import React from 'react'
 import {useTranslation} from "react-i18next";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {
@@ -12,22 +9,14 @@ import {
     CreateChallengeVariables, editChallengeMutation, EditChallengeMutation, EditChallengeVariables,
     getChallengeQuery
 } from "../../../../lib/graphql/challengeQuery";
-import DatePicker, {DateObject} from "react-multi-date-picker";
-import {serializeAll} from "../../../../lib/slack/slack-serializer";
+import DatePicker from "react-multi-date-picker";
 import {useMutation, useQuery} from "@apollo/client";
 import {useParams} from "react-router-dom";
 import LoadingSpinner from "../../../LoadingSpinner";
-
-type CustomElement = { type: 'paragraph'; children: CustomText[] }
-type CustomText = { text: string; bold?: true }
-
-declare module 'slate' {
-    interface CustomTypes {
-        Editor: BaseEditor & ReactEditor & HistoryEditor
-        Element: CustomElement
-        Text: CustomText
-    }
-}
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
+import parse from "date-fns/parse";
+import TextEditor from "../../../editor/TextEditor";
 
 interface Props {
 }
@@ -44,25 +33,40 @@ const ChallengeEditor = ({}: Props) => {
     const {semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId'>();
     const {t} = useTranslation();
 
-    const editor = useMemo(() => withHistory(withReact(createEditor())), []);
-    const {register, handleSubmit, control} = useForm<Inputs>();
-
     const {loading, data} = useQuery<ChallengeQuery>(getChallengeQuery, {
-        variables: { "id" : challengeId }
+        variables: {"id": challengeId}
     });
 
     const [createChallenge] = useMutation<CreateChallengeMutation, CreateChallengeVariables>(createChallengeMutation);
     const [editChallenge] = useMutation<EditChallengeMutation, EditChallengeVariables>(editChallengeMutation);
 
     const submitHandler: SubmitHandler<Inputs> = async data => {
+        console.table(data)
         if (semesterId) {
             if (challengeId) {
                 await editChallenge({variables: {challengeId: challengeId, input: data}});
             } else {
-                await createChallenge({variables: {semesterId: semesterId, input: data}});
+                const response = await createChallenge({variables: {semesterId: semesterId, input: data}});
+                console.table(response)
             }
         }
     }
+
+    const {register, handleSubmit, control, formState: {errors}} = useForm<Inputs>({
+        resolver: yupResolver(yup.object({
+            "name": yup.string()
+                .max(20, t('challenge.action.name.error.max-length'))
+                .required(t('challenge.action.name.error.required')),
+            "challengeKind": yup.mixed()
+                .oneOf(Object.values(ChallengeKind))
+                .required(t('challenge.action.challenge-kind.error.required')),
+            "startDate": yup.date()
+                .transform(function (value, originalValue) {
+                    if (this.isType(value)) { return value; }
+                    return parse(originalValue, "dd.MM.yyyy", new Date());
+                })
+        }))
+    })
 
     const challengeKindSelectValue = new Map();
     challengeKindSelectValue.set(ChallengeKind.OPTIONAL, t('challenge.action.challenge-kind.option.optional'));
@@ -70,26 +74,18 @@ const ChallengeEditor = ({}: Props) => {
     challengeKindSelectValue.set(ChallengeKind.CREDIT, t('challenge.action.challenge-kind.option.credit'));
     challengeKindSelectValue.set(ChallengeKind.EXAM, t('challenge.action.challenge-kind.option.exam'));
 
+
     const defaultInputs = {
-        name : (challengeId && data?.challenge.name) ?? "",
-        description : (challengeId && data?.challenge.description) ?? "",
+        name: (challengeId && data?.challenge.name) ?? "",
+        description: (challengeId && data?.challenge.description) ?? "",
         deadlineDate: (challengeId && data?.challenge.deadlineDate) ?? "",
         startDate: (challengeId && data?.challenge.startDate) ?? "",
         challengeKind: (challengeId && data?.challenge.challengeKind) ?? ChallengeKind.OPTIONAL,
     }
 
-    const initialValue: Descendant[] = [
-        {
-            type: 'paragraph',
-            children: [
-                {text: defaultInputs.description ?? t('challenge.action.description.place-holder')},
-            ],
-        },
-    ];
-
     if (challengeId && loading) {
         return <div className="w-screen h-screen flex flex-row items-center justify-center">
-            <LoadingSpinner />
+            <LoadingSpinner/>
         </div>
     }
 
@@ -99,13 +95,16 @@ const ChallengeEditor = ({}: Props) => {
             <div className="my-5 grid grid-cols-1 md:grid-cols-2">
                 <div className="mx-5 flex flex-col items-start justify-start">
                     <label htmlFor="name">{t('challenge.action.name.name')}</label>
-                    <input defaultValue={defaultInputs.name} placeholder={t('challenge.action.name.place-holder')} {...register("name")}
-                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "/>
+                    <input defaultValue={defaultInputs.name} placeholder={t('challenge.action.name.place-holder')}
+                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                           {...register("name")} />
+                    <div>{errors.name?.message}</div>
                 </div>
 
                 <div className="mx-5 flex flex-col items-start justify-start">
                     <label htmlFor="challengeKind">{t('challenge.action.challenge-kind.name')}</label>
-                    <select defaultValue={defaultInputs.challengeKind} {...register("challengeKind")}
+                    <select defaultValue={defaultInputs.challengeKind}
+                            {...register("challengeKind")}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                         {Object.values(ChallengeKind).map((chK) =>
                             <option key={chK} value={chK}>{challengeKindSelectValue.get(chK)}</option>
@@ -116,22 +115,16 @@ const ChallengeEditor = ({}: Props) => {
 
             <div className="my-5 grid grid-cols-1 ">
                 <div className="mx-5 flex flex-col items-start justify-start">
-                    <label htmlFor="text" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    <label htmlFor="text">
                         {t('challenge.action.description.name')}
                     </label>
                     <div
-                        className="h-52 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                        <Controller control={control} name="description" rules={{required: true}}
-                                    render={({field: {onChange}}) => (
-                                        <Slate editor={editor} value={initialValue} onChange={(descendant) => {
-                                            onChange(serializeAll(descendant))
-                                        }}>
-                                            <Editable/>
-                                        </Slate>
-                                    )}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-fit pb-2.5 ">
+                        <Controller control={control}
+                                    name="description"
+                                    rules={{required: true}}
+                                    render={({field: {onChange}}) => <TextEditor onChange={onChange}/>}
                         />
-
-
                     </div>
                 </div>
             </div>
@@ -141,7 +134,8 @@ const ChallengeEditor = ({}: Props) => {
                     <label>{t('challenge.action.start-date.name')}</label>
                     <Controller control={control} name="startDate" rules={{required: false}}
                                 render={({field: {onChange, value}}) => (
-                                    <DatePicker value={value || defaultInputs.startDate || new DateObject()}
+                                    <DatePicker value={value || defaultInputs.startDate}
+                                                required={false}
                                                 onChange={(date) => {
                                                     //@ts-ignore
                                                     onChange(date.toDate().toISOString())
@@ -155,7 +149,8 @@ const ChallengeEditor = ({}: Props) => {
                     <label>{t('challenge.action.end-date.name')}</label>
                     <Controller control={control} name="deadlineDate" rules={{required: false}}
                                 render={({field: {onChange, value}}) => (
-                                    <DatePicker value={value || defaultInputs.deadlineDate || new DateObject().add(1, "days")}
+                                    <DatePicker value={value || defaultInputs.deadlineDate}
+                                                required={false}
                                                 onChange={(date) => {
                                                     //@ts-ignore
                                                     onChange(date.toDate().toISOString())

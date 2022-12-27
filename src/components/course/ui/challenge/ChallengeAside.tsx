@@ -66,7 +66,7 @@ const ChallengeAside = ({courseId, semesterId}: Props) => {
     }
 
     if (loading) {
-        return <div className="w-screen h-screen flex flex-row items-center justify-center">
+        return <div className="md:w-80 h-full flex flex-row items-center justify-center">
             <LoadingSpinner/>
         </div>
     }
@@ -83,7 +83,7 @@ const ChallengeAside = ({courseId, semesterId}: Props) => {
 
     const challenges = groupChallenges(data.challenges);
 
-    return <aside className="flex flex-row justify-start items-start md:w-80 h-full fixed bg-slate-100"
+    return <aside className="flex flex-row justify-start items-start md:w-80 h-full fixed bg-slate-100 z-10"
                   style={{left: (isOpen) ? OPEN : HIDDEN}}>
         <menu className="w-72 h-full">
             <ChallengeList challenges={challenges} courseId={courseId} semesterId={semesterId}
@@ -102,13 +102,13 @@ interface CollapsibleButtonProps {
 const CollapsibleButton = ({onClick, open}: CollapsibleButtonProps) => {
     return <div className="flex flex-col flex-2 justify-center items-center align-middle min-h-full w-8 pt-5 z-20"
                 onClick={onClick}>
-        {open ? <svg className="h-8 w-8 text-gray-600" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        {open ? <svg className="h-8 w-8 text-gray-600" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
+                     stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
             <path stroke="none" d="M0 0h24v24H0z"/>
             <polyline points="11 7 6 12 11 17"/>
             <polyline points="17 7 12 12 17 17"/>
         </svg> : <svg className="h-8 w-8 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="13 17 18 12 13 7"/>
             <polyline points="6 17 11 12 6 7"/>
         </svg>
