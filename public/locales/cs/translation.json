@@ -52,19 +52,32 @@
       "create": "Přidat úkol",
       "name": {
         "name": "Název úlohy",
-        "place-holder": ""
+        "place-holder": "",
+        "error" : {
+          "required" : "Toto pole je povinné",
+          "max-length" : "Maximální možná délka tohoto pole je 20"
+        }
       },
       "description": {
         "name": "Zadání úlohy",
-        "place-holder": ""
+        "place-holder": "",
+        "error" : {
+          "required" : "Toto pole je povinné"
+        }
       },
       "start-date": {
         "name": "Začátek plnění",
-        "place-holder": ""
+        "place-holder": "",
+        "error" : {
+          "required" : "Toto pole je povinné"
+        }
       },
       "end-date": {
         "name": "Konec plnění",
-        "place-holder": ""
+        "place-holder": "",
+        "error" : {
+          "required" : "Toto pole je povinné"
+        }
       },
       "challenge-kind": {
         "name": "Typ úlohy",
@@ -74,6 +87,9 @@
           "mandatory": "Povinný úkol",
           "credit": "Zápočtový úkol",
           "exam": "Zkouškový úkol"
+        },
+        "error" : {
+          "required" : "Toto pole je povinné"
         }
       }
     }
