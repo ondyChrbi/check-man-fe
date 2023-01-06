@@ -1,3 +1,6 @@
+import {ApolloError} from "@apollo/client";
+import {toast} from "react-toastify";
+
 export const ChallengeEditorOptions = {
     options: ['inline', 'blockType', 'fontSize', 'colorPicker', 'link', 'emoji'],
     inline: {
@@ -45,4 +48,19 @@ export const ChallengeEditorOptions = {
         unlink: { className: undefined },
         linkCallback: undefined
     },
+}
+
+export const showErrorToast = (error : any) => {
+    if (error instanceof ApolloError) {
+        toast.error(error.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "light",
+        });
+    }
 }

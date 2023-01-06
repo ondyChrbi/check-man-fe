@@ -11,6 +11,7 @@ import {useChallenge} from "../../../../features/authentication/hooks/challenge"
 import Input from "../../../editor/input/Input";
 import Select from "../../../editor/input/Select";
 import DateTime from "../../../editor/input/DateTime";
+import {showErrorToast} from "../../../editor/helpers";
 
 interface Inputs {
     name: string,
@@ -27,17 +28,16 @@ const ChallengeEditor = () => {
     const {getChallenge, createChallenge, editChallenge, challengeKindSelectValue, resolver} = useChallenge();
     const {loading, data} = getChallenge(challengeId);
 
-
     const {register, handleSubmit, control, formState: {errors}} = useForm<Inputs>({resolver});
 
     const submitHandler: SubmitHandler<Inputs> = async input => {
         if (semesterId) {
-            challengeId ? await editChallenge({
-                variables: {
-                    challengeId,
-                    input
-                }
-            }) : await createChallenge({variables: {semesterId, input}})
+            try {
+                challengeId ? await editChallenge({variables: {challengeId, input}})
+                    : await createChallenge({variables: {semesterId, input}});
+            } catch (error) {
+                showErrorToast(error)
+            }
         }
     }
 
