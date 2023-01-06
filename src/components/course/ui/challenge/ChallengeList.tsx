@@ -4,8 +4,6 @@ import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {ChallengeMap} from "./ChallengeAside";
 
-const MAX_DESCRIPTION_LENGTH = 20;
-
 interface Props {
     challenges: ChallengeMap,
     challengeId: string | number;
@@ -64,13 +62,16 @@ const ChallengeCard = ({challenge, onClick, selected = false} : ChallengeCardPro
     }
 
     return <>
-        <li onClick={onChallengeClickHandler} className={`my-1 py-2.5 md:w-72 flex flex-row bg-white shadow hover:shadow-lg hover:cursor-pointer border-r-${borderWidth} border-r-teal-400`}>
+        <li onClick={onChallengeClickHandler} className={`rounded-md my-1 py-2.5 md:w-72 flex flex-row bg-white shadow hover:shadow-lg hover:cursor-pointer border-r-${borderWidth} border-r-teal-400`}>
             <div className="m-2 w-10 h-full flex items-center justify-center">
                 <object className="w-8 h-8 fill-teal-400" data={`/icons/${challenge.challengeKind.toLowerCase()}-course.svg`} type="image/svg+xml" />
             </div>
-            <div className="w-full">
+            <div className="flex flex-col w-full">
                 <h2 className="text-teal-600">{challenge.name}</h2>
-                <p>{challenge.description.substring(0, MAX_DESCRIPTION_LENGTH)}...</p>
+                <div className="flex flex-row justify-between">
+                    <div>{challenge.startDate}</div>
+                    <div>{challenge.deadlineDate}</div>
+                </div>
             </div>
         </li>
     </>
