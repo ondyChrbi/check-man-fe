@@ -7,7 +7,11 @@ module.exports = {
     'border-r-8'
   ],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        '256': '64rem',
+      }
+    },
     fontFamily: {
       'roboto': ['Roboto', 'sans-serif'],
     }

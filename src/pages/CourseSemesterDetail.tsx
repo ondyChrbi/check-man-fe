@@ -9,28 +9,26 @@ import AdministratorToolbar from "../components/course/ui/AdministratorToolbar";
 const CourseSemesterDetail = () => {
     const {courseId, semesterId} = useParams<'courseId' | 'semesterId'>();
     const {loading, error, data} = useQuery<SemesterQuery>(courseQuery, {
-        variables: { "id" : semesterId }
+        variables: {"id": semesterId}
     });
 
     if (loading) {
         return <div className="w-full h-full flex flex-row items-center justify-center">
-            <LoadingSpinner />
+            <LoadingSpinner/>
         </div>
     }
 
     if (error || !semesterId || !courseId) return <>Error</>
 
-    return <>
-        <main className="w-full h-full flex flex-row">
-            <ChallengeAside semesterId={semesterId} courseId={courseId} />
-            <section className="w-full m-8">
-                <div className="my-5 w-full flex flex-row items-end justify-end">
-                    <AdministratorToolbar semesterRoles={data?.courseRoles} />
-                </div>
-                <Outlet />
-            </section>
-        </main>
-    </>
+    return <div className="w-full h-full flex flex-row">
+        <ChallengeAside semesterId={semesterId} courseId={courseId}/>
+        <section className="w-full my-2 mx-10 lg:m-0 lg:my-0 lg:m-10 lg:m-8">
+            <div className="my-5 w-full flex flex-row items-end justify-end">
+                <AdministratorToolbar semesterRoles={data?.courseRoles}/>
+            </div>
+            <Outlet/>
+        </section>
+    </div>
 }
 
 export default CourseSemesterDetail;

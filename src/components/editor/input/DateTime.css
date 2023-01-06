@@ -1,0 +1,13 @@
+.rmdp-container {
+    width: 100% !important;
+}
+
+.rmdp-container > input {
+    line-height: 1.25rem;
+    font-size: 0.875rem;
+    padding: 0.625rem;
+    height: fit-content !important;
+    background-color: rgb(249 250 251) !important;
+    color: rgb(17 24 39) !important;
+    width: 100% !important;
+}
