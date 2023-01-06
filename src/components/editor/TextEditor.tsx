@@ -2,30 +2,49 @@ import '@wangeditor/editor/dist/css/style.css'
 import './TextEditor.css'
 
 import {i18nChangeLanguage, IDomEditor, IEditorConfig, IToolbarConfig} from "@wangeditor/editor";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Editor, Toolbar} from "@wangeditor/editor-for-react";
+import {InputProps} from "./input/Input";
+import {Control, Controller} from "react-hook-form";
 
-interface Props {
-    onChange: (event: any) => void
+export interface Props extends InputProps {
+    control: Control<any>;
+    required?: boolean | undefined;
 }
 
-const TextEditor = ({onChange} : Props) => {
+const TextEditor = ({propertyName, required = false, label, control}: Props) => {
     const [editor, setEditor] = useState<IDomEditor | null>(null)
     const [editorState, setEditorState] = useState<string | undefined>('<p>hello</p>')
 
     const editorValueChangeHandler = (editor: IDomEditor | null) => {
-        console.log(editor?.getHtml())
-
-        setEditorState(editor?.getHtml())
-        onChange(editor?.getHtml())
+        setEditorState(editor?.getHtml());
     }
 
     i18nChangeLanguage('en')
 
-    return <div className="z-50">
-        <Toolbar editor={editor} defaultConfig={toolbarConfig} mode={DEFAULT_MODE} style={{paddingLeft: '0.5rem', paddingRight: '0.5rem', paddingTop: '0.5rem'}} />
-        <Editor defaultConfig={editorConfig} value={editorState} onCreated={setEditor} onChange={editorValueChangeHandler} mode={DEFAULT_MODE} style={{paddingLeft: '0.5rem', paddingRight: '0.5rem'}} />
-    </div>
+    return <>
+        <label htmlFor={propertyName}>{label}</label>
+        <div
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-fit pb-2.5 ">
+            <Controller control={control}
+                        name={propertyName}
+                        rules={{required}}
+                        render={({field: {onChange}}) =>
+                            <div className="z-50">
+                                <Toolbar editor={editor} defaultConfig={toolbarConfig} mode={DEFAULT_MODE}
+                                         style={{paddingLeft: '0.5rem', paddingRight: '0.5rem', paddingTop: '0.5rem'}}/>
+                                <Editor defaultConfig={editorConfig} value={editorState} onCreated={setEditor}
+                                        onChange={(editor) => {
+                                            editorValueChangeHandler(editor);
+                                            onChange(editor?.getHtml())
+                                        }
+                                        } mode={DEFAULT_MODE}
+                                        style={{paddingLeft: '0.5rem', paddingRight: '0.5rem'}}/>
+                            </div>
+                        }
+            />
+        </div>
+    </>
 }
 
 const toolbarConfig: Partial<IToolbarConfig> = {}
