@@ -33,6 +33,7 @@ const ChallengeEditor = () => {
     const submitHandler: SubmitHandler<Inputs> = async input => {
         if (semesterId) {
             try {
+                console.log(input.startDate)
                 challengeId ? await editChallenge({variables: {challengeId, input}})
                     : await createChallenge({variables: {semesterId, input}});
             } catch (error) {

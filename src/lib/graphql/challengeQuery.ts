@@ -6,6 +6,8 @@ export const getChallengesQuery = gql`
         challenges(semesterId: $semesterId) {
             id,
             name,
+            deadlineDate,
+            startDate,
             description,
             challengeKind
         }

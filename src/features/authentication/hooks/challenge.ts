@@ -8,7 +8,6 @@ import {
 import {useTranslation} from "react-i18next";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import parse from "date-fns/parse";
 
 export const useChallenge = () => {
     const {t} = useTranslation();
@@ -31,14 +30,12 @@ export const useChallenge = () => {
             .oneOf(Object.values(ChallengeKind))
             .required(t('challenge.action.challenge-kind.error.required')),
         "startDate": yup.date()
-            .transform(function (value, originalValue) {
-                if (this.isType(value)) { return value; }
-                return parse(originalValue, "dd.MM.yyyy", new Date());
+            .transform(function (value) {
+                return value.toISOString();
             }),
         "deadlineDate": yup.date()
-            .transform(function (value, originalValue) {
-                if (this.isType(value)) { return value; }
-                return parse(originalValue, "dd.MM.yyyy", new Date());
+            .transform(function (value) {
+                return value.toISOString();
             }),
     }));
 
