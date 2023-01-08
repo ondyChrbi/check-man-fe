@@ -2,7 +2,13 @@
   "common": {
     "button": {
       "save": "Uložit",
-      "publish": "Publikovat"
+      "publish": "Publikovat",
+      "add": "Přidat",
+      "remove": "Odebrat",
+      "edit": "Editovat"
+    },
+    "message": {
+      "remove" : "Úspěšně odebráno"
     }
   },
   "application": {
@@ -53,30 +59,30 @@
       "name": {
         "name": "Název úlohy",
         "place-holder": "",
-        "error" : {
-          "required" : "Toto pole je povinné",
-          "max-length" : "Maximální možná délka tohoto pole je 20"
+        "error": {
+          "required": "Toto pole je povinné",
+          "max-length": "Maximální možná délka tohoto pole je 20"
         }
       },
       "description": {
         "name": "Zadání úlohy",
         "place-holder": "",
-        "error" : {
-          "required" : "Toto pole je povinné"
+        "error": {
+          "required": "Toto pole je povinné"
         }
       },
       "start-date": {
         "name": "Začátek plnění",
         "place-holder": "",
-        "error" : {
-          "required" : "Toto pole je povinné"
+        "error": {
+          "required": "Toto pole je povinné"
         }
       },
       "end-date": {
         "name": "Konec plnění",
         "place-holder": "",
-        "error" : {
-          "required" : "Toto pole je povinné"
+        "error": {
+          "required": "Toto pole je povinné"
         }
       },
       "challenge-kind": {
@@ -88,10 +94,40 @@
           "credit": "Zápočtový úkol",
           "exam": "Zkouškový úkol"
         },
-        "error" : {
-          "required" : "Toto pole je povinné"
+        "error": {
+          "required": "Toto pole je povinné"
         }
       }
+    }
+  },
+  "requirement": {
+    "action": {
+      "name": {
+        "name": "Název požadavku",
+        "place-holder": "Název požadavku",
+        "error": {
+          "required": "Toto pole je povinné",
+          "max-length": "Maximální možná délka tohoto pole je 20"
+        }
+      },
+      "description": {
+        "name": "Dodatečný popisek",
+        "place-holder": "Dodatečný popisek",
+        "error": {}
+      },
+      "minPoint": {
+        "name": "Minimální počet bodů",
+        "place-holder": "Minimální počet bodů",
+        "error": {}
+      },
+      "maxPoint": {
+        "name": "Maximální počet bodů",
+        "place-holder": "Maximální počet bodů",
+        "error": {}
+      }
+    },
+    "new": {
+      "title": "Přidat nový požadavek"
     }
   }
 }

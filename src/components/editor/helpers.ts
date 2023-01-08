@@ -9,13 +9,13 @@ export const ChallengeEditorOptions = {
         component: undefined,
         dropdownClassName: undefined,
         options: ['bold', 'italic', 'underline', 'strikethrough', 'monospace', 'superscript', 'subscript'],
-        bold: { className: undefined },
-        italic: { className: undefined },
-        underline: { className: undefined },
-        strikethrough: { className: undefined },
-        monospace: { className: undefined },
-        superscript: { className: undefined },
-        subscript: { className: undefined },
+        bold: {className: undefined},
+        italic: {className: undefined},
+        underline: {className: undefined},
+        strikethrough: {className: undefined},
+        monospace: {className: undefined},
+        superscript: {className: undefined},
+        subscript: {className: undefined},
     },
     blockType: {
         inDropdown: false,
@@ -35,7 +35,7 @@ export const ChallengeEditorOptions = {
             'rgb(247,218,100)', 'rgb(251,160,38)', 'rgb(235,107,86)', 'rgb(226,80,65)', 'rgb(163,143,132)',
             'rgb(239,239,239)', 'rgb(255,255,255)', 'rgb(250,197,28)', 'rgb(243,121,52)', 'rgb(209,72,65)',
             'rgb(184,49,47)', 'rgb(124,112,107)', 'rgb(209,213,216)'],
-    },link: {
+    }, link: {
         inDropdown: false,
         className: undefined,
         component: undefined,
@@ -44,13 +44,13 @@ export const ChallengeEditorOptions = {
         showOpenOptionOnHover: true,
         defaultTargetOption: '_self',
         options: ['link', 'unlink'],
-        link: { className: undefined },
-        unlink: { className: undefined },
+        link: {className: undefined},
+        unlink: {className: undefined},
         linkCallback: undefined
     },
 }
 
-export const showErrorToast = (error : any) => {
+export const showErrorToast = (error: any) => {
     if (error instanceof ApolloError) {
         toast.error(error.message, {
             position: "top-center",
@@ -64,3 +64,15 @@ export const showErrorToast = (error : any) => {
         });
     }
 }
+
+export const showSuccessToast = (successMessage: any) => toast.success(successMessage, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+});
+

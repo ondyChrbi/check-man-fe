@@ -6,7 +6,7 @@ import {ChallengeMap} from "./ChallengeAside";
 
 interface Props {
     challenges: ChallengeMap,
-    challengeId: string | number;
+    challengeId: string | number | undefined;
     courseId: string | number;
     semesterId: string | number;
 }

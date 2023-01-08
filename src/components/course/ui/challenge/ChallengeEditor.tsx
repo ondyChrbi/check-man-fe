@@ -25,7 +25,7 @@ const ChallengeEditor = () => {
     const {semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId'>();
     const {t} = useTranslation();
 
-    const {getChallenge, createChallenge, editChallenge, challengeKindSelectValue, resolver} = useChallenge();
+    const {getChallenge, createChallenge, editChallenge, challengeKindSelectValue, resolver} = useChallenge({semesterId});
     const {loading, data} = getChallenge(challengeId);
 
     const {register, handleSubmit, control, formState: {errors}} = useForm<Inputs>({resolver});
@@ -33,11 +33,10 @@ const ChallengeEditor = () => {
     const submitHandler: SubmitHandler<Inputs> = async input => {
         if (semesterId) {
             try {
-                console.log(input.startDate)
                 challengeId ? await editChallenge({variables: {challengeId, input}})
                     : await createChallenge({variables: {semesterId, input}});
             } catch (error) {
-                showErrorToast(error)
+                showErrorToast(error);
             }
         }
     }
