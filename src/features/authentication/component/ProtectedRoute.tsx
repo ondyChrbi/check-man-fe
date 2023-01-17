@@ -1,4 +1,4 @@
-import {useAppSelector} from "../hooks/hooks";
+import {useAppSelector} from "../../storage/hooks";
 import AuthenticationService from "../services/authentication-service";
 import {Navigate} from "react-router-dom";
 
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const ProtectedRoute = ({children} : Props) => {
-    const authenticationInfo = useAppSelector((state) => state.authentication);
+    const authenticationInfo = useAppSelector((state) => state.storage.authentication);
 
     if (AuthenticationService.isNotAuthenticated(authenticationInfo)) {
         return <Navigate to={"/login"} replace />

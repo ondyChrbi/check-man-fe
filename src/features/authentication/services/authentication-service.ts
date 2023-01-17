@@ -1,4 +1,4 @@
-import {AuthenticationInfo} from "../store/authenticationSlice";
+import {AuthenticationInfo} from "../../storage/storageSlice";
 
 const AuthenticationService = {
     isAuthenticated: (authenticationInfo: AuthenticationInfo) => {

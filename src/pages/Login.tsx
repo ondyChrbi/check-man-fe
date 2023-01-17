@@ -1,5 +1,5 @@
 import LoginForm from "../components/login/LoginForm";
-import {useAppSelector} from "../features/authentication/hooks/hooks";
+import {useAppSelector} from "../features/storage/hooks";
 import AuthenticationService from "../features/authentication/services/authentication-service";
 import {Navigate} from "react-router-dom";
 

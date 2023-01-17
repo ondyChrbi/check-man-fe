@@ -5,11 +5,19 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import React from "react";
 import {courseQuery, SemesterQuery} from "../lib/graphql/courseQuery";
 import AdministratorToolbar from "../components/course/ui/AdministratorToolbar";
+import {useAppDispatch} from "../features/storage/hooks";
+import {addRoles} from "../features/storage/storageSlice";
 
 const CourseSemesterDetail = () => {
     const {courseId, semesterId} = useParams<'courseId' | 'semesterId'>();
+    const dispatch = useAppDispatch();
     const {loading, error, data} = useQuery<SemesterQuery>(courseQuery, {
-        variables: {"id": semesterId}
+        variables: {"id": semesterId},
+        onCompleted: ({courseRoles : roles}) => {
+            if (courseId) {
+                dispatch(addRoles({courseId, roles}));
+            }
+        },
     });
 
     if (loading) {

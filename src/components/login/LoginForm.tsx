@@ -1,13 +1,13 @@
 import React from 'react';
-import {useAppDispatch, useAppSelector} from '../../features/authentication/hooks/hooks';
-import {setJwtToken} from "../../features/authentication/store/authenticationSlice";
+import {useAppDispatch, useAppSelector} from '../../features/storage/hooks';
+import {setJwtToken} from "../../features/storage/storageSlice";
 import MicrosoftAuthenticationService from "../../features/authentication/services/microsoft-authentication-service";
 import AuthenticationService from "../../features/authentication/services/authentication-service";
 import {useTranslation} from "react-i18next";
 
 const LoginForm = () => {
     const {t} = useTranslation();
-    const authenticationInfo = useAppSelector((state) => state.authentication);
+    const authenticationInfo = useAppSelector((state) => state.storage.authentication);
     const dispatch = useAppDispatch();
 
     const loginToMicrosoftAccount = async (event: React.MouseEvent<HTMLElement>) => {
