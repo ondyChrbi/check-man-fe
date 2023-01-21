@@ -72,5 +72,6 @@ export interface CourseRolesQuery {
 
 export enum SemesterRole {
     ACCESS = 'ACCESS',
-    CREATE_CHALLENGE = 'CREATE_CHALLENGE'
+    CREATE_CHALLENGE = 'CREATE_CHALLENGE',
+    DELETE_CHALLENGE = 'DELETE_CHALLENGE'
 }

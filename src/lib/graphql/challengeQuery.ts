@@ -48,6 +48,15 @@ export const editChallengeMutation = gql`
     }
 `
 
+export const deleteChallengeMutation = gql`
+    mutation DeleteChallengeMutation($challengeId: ID!) {
+        deleteChallenge(challengeId: $challengeId) {
+            id,
+            name
+        }
+    }
+`
+
 export enum ChallengeKind {
     OPTIONAL = 'OPTIONAL',
     MANDATORY = 'MANDATORY',
@@ -77,12 +86,20 @@ export interface EditChallengeVariables{
     input: ChallengeInput
 }
 
+export interface DeleteChallengeVariables{
+    challengeId: string,
+}
+
 export interface CreateChallengeMutation{
     createChallenge : Challenge
 }
 
 export interface EditChallengeMutation{
     editChallenge : Challenge
+}
+
+export interface DeleteChallengeMutation{
+    deleteChallenge : Challenge
 }
 
 export interface ChallengesQuery {

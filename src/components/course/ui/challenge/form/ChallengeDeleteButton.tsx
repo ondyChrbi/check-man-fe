@@ -1,0 +1,49 @@
+import {useNavigate} from "react-router-dom";
+import {useMutation} from "@apollo/client";
+import {
+    deleteChallengeMutation,
+    DeleteChallengeMutation,
+    DeleteChallengeVariables, getChallengesQuery
+} from "../../../../../lib/graphql/challengeQuery";
+import React from "react";
+import {ArchiveIcon} from "@heroicons/react/solid";
+import {useTranslation} from "react-i18next";
+
+interface Props {
+    semesterId: number | string;
+    courseId: number | string;
+    challengeId?: number | string;
+}
+
+const ChallengeDeleteButton = ({semesterId, challengeId, courseId} : Props) => {
+    const {t} = useTranslation();
+    const navigate = useNavigate();
+
+    const [deleteChallenge] = useMutation<DeleteChallengeMutation, DeleteChallengeVariables>(
+        deleteChallengeMutation,
+        {
+            onCompleted: () => navigate(`/courses/${courseId}/semester/${semesterId}`),
+            refetchQueries: [{
+                query: getChallengesQuery,
+                variables: { "semesterId": semesterId }
+            }]
+        }
+    );
+
+    const deleteChallengeHandle = async (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+
+        if (challengeId) {
+            await deleteChallenge({variables: {challengeId: `${challengeId}`}})
+        }
+    };
+
+    return <button onClick={deleteChallengeHandle}>
+        <div className="w-fit bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+            <ArchiveIcon width={20} height={20} />
+            <span>{t('challenge.action.delete')}</span>
+        </div>
+    </button>
+}
+
+export default ChallengeDeleteButton;

@@ -50,6 +50,7 @@
     },
     "action": {
       "create": "Přidat úkol",
+      "delete": "Odebrat úkol",
       "name": {
         "name": "Název úlohy",
         "place-holder": "",
