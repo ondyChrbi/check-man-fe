@@ -4,7 +4,7 @@ import AuthenticationService from "../features/authentication/services/authentic
 import {Navigate} from "react-router-dom";
 
 const Login = () => {
-    const authenticationInfo = useAppSelector((state) => state.authentication);
+    const authenticationInfo = useAppSelector((state) => state.storage.authentication);
 
     if (AuthenticationService.isAuthenticated(authenticationInfo)) {
         return <Navigate to="/dashboard" replace />;

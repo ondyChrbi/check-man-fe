@@ -11,11 +11,11 @@ import {addRoles} from "../features/storage/storageSlice";
 const CourseSemesterDetail = () => {
     const {courseId, semesterId} = useParams<'courseId' | 'semesterId'>();
     const dispatch = useAppDispatch();
-    const {loading, error, data} = useQuery<SemesterQuery>(courseQuery, {
+    const {loading, error} = useQuery<SemesterQuery>(courseQuery, {
         variables: {"id": semesterId},
         onCompleted: ({courseRoles : roles}) => {
             if (courseId) {
-                dispatch(addRoles({courseId, roles}));
+                dispatch(addRoles({semesterId: courseId, roles}));
             }
         },
     });
@@ -32,7 +32,7 @@ const CourseSemesterDetail = () => {
         <ChallengeAside semesterId={semesterId} courseId={courseId}/>
         <section className="w-full my-2 mx-10 lg:m-0 lg:my-0 lg:m-10 lg:m-8">
             <div className="my-5 w-full flex flex-row items-end justify-end">
-                <AdministratorToolbar semesterRoles={data?.courseRoles}/>
+                <AdministratorToolbar courseId={courseId} semesterId={semesterId} />
             </div>
             <Outlet/>
         </section>

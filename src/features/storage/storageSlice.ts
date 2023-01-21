@@ -43,9 +43,9 @@ export const storageSlice = createSlice({
         },
         addRoles: (state, action: PayloadAction<CourseRoles>) => {
             const courseIds = state.coursesPermission.coursesRoles
-                .map((c) => c.courseId);
+                .map((c) => c.semesterId);
 
-            if (!(courseIds.includes(action.payload.courseId))) {
+            if (!(courseIds.includes(action.payload.semesterId))) {
                 state.coursesPermission.coursesRoles.push(action.payload);
                 saveCourseRolesToLocalStorage(state.coursesPermission.coursesRoles);
             }

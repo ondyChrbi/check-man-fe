@@ -11,7 +11,13 @@ export const courseQuery = gql`
         }
         courseRoles(id: $id)
     }
-`;
+`
+
+export const courseRoles = gql`
+   query GetCourseRoles($id: ID!) {
+       courseRoles(id: $id)
+   }
+`
 
 export const createSemesterAccessRequestMutation = gql`
     mutation CreateSemesterAccessRequestMutation($semesterId: ID!) {
@@ -57,7 +63,11 @@ export interface Semester {
 
 export interface SemesterQuery {
     semester?: Semester;
-    courseRoles: SemesterRole[]
+    courseRoles: SemesterRole[];
+}
+
+export interface CourseRolesQuery {
+    courseRoles: SemesterRole[];
 }
 
 export enum SemesterRole {
