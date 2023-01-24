@@ -1,5 +1,3 @@
-import {Draft} from "@reduxjs/toolkit";
-
 export const JWT_TOKEN_KEY = "jwt"
 export const JWT_ISSUE_AT_DATE_KEY = "jwt_issue_at"
 export const JWT_EXPIRE_AT_DATE_KEY = "jwt_expire_at"
@@ -31,10 +29,10 @@ export const getAuthenticationInfoFromLocalStorage = () => {
     return authenticationInfo;
 };
 
-export const saveAuthenticationInfoToLocalStorage = (state: Draft<JwtInfo>) => {
-    if (state.token) { localStorage.setItem(JWT_TOKEN_KEY, state.token) }
-    if (state.issueAtDate) { localStorage.setItem(JWT_ISSUE_AT_DATE_KEY, state.issueAtDate) }
-    if (state.expiresAtDate) { localStorage.setItem(JWT_EXPIRE_AT_DATE_KEY, state.expiresAtDate) }
+export const saveAuthenticationInfoToLocalStorage = (jwtInfo: JwtInfo) => {
+    if (jwtInfo.token) { localStorage.setItem(JWT_TOKEN_KEY, jwtInfo.token) }
+    if (jwtInfo.issueAtDate) { localStorage.setItem(JWT_ISSUE_AT_DATE_KEY, jwtInfo.issueAtDate) }
+    if (jwtInfo.expiresAtDate) { localStorage.setItem(JWT_EXPIRE_AT_DATE_KEY, jwtInfo.expiresAtDate) }
 };
 
 export const deleteAuthenticationInfoToLocalStorage = () => {

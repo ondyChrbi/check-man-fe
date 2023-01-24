@@ -1,4 +1,4 @@
-import {useAppSelector} from "../hooks/hooks";
+import {useAppSelector} from "../../storage/hooks";
 import AuthenticationService from "../services/authentication-service";
 import {Navigate} from "react-router-dom";
 

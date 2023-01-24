@@ -3,8 +3,8 @@ import {useQuery} from "@apollo/client";
 import {meQuery, MeQuery} from "../lib/graphql/meQuery";
 import {useTranslation} from "react-i18next";
 import React from "react";
-import {useAppDispatch} from "../features/authentication/hooks/hooks";
-import {disableJwtToken} from "../features/authentication/store/authenticationSlice";
+import {useAppDispatch} from "../features/storage/hooks";
+import {disableJwtToken} from "../features/storage/storageSlice";
 
 interface Props {
     size?: string | number | undefined

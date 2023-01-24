@@ -87,7 +87,7 @@ const ChallengeAside = ({courseId, semesterId}: Props) => {
                   style={{left: (isOpen) ? OPEN : HIDDEN}}>
         <menu className="w-72 h-full">
             <ChallengeList challenges={challenges} courseId={courseId} semesterId={semesterId}
-                           challengeId={challengeId}/>
+                           challengeId={challengeId!}/>
         </menu>
 
         <CollapsibleButton onClick={collapsibleButtonClickHandler} open={isOpen}/>

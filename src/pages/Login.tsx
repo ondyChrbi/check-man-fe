@@ -1,10 +1,10 @@
 import LoginForm from "../components/login/LoginForm";
-import {useAppSelector} from "../features/authentication/hooks/hooks";
+import {useAppSelector} from "../features/storage/hooks";
 import AuthenticationService from "../features/authentication/services/authentication-service";
 import {Navigate} from "react-router-dom";
 
 const Login = () => {
-    const authenticationInfo = useAppSelector((state) => state.authentication);
+    const authenticationInfo = useAppSelector((state) => state.storage.authentication);
 
     if (AuthenticationService.isAuthenticated(authenticationInfo)) {
         return <Navigate to="/dashboard" replace />;

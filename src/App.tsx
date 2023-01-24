@@ -8,12 +8,12 @@ import UnauthenticatedRoute from "./features/authentication/component/Unauthenti
 import ChallengeDetail from "./pages/ChallengeDetail";
 import ChallengeEditor from "./components/course/ui/challenge/ChallengeEditor";
 import Header from "./components/Header";
-import {useAppSelector} from "./features/authentication/hooks/hooks";
+import {useAppSelector} from "./features/storage/hooks";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-    const authenticationInfo = useAppSelector((state) => state.authentication);
+    const authenticationInfo = useAppSelector((state) => state.storage.authentication);
 
     return (
         <div className="w-full flex flex-col flex-wrap ">
