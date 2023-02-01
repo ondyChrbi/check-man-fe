@@ -24,9 +24,11 @@
     "i18next": "^21.8.14",
     "i18next-http-backend": "^1.4.1",
     "isomorphic-fetch": "^3.0.0",
+    "jszip": "^3.10.1",
     "react": "^18.0.0",
     "react-avatar": "^5.0.3",
     "react-dom": "^18.0.0",
+    "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.34.2",
     "react-i18next": "^11.18.1",
     "react-multi-date-picker": "^3.3.0",
@@ -35,6 +37,7 @@
     "slate-history": "^0.66.0",
     "slate-react": "^0.82.0",
     "url": "^0.11.0",
+    "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

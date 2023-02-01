@@ -8,7 +8,16 @@
       "edit": "Editovat"
     },
     "message": {
-      "remove" : "Úspěšně odebráno"
+      "remove": "Úspěšně odebráno"
+    },
+    "upload": {
+      "title": "Nahrát řešení",
+      "action": {
+        "drag": "Přetáhněte soubory sem nebo klikněte pro vybrání",
+        "drop": "Přetáhněte soubory sem",
+        "delete": "Smazat",
+        "send": "Nahrát"
+      }
     }
   },
   "application": {
@@ -99,36 +108,44 @@
           "required": "Toto pole je povinné"
         }
       }
-    }
-  },
-  "requirement": {
-    "action": {
-      "name": {
-        "name": "Název požadavku",
-        "place-holder": "Název požadavku",
-        "error": {
-          "required": "Toto pole je povinné",
-          "max-length": "Maximální možná délka tohoto pole je 20"
+    },
+    "solution": {
+      "upload": {
+        "title": "Nahrát řešení",
+        "action": {
+          "send": "Odevzdat řešení"
         }
-      },
-      "description": {
-        "name": "Dodatečný popisek",
-        "place-holder": "Dodatečný popisek",
-        "error": {}
-      },
-      "minPoint": {
-        "name": "Minimální počet bodů",
-        "place-holder": "Minimální počet bodů",
-        "error": {}
-      },
-      "maxPoint": {
-        "name": "Maximální počet bodů",
-        "place-holder": "Maximální počet bodů",
-        "error": {}
       }
     },
-    "new": {
-      "title": "Přidat nový požadavek"
+    "requirement": {
+      "action": {
+        "name": {
+          "name": "Název požadavku",
+          "place-holder": "Název požadavku",
+          "error": {
+            "required": "Toto pole je povinné",
+            "max-length": "Maximální možná délka tohoto pole je 20"
+          }
+        },
+        "description": {
+          "name": "Dodatečný popisek",
+          "place-holder": "Dodatečný popisek",
+          "error": {}
+        },
+        "minPoint": {
+          "name": "Minimální počet bodů",
+          "place-holder": "Minimální počet bodů",
+          "error": {}
+        },
+        "maxPoint": {
+          "name": "Maximální počet bodů",
+          "place-holder": "Maximální počet bodů",
+          "error": {}
+        }
+      },
+      "new": {
+        "title": "Přidat nový požadavek"
+      }
     }
   }
 }

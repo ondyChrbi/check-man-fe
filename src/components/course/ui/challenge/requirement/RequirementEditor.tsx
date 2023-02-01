@@ -54,26 +54,26 @@ const RequirementEditor = ({challengeId, requirementId, onFinished}: Props) => {
             <div className="my-5 w-full grid grid-cols-1 md:grid-cols-5 justify-between">
                 <div className="mr-2">
                     <Input propertyName="name"
-                           placeHolder={t('requirement.action.name.place-holder')} register={register}
+                           placeHolder={t('challenge.requirement.action.name.place-holder')} register={register}
                            error={errors.name?.message}
                     />
                 </div>
                 <div className="mx-2">
                     <Input propertyName="description"
-                           placeHolder={t('requirement.action.description.place-holder')}
+                           placeHolder={t('challenge.requirement.action.description.place-holder')}
                            register={register}
                            error={errors.name?.message}
                     />
                 </div>
                 <div className="mx-2">
                     <Input propertyName="minPoint"
-                           placeHolder={t('requirement.action.minPoint.place-holder')} register={register}
+                           placeHolder={t('challenge.requirement.action.minPoint.place-holder')} register={register}
                            error={errors.name?.message}
                     />
                 </div>
                 <div className="mx-2">
                     <Input propertyName="maxPoint"
-                           placeHolder={t('requirement.action.maxPoint.place-holder')} register={register}
+                           placeHolder={t('challenge.requirement.action.maxPoint.place-holder')} register={register}
                            error={errors.name?.message}
                     />
                 </div>

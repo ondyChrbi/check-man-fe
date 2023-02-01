@@ -6,6 +6,7 @@ import {useParams} from "react-router-dom";
 import RequirementList from "../components/course/ui/challenge/requirement/RequirementList";
 import {useTranslation} from "react-i18next";
 import RequirementEditor from "../components/course/ui/challenge/requirement/RequirementEditor";
+import ChallengeUploadSolutionForm from "../components/course/ui/challenge/form/solution/ChallengeUploadSolutionForm";
 
 interface Props {
     argChallengeId?: number
@@ -14,7 +15,7 @@ interface Props {
 const ChallengeDetail = ({argChallengeId}: Props) => {
     const {t} = useTranslation();
 
-    const {challengeId} = useParams<'challengeId'>();
+    const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId'>();
     const {loading, error, data} = useQuery<ChallengeQuery>(getChallengeQuery, {
         variables: { "id" : (argChallengeId) ?? challengeId }
     });
@@ -31,8 +32,10 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
         <h1 className="my-7 text-gray-600 font-light text-4xl">{data?.challenge.name}</h1>
         {data?.challenge && <div dangerouslySetInnerHTML={{__html: data?.challenge.description}}></div>}
         <RequirementList challengeId={challengeId} />
-        <h2 className="my-7 text-gray-600 font-light text-4xl">{t('requirement.new.title')}</h2>
+        <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.requirement.new.title')}</h2>
         <RequirementEditor challengeId={challengeId} />
+        <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.solution.upload.title')}</h2>
+        <ChallengeUploadSolutionForm courseId={courseId!} semesterId={semesterId!} challengeId={challengeId!} />
     </>
 }
 

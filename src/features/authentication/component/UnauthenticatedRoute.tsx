@@ -8,7 +8,7 @@ interface Props {
 }
 
 const UnauthenticatedRoute = ({redirectUrl, children} : Props) => {
-    const authenticationInfo = useAppSelector((state) => state.authentication);
+    const authenticationInfo = useAppSelector((state) => state.storage.authentication);
 
     if (AuthenticationService.isAuthenticated(authenticationInfo)) {
         return <Navigate to={redirectUrl} replace />
