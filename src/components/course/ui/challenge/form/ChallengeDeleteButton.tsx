@@ -6,8 +6,8 @@ import {
     DeleteChallengeVariables, getChallengesQuery
 } from "../../../../../lib/graphql/challengeQuery";
 import React from "react";
-import {ArchiveIcon} from "@heroicons/react/solid";
 import {useTranslation} from "react-i18next";
+import {ArchiveBoxIcon} from "@heroicons/react/24/solid";
 
 interface Props {
     semesterId: number | string;
@@ -40,7 +40,7 @@ const ChallengeDeleteButton = ({semesterId, challengeId, courseId} : Props) => {
 
     return <button onClick={deleteChallengeHandle}>
         <div className="w-fit bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-            <ArchiveIcon width={20} height={20} />
+            <ArchiveBoxIcon width={20} height={20} />
             <span>{t('challenge.action.delete')}</span>
         </div>
     </button>

@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
 import {useDropzone} from "react-dropzone";
-import {ArrowUpIcon} from "@heroicons/react/solid";
+import {ArrowUpIcon} from "@heroicons/react/24/solid";
 import React from "react";
 
 export interface UploadedFile {

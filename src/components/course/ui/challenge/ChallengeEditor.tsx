@@ -97,7 +97,7 @@ const ChallengeEditor = () => {
             <div className="my-5 grid grid-cols-1">
                 <div className="flex flex items-start justify-start w-full h-20">
                     <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{t('common.button.publish')}</button>
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{t('common.button.save')}</button>
                 </div>
             </div>
         </form>

@@ -9,9 +9,10 @@ import RequirementEditor from "./RequirementEditor";
 
 interface Props {
     challengeId: number | string
+    editable?: boolean
 }
 
-const RequirementList = ({challengeId}: Props) => {
+const RequirementList = ({challengeId, editable = false}: Props) => {
     const {data, loading} = useQuery<RequirementQuery>(getRequirementsQuery, {
         variables: {"challengeId": challengeId}
     });
@@ -35,7 +36,7 @@ const RequirementList = ({challengeId}: Props) => {
         {data?.requirements.map((requirement) =>
             (editingRequirementId !== requirement.id) ?
                 <RequirementCard key={requirement.id} requirement={requirement} challengeId={challengeId}
-                                 onEditRequirementClick={onEditRequirementClickHandle} /> :
+                                 onEditRequirementClick={onEditRequirementClickHandle} editable={editable} /> :
                 <RequirementEditor challengeId={challengeId} requirementId={requirement.id}
                                    onFinished={resetEditing} />
         )}
@@ -46,9 +47,10 @@ interface RequirementCardProps {
     requirement: Requirement,
     challengeId: string | number,
     onEditRequirementClick?: (requirementId: number) => void | undefined,
+    editable?: boolean,
 }
 
-const RequirementCard = ({requirement, challengeId, onEditRequirementClick}: RequirementCardProps) => {
+const RequirementCard = ({requirement, challengeId, onEditRequirementClick, editable = false}: RequirementCardProps) => {
     const {t} = useTranslation();
     const {removeRequirement} = useRequirements({challengeId});
 
@@ -77,18 +79,20 @@ const RequirementCard = ({requirement, challengeId, onEditRequirementClick}: Req
             <div>{requirement.description}</div>
         </div>
         <div>{requirement.minPoint}/{requirement.maxPoint}</div>
-        <div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={removeClickHandle}>
-                {t('common.button.remove')}
-            </button>
-        </div>
-        <div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    onClick={editClickHandle}>
-                {t('common.button.edit')}
-            </button>
-        </div>
+        {editable && <>
+            <div>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={removeClickHandle}>
+                    {t('common.button.remove')}
+                </button>
+            </div>
+            <div>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={editClickHandle}>
+                    {t('common.button.edit')}
+                </button>
+            </div>
+        </>}
     </div>
 }
 

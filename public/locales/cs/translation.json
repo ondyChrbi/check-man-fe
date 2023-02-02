@@ -8,7 +8,8 @@
       "edit": "Editovat"
     },
     "message": {
-      "remove": "Úspěšně odebráno"
+      "remove": "Úspěšně odebráno",
+      "publish": "Úspěšně publikováno"
     },
     "upload": {
       "title": "Nahrát řešení",

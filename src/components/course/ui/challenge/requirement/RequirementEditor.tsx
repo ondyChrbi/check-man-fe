@@ -2,9 +2,9 @@ import Input from "../../../../editor/input/Input";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {useRequirements} from "../../../../../features/authentication/hooks/challenge";
 import {showErrorToast} from "../../../../editor/helpers";
-import { Requirement } from "../../../../../lib/graphql/requirementQuery";
+import {Requirement} from "../../../../../lib/graphql/requirementQuery";
+import {useRequirements} from "../../../../../features/authentication/hooks/challenge";
 
 interface Inputs {
     name: string,
@@ -16,7 +16,7 @@ interface Inputs {
 interface Props {
     challengeId: string | number;
     requirementId?: string | number | undefined;
-    onFinished?: (requirement : Requirement) => void | undefined;
+    onFinished?: (requirement: Requirement) => void | undefined;
 }
 
 const RequirementEditor = ({challengeId, requirementId, onFinished}: Props) => {
@@ -33,7 +33,7 @@ const RequirementEditor = ({challengeId, requirementId, onFinished}: Props) => {
         }
     }
 
-    const edit = async (requirementId : string | number, input: Inputs) => {
+    const edit = async (requirementId: string | number, input: Inputs) => {
         const result = await editRequirement({variables: {requirementId, input}});
 
         if (onFinished && result.data && result.data.editRequirement) {
@@ -41,7 +41,7 @@ const RequirementEditor = ({challengeId, requirementId, onFinished}: Props) => {
         }
     }
 
-    const create = async (challengeId : string | number, input: Inputs) => {
+    const create = async (challengeId: string | number, input: Inputs) => {
         const result = await createRequirement({variables: {challengeId, input}});
 
         if (onFinished && result.data && result.data.createRequirement) {

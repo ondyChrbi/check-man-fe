@@ -7,6 +7,9 @@ import RequirementList from "../components/course/ui/challenge/requirement/Requi
 import {useTranslation} from "react-i18next";
 import RequirementEditor from "../components/course/ui/challenge/requirement/RequirementEditor";
 import ChallengeUploadSolutionForm from "../components/course/ui/challenge/form/solution/ChallengeUploadSolutionForm";
+import {useCourseRoles} from "../features/authorization/hooks";
+import {SemesterRole} from "../lib/graphql/courseQuery";
+import PublishChallengeButton from "../components/course/ui/challenge/form/solution/PublishChallengeButton";
 
 interface Props {
     argChallengeId?: number
@@ -20,22 +23,33 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
         variables: { "id" : (argChallengeId) ?? challengeId }
     });
 
+    const {roles} = useCourseRoles(semesterId!);
+
     if (loading) {
         return <div className="w-full h-full flex flex-row items-center justify-center">
             <LoadingSpinner/>
         </div>
     }
 
-    if (error || !challengeId) return <>Error</>
+    if (error || !data || !challengeId) return <>Error</>
 
     return <>
-        <h1 className="my-7 text-gray-600 font-light text-4xl">{data?.challenge.name}</h1>
-        {data?.challenge && <div dangerouslySetInnerHTML={{__html: data?.challenge.description}}></div>}
-        <RequirementList challengeId={challengeId} />
-        <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.requirement.new.title')}</h2>
-        <RequirementEditor challengeId={challengeId} />
-        <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.solution.upload.title')}</h2>
-        <ChallengeUploadSolutionForm courseId={courseId!} semesterId={semesterId!} challengeId={challengeId!} />
+        <h1 className="my-7 text-gray-600 font-light text-4xl">{data.challenge.name}</h1>
+        <div dangerouslySetInnerHTML={{__html: data.challenge.description}}></div>
+        <RequirementList challengeId={challengeId} editable={roles.includes(SemesterRole.EDIT_CHALLENGE)} />
+        {!data.challenge.published && <>
+            {roles.includes(SemesterRole.EDIT_CHALLENGE) && <>
+                <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.requirement.new.title')}</h2>
+                <RequirementEditor challengeId={challengeId} />
+            </>}
+            {roles.includes(SemesterRole.EDIT_CHALLENGE) && <PublishChallengeButton challengeId={challengeId} />}
+        </>}
+        {roles.includes(SemesterRole.SUBMIT_CHALLENGE_SOLUTION) &&
+            <>
+                <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.solution.upload.title')}</h2>
+                <ChallengeUploadSolutionForm courseId={courseId!} semesterId={semesterId!} challengeId={challengeId!} />
+            </>
+        }
     </>
 }
 

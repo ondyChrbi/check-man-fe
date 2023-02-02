@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {PlusIcon} from "@heroicons/react/solid";
+import {PlusIcon} from "@heroicons/react/24/solid";
 import React from "react";
 import {useTranslation} from "react-i18next";
 

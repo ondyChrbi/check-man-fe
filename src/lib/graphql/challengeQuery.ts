@@ -23,6 +23,7 @@ export const getChallengeQuery = gql`
             deadlineDate,
             startDate,
             challengeKind,
+            published,
             author {
                 id
                 stagId
@@ -38,7 +39,7 @@ export const createChallengeMutation = gql`
             id
         }
     }
-`
+`;
 
 export const editChallengeMutation = gql`
     mutation EditChallengeMutation($challengeId: ID!, $input: ChallengeInput!) {
@@ -46,7 +47,7 @@ export const editChallengeMutation = gql`
             id
         }
     }
-`
+`;
 
 export const deleteChallengeMutation = gql`
     mutation DeleteChallengeMutation($challengeId: ID!) {
@@ -55,7 +56,13 @@ export const deleteChallengeMutation = gql`
             name
         }
     }
-`
+`;
+
+export const publishChallengeMutation = gql`
+    mutation PublishChallengeMutation($challengeId: ID!) {
+        publishChallenge(challengeId: $challengeId)
+    }
+`;
 
 export enum ChallengeKind {
     OPTIONAL = 'OPTIONAL',
@@ -86,6 +93,10 @@ export interface EditChallengeVariables{
     input: ChallengeInput
 }
 
+export interface PublishChallengeMutationVariables {
+    challengeId: number | string;
+}
+
 export interface DeleteChallengeVariables{
     challengeId: string,
 }
@@ -106,12 +117,16 @@ export interface ChallengesQuery {
     challenges: Array<Challenge>
 }
 
+export interface PublishChallengeMutation {
+    publishChallenge: boolean;
+}
 export interface Challenge {
     id: number,
     name: string,
     description: string,
     deadlineDate?: string,
     startDate?: string,
+    published: boolean,
     author? : AppUser,
     challengeKind: ChallengeKind
 }
