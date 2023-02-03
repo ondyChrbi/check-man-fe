@@ -11,6 +11,7 @@ import Header from "./components/Header";
 import {useAppSelector} from "./features/storage/hooks";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ReviewEditor from "./components/course/ui/challenge/solution/review/ReviewEditor";
 
 function App() {
     const authenticationInfo = useAppSelector((state) => state.storage.authentication);
@@ -22,8 +23,10 @@ function App() {
             <main className="flex lg:m-0 flex-row w-full sm:w-full justify-center">
                 <div className="w-full lg:w-256 ">
                     <Routes>
+                        <Route path="/" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
                         <Route path="/login" element={<UnauthenticatedRoute redirectUrl={"/dashboard"}><Login /></UnauthenticatedRoute>} />
                         <Route path="/dashboard" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
+                        <Route path="/courses/:courseId/review/editor" element={<ProtectedRoute><ReviewEditor/></ProtectedRoute>} />
                         <Route path="/courses/:courseId/semester/:semesterId" element={<ProtectedRoute><CourseSemesterDetail/></ProtectedRoute>}>
                             <Route path="challenge/:challengeId" element={<ChallengeDetail />} />
                             <Route path="challenge/create" element={<ChallengeEditor />} />

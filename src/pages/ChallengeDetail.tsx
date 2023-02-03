@@ -11,6 +11,7 @@ import {useCourseRoles} from "../features/authorization/hooks";
 import {SemesterRole} from "../lib/graphql/courseQuery";
 import ChallengePublishButton from "../components/course/ui/challenge/form/ChallengePublishButton";
 import SolutionsArea from "../components/course/ui/challenge/solution/SolutionArea";
+import ReviewAlert from "../components/course/ui/challenge/solution/review/ReviewAlert";
 
 interface Props {
     argChallengeId?: number
@@ -35,6 +36,7 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
     if (error || !data || !challengeId) return <>Error</>
 
     return <>
+        {data.challenge.published && roles.includes(SemesterRole.REVIEW_CHALLENGE) && <ReviewAlert challengeId={challengeId} />}
         <h1 className="my-7 text-gray-600 font-light text-4xl">{data.challenge.name}</h1>
         <div dangerouslySetInnerHTML={{__html: data.challenge.description}}></div>
         <RequirementList challengeId={challengeId} editable={roles.includes(SemesterRole.EDIT_CHALLENGE)} />

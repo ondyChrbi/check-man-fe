@@ -171,6 +171,7 @@ export interface Solution {
     id: number,
     uploadDate: string,
     status: Status
+    author: AppUser
 }
 
 export enum Status {

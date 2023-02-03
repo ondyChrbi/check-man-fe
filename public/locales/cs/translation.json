@@ -147,6 +147,15 @@
       "new": {
         "title": "Přidat nový požadavek"
       }
+    },
+    "review": {
+      "new": {
+        "alert" : {
+          "title": "Nové úkoly k opravení",
+          "description": "Jako revizor máte možnost opravit {{count}} řešení od studentů."
+        }
+
+      }
     }
   }
 }
