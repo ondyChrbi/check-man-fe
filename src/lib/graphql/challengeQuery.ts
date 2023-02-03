@@ -33,6 +33,26 @@ export const getChallengeQuery = gql`
     }
 `;
 
+export const getSolutionQuery = gql`
+    query GetSolutionQuery($id : ID!) {
+        solution(id: $id) {
+            id,
+            uploadDate,
+            status
+        }
+    }
+`;
+
+export const getSolutionsQuery = gql`
+    query GetSolutionsQuery($challengeId : ID!) {
+        solutions(challengeId: $challengeId) {
+            id,
+            uploadDate,
+            status,
+        }
+    }
+`;
+
 export const createChallengeMutation = gql`
     mutation CreateChallengeMutation($semesterId: ID!, $input: ChallengeInput!) {
         createChallenge(semesterId: $semesterId, input: $input) {
@@ -88,6 +108,14 @@ export interface CreateChallengeVariables{
     input: ChallengeInput
 }
 
+export interface GetSolutionVariables {
+    id: string | number
+}
+
+export interface GetSolutionsVariables {
+    challengeId: string | number
+}
+
 export interface EditChallengeVariables{
     challengeId: string,
     input: ChallengeInput
@@ -117,6 +145,14 @@ export interface ChallengesQuery {
     challenges: Array<Challenge>
 }
 
+export interface GetSolutionQuery {
+    solution: Solution
+}
+
+export interface GetSolutionsQuery {
+    solutions: Array<Solution>
+}
+
 export interface PublishChallengeMutation {
     publishChallenge: boolean;
 }
@@ -129,4 +165,17 @@ export interface Challenge {
     published: boolean,
     author? : AppUser,
     challengeKind: ChallengeKind
+}
+
+export interface Solution {
+    id: number,
+    uploadDate: string,
+    status: Status
+}
+
+export enum Status {
+    APPROVED = 'APPROVED',
+    RETURN_TO_EDIT = 'RETURN_TO_EDIT',
+    DENIED = 'DENIED',
+    WAITING_TO_REVIEW = 'WAITING_TO_REVIEW',
 }

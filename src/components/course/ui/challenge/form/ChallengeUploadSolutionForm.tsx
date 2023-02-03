@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import FileListItem from "../../../../../editor/input/upload/FileListItem";
-import {UploadArea, UploadedFile} from "../../../../../editor/input/upload/UploadArea";
-import {generateZip} from "../../../../../../features/upload/helper";
-import {ChallengeV1ApiFp} from "../../../../../../lib/api/api";
-import {useAppSelector} from "../../../../../../features/storage/hooks";
+import FileListItem from "../../../../editor/input/upload/FileListItem";
+import {UploadArea, UploadedFile} from "../../../../editor/input/upload/UploadArea";
+import {generateZip} from "../../../../../features/upload/helper";
+import {ChallengeV1ApiFp} from "../../../../../lib/api/api";
+import {useAppSelector} from "../../../../../features/storage/hooks";
 import {useTranslation} from "react-i18next";
 
 interface Props {
@@ -18,7 +18,7 @@ const ChallengeUploadSolutionForm = ({courseId, semesterId, challengeId}: Props)
     const authenticationInfo = useAppSelector((state) => state.storage.authentication.jwtInfo);
 
     const [fileList, setFileList] = useState<UploadedFile[]>([]);
-    const [uploading, setUploading] = useState(false);
+    const [, setUploading] = useState(false);
 
     const deleteFromUploadHandle = (uid: string) => {
         const filtered = fileList.filter((f) => f.uid !== uid);

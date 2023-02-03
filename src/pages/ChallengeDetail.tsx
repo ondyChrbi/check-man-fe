@@ -6,10 +6,11 @@ import {useParams} from "react-router-dom";
 import RequirementList from "../components/course/ui/challenge/requirement/RequirementList";
 import {useTranslation} from "react-i18next";
 import RequirementEditor from "../components/course/ui/challenge/requirement/RequirementEditor";
-import ChallengeUploadSolutionForm from "../components/course/ui/challenge/form/solution/ChallengeUploadSolutionForm";
+import ChallengeUploadSolutionForm from "../components/course/ui/challenge/form/ChallengeUploadSolutionForm";
 import {useCourseRoles} from "../features/authorization/hooks";
 import {SemesterRole} from "../lib/graphql/courseQuery";
-import PublishChallengeButton from "../components/course/ui/challenge/form/solution/PublishChallengeButton";
+import ChallengePublishButton from "../components/course/ui/challenge/form/ChallengePublishButton";
+import SolutionsArea from "../components/course/ui/challenge/solution/SolutionArea";
 
 interface Props {
     argChallengeId?: number
@@ -42,14 +43,15 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
                 <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.requirement.new.title')}</h2>
                 <RequirementEditor challengeId={challengeId} />
             </>}
-            {roles.includes(SemesterRole.EDIT_CHALLENGE) && <PublishChallengeButton challengeId={challengeId} />}
+            {roles.includes(SemesterRole.EDIT_CHALLENGE) && <ChallengePublishButton challengeId={challengeId} />}
         </>}
-        {roles.includes(SemesterRole.SUBMIT_CHALLENGE_SOLUTION) &&
+        {data.challenge.published && roles.includes(SemesterRole.SUBMIT_CHALLENGE_SOLUTION) &&
             <>
                 <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.solution.upload.title')}</h2>
                 <ChallengeUploadSolutionForm courseId={courseId!} semesterId={semesterId!} challengeId={challengeId!} />
             </>
         }
+        <SolutionsArea challengeId={challengeId} />
     </>
 }
 

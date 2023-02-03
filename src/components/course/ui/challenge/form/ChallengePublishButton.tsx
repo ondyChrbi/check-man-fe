@@ -4,8 +4,8 @@ import {
     PublishChallengeMutation,
     PublishChallengeMutationVariables,
     publishChallengeMutation
-} from "../../../../../../lib/graphql/challengeQuery";
-import {showErrorToast, showSuccessToast} from "../../../../../editor/helpers";
+} from "../../../../../lib/graphql/challengeQuery";
+import {showErrorToast, showSuccessToast} from "../../../../editor/helpers";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {RocketLaunchIcon} from "@heroicons/react/24/solid";
@@ -14,7 +14,7 @@ interface Props {
     challengeId: number | string;
 }
 
-const PublishChallengeButton = ({challengeId}: Props) => {
+const ChallengePublishButton = ({challengeId}: Props) => {
     const {t} = useTranslation();
 
     const [publish] = useMutation<PublishChallengeMutation, PublishChallengeMutationVariables>(publishChallengeMutation, {
@@ -43,4 +43,4 @@ const PublishChallengeButton = ({challengeId}: Props) => {
     </div>
 }
 
-export default PublishChallengeButton;
+export default ChallengePublishButton;
