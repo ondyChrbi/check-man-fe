@@ -38,7 +38,20 @@ export const getSolutionQuery = gql`
         solution(id: $id) {
             id,
             uploadDate,
-            status
+            status,
+            review {
+                id,
+                description,
+                feedbacks {
+                    id,
+                    description,
+                    type
+                }
+            }
+            author {
+                displayName,
+                mail
+            }
         }
     }
 `;
@@ -167,10 +180,23 @@ export interface Challenge {
     challengeKind: ChallengeKind
 }
 
+export interface Feedback {
+    id: number,
+    description: string,
+    type: FeedbackType,
+}
+
+export interface Review {
+    id: number,
+    description: string,
+    feedbacks: Array<Feedback>
+}
+
 export interface Solution {
     id: number,
     uploadDate: string,
-    status: Status
+    status: Status,
+    review: Review,
     author: AppUser
 }
 
@@ -179,4 +205,11 @@ export enum Status {
     RETURN_TO_EDIT = 'RETURN_TO_EDIT',
     DENIED = 'DENIED',
     WAITING_TO_REVIEW = 'WAITING_TO_REVIEW',
+}
+
+export enum FeedbackType {
+    EXTREMELY_POSITIVE = 'EXTREMELY_POSITIVE',
+    POSITIVE = 'POSITIVE',
+    NEUTRAL = 'NEUTRAL',
+    NEGATIVE = 'NEGATIVE',
 }

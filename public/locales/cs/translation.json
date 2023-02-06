@@ -19,6 +19,9 @@
         "delete": "Smazat",
         "send": "Nahrát"
       }
+    },
+    "field": {
+      "upload-date" : "Datum nahrání"
     }
   },
   "application": {
@@ -154,7 +157,11 @@
           "title": "Nové úkoly k opravení",
           "description": "Jako revizor máte možnost opravit {{count}} řešení od studentů."
         }
-
+      },
+      "editor" : {
+        "feedback" : {
+          "title" : "Hodnocení"
+        }
       }
     }
   }
