@@ -42,7 +42,6 @@ const ChallengeUploadSolutionForm = ({courseId, semesterId, challengeId}: Props)
 
             await response();
             setUploading(false);
-            debugger;
         }
     };
 

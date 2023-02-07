@@ -17,13 +17,6 @@ const ChallengeAsideActionsMenu = ({courseId, semesterId} : Props) => {
     const {roles} = useCourseRoles(semesterId!);
 
     return <div className="my-2 flex flex-row items-center justify-center">
-        {roles.includes(SemesterRole.REVIEW_CHALLENGE) &&
-            <Link to={`/courses/${courseId}/review/editor`}>
-                <div className="w-16 h-16 p-4 flex flex-col justify-center items-center bg-gray-400 rounded-lg cursor-pointer">
-                    <DocumentCheckIcon color="#FFFFFF" width={DEFAULT_WIDTH} height={DEFAULT_HEIGHT} />
-                </div>
-            </Link>
-        }
     </div>
 }
 

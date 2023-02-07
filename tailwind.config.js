@@ -9,10 +9,12 @@ module.exports = {
         'border-green-600',
         'border-blue-400',
         'border-amber-300',
+        'border-gray-500',
         'text-amber-300',
         'text-green-600',
         'text-blue-400',
         'text-red-800',
+        'text-gray-500'
     ],
     theme: {
         extend: {

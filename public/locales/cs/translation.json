@@ -70,6 +70,7 @@
     "action": {
       "create": "Přidat úkol",
       "delete": "Odebrat úkol",
+      "review": "Revize",
       "name": {
         "name": "Název úlohy",
         "place-holder": "",
@@ -103,10 +104,10 @@
         "name": "Typ úlohy",
         "place-holder": "",
         "option": {
-          "optional": "Dobrovolný úkol",
-          "mandatory": "Povinný úkol",
-          "credit": "Zápočtový úkol",
-          "exam": "Zkouškový úkol"
+          "optional": "Dobrovolný",
+          "mandatory": "Povinný",
+          "credit": "Zápočet",
+          "exam": "Zkouška"
         },
         "error": {
           "required": "Toto pole je povinné"

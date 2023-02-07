@@ -21,13 +21,14 @@ interface Inputs {
 interface Props {
     reviewId: number | string,
     solutionId: number | string
+    onInputChange?: (value: string) => void,
 }
 
 const defaultInputs = {
     description: "",
 };
 
-const FeedbackForm = ({reviewId, solutionId} : Props) => {
+const FeedbackForm = ({reviewId, solutionId, onInputChange} : Props) => {
     const {t} = useTranslation();
 
     const [type, setType] = useState<FeedbackType | null>(null);
@@ -37,11 +38,11 @@ const FeedbackForm = ({reviewId, solutionId} : Props) => {
 
     const resolver = yupResolver(yup.object({
         "description": yup.string()
-            .max(128, t('challenge.editor.feedback.action.description.error.max-length'))
-            .required(t('challenge.editor.feedback.action.description.error.required')),
+            .max(128, t('challenge.review.editor.feedback.action.description.error.max-length'))
+            .required(t('challenge.review.editor.feedback.action.description.error.required')),
     }));
 
-    const {register, handleSubmit, control, formState: {errors}} = useForm<Inputs>({resolver});
+    const {register, handleSubmit, formState: {errors}} = useForm<Inputs>({resolver});
 
     const submitHandler: SubmitHandler<Inputs> = async input => {
         if (reviewId && type) {
@@ -61,14 +62,15 @@ const FeedbackForm = ({reviewId, solutionId} : Props) => {
                 <FeedbackTypeSelect onTypeSelected={typeSelectHandle}/>
             </div>
 
-            <div className="flex w-4/5 pr-2">
-                <Input propertyName="description"
+            <div className="flex flex-col w-4/5 pr-2">
+                <Input onInputChange={onInputChange}
+                       propertyName="description"
                        placeHolder={t('challenge.review.editor.feedback.action.description.place-holder')} register={register}
                        defaultValue={defaultInputs.description} error={errors.description?.message}
                 />
             </div>
             <div className="flex w-1/5">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{t('common.button.save')}</button>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded max-h-10">{t('common.button.save')}</button>
             </div>
         </div>
     </form>

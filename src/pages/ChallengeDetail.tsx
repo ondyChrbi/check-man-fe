@@ -40,6 +40,7 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
         <h1 className="my-7 text-gray-600 font-light text-4xl">{data.challenge.name}</h1>
         <div dangerouslySetInnerHTML={{__html: data.challenge.description}}></div>
         <RequirementList challengeId={challengeId} editable={roles.includes(SemesterRole.EDIT_CHALLENGE)} />
+
         {!data.challenge.published && <>
             {roles.includes(SemesterRole.EDIT_CHALLENGE) && <>
                 <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.requirement.new.title')}</h2>
@@ -47,6 +48,7 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
             </>}
             {roles.includes(SemesterRole.EDIT_CHALLENGE) && <ChallengePublishButton challengeId={challengeId} />}
         </>}
+
         {data.challenge.published && roles.includes(SemesterRole.SUBMIT_CHALLENGE_SOLUTION) &&
             <>
                 <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.solution.upload.title')}</h2>

@@ -6,6 +6,7 @@ import LoadingSpinner from "../../../LoadingSpinner";
 import ChallengeList from "./ChallengeList";
 import {useParams} from "react-router-dom";
 import ChallengeAsideActionsMenu from "./ChallengeAsideActionsMenu";
+import {ChevronDoubleLeftIcon, ChevronDoubleRightIcon} from "@heroicons/react/24/solid";
 
 interface Props {
     courseId: number | string
@@ -80,7 +81,7 @@ const ChallengeAside = ({courseId, semesterId}: Props) => {
 
     const challenges = groupChallenges(data.challenges);
 
-    return <aside className="flex flex-row justify-start items-start md:w-80 h-full fixed bg-slate-100 z-10"
+    return <aside className="flex flex-row justify-start items-start md:w-80 h-full fixed bg-gray-600 z-10"
                   style={{left: (isOpen) ? OPEN : HIDDEN}}>
         <menu className="w-72 h-full">
             <div className="w-72 absolute top-0 left-0 overflow-y-auto z-0 h-full">
@@ -94,24 +95,21 @@ const ChallengeAside = ({courseId, semesterId}: Props) => {
     </aside>
 }
 
+const ICON_WIDTH = 20;
+const ICON_HEIGHT = 20;
+const ICON_COLOR = "#ffffff"
+
 interface CollapsibleButtonProps {
     onClick: (event: React.MouseEvent<HTMLElement>) => void;
     open: boolean;
 }
 
 const CollapsibleButton = ({onClick, open}: CollapsibleButtonProps) => {
-    return <div className="flex flex-col flex-2 justify-center items-center align-middle min-h-full w-8 pt-5 z-20"
+    return <div className="flex flex-col flex-2 justify-center items-center align-middle min-h-full w-8 pt-5 z-20 fill-white cursor-pointer"
                 onClick={onClick}>
-        {open ? <svg className="h-8 w-8 text-gray-600" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2"
-                     stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z"/>
-            <polyline points="11 7 6 12 11 17"/>
-            <polyline points="17 7 12 12 17 17"/>
-        </svg> : <svg className="h-8 w-8 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                      strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="13 17 18 12 13 7"/>
-            <polyline points="6 17 11 12 6 7"/>
-        </svg>
+        {(open) ?
+            <ChevronDoubleRightIcon color={ICON_COLOR} width={ICON_WIDTH} height={ICON_HEIGHT} /> :
+            <ChevronDoubleLeftIcon color={ICON_COLOR} width={ICON_WIDTH} height={ICON_HEIGHT} />
         }
     </div>;
 }

@@ -14,7 +14,7 @@ const ChallengeCreateButton = ({semesterId, courseId} : Props) => {
     return <>
         <Link to={`/courses/${courseId}/semester/${semesterId}/challenge/create`}>
             <div
-                className="w-fit bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                className="rounded-full w-fit bg-teal-400 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 inline-flex items-center">
                 <PlusIcon width={20} height={20}/>
                 <span>{t('challenge.action.create')}</span>
             </div>

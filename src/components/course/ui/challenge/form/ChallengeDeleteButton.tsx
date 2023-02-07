@@ -39,7 +39,7 @@ const ChallengeDeleteButton = ({semesterId, challengeId, courseId} : Props) => {
     };
 
     return <button onClick={deleteChallengeHandle}>
-        <div className="w-fit bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+        <div className="w-fit bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full inline-flex items-center">
             <ArchiveBoxIcon width={20} height={20} />
             <span>{t('challenge.action.delete')}</span>
         </div>
