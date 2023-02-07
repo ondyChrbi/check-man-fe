@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import LoadingSpinner from "../../../LoadingSpinner";
 import ChallengeList from "./ChallengeList";
 import {useParams} from "react-router-dom";
+import ChallengeAsideActionsMenu from "./ChallengeAsideActionsMenu";
 
 interface Props {
     courseId: number | string
@@ -51,11 +52,7 @@ const OPEN = '0rem'
 
 const ChallengeAside = ({courseId, semesterId}: Props) => {
     const {challengeId} = useParams<'challengeId'>();
-    const {
-        loading,
-        error,
-        data
-    } = useQuery<ChallengesQuery>(getChallengesQuery, {variables: {"semesterId": semesterId}});
+    const {loading, error, data} = useQuery<ChallengesQuery>(getChallengesQuery, {variables: {"semesterId": semesterId}});
     const {t} = useTranslation();
 
     const [isOpen, setIsOpen] = useState(true);
@@ -86,8 +83,11 @@ const ChallengeAside = ({courseId, semesterId}: Props) => {
     return <aside className="flex flex-row justify-start items-start md:w-80 h-full fixed bg-slate-100 z-10"
                   style={{left: (isOpen) ? OPEN : HIDDEN}}>
         <menu className="w-72 h-full">
-            <ChallengeList challenges={challenges} courseId={courseId} semesterId={semesterId}
-                           challengeId={challengeId!}/>
+            <div className="w-72 absolute top-0 left-0 overflow-y-auto z-0 h-full">
+                <ChallengeList challenges={challenges} courseId={courseId} semesterId={semesterId}
+                               challengeId={challengeId!}/>
+                <ChallengeAsideActionsMenu courseId={courseId} semesterId={semesterId} />
+            </div>
         </menu>
 
         <CollapsibleButton onClick={collapsibleButtonClickHandler} open={isOpen}/>

@@ -34,7 +34,7 @@ export const UploadArea = ({onFilesSelected}: Props) => {
     });
 
     return <div
-        className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100" {...getRootProps()}>
+        className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg § bg-gray-50 hover:bg-gray-100" {...getRootProps()}>
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <input {...getInputProps()} />
             <ArrowUpIcon className="my-2 text-xs text-gray-500" width={30} height={30}/>

@@ -29,9 +29,7 @@ const SolutionView = ({challengeTitle, solutionId}: Props) => {
     return <div className="flex flex-col w-full h-full">
         <h1 className="my-7 text-gray-600 font-light text-4xl">{challengeTitle}</h1>
 
-        {data.solution.review &&
-            <FeedbacksView feedbacks={data.solution.review.feedbacks} />
-        }
+        <FeedbacksView review={data.solution.review} solutionId={solutionId} />
     </div>
 }
 

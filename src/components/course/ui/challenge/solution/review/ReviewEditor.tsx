@@ -24,7 +24,7 @@ const ReviewEditor = () => {
         <div className="flex w-80 h-full">
             <ReviewList courseId={courseId} onSolutionSelected={selectSolutionHandle} />
         </div>
-        {selectedSolution && <div className="flex w-auto">
+        {selectedSolution && <div className="flex w-full">
             <SolutionView {...selectedSolution} />
         </div>}
     </div>

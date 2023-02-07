@@ -1,4 +1,8 @@
-import {Feedback, FeedbackType} from "../../../../../../../lib/graphql/challengeQuery";
+import {
+    Feedback,
+    FeedbackType,
+    getSolutionQuery
+} from "../../../../../../../lib/graphql/challengeQuery";
 import {
     HandThumbDownIcon,
     HandThumbUpIcon,
@@ -6,6 +10,13 @@ import {
     StarIcon,
     XMarkIcon
 } from "@heroicons/react/24/solid";
+import {useMutation} from "@apollo/client";
+import {
+    unlinkFeedbackMutation,
+    UnlinkFeedbackMutation,
+    UnlinkFeedbackMutationVariables
+} from "../../../../../../../lib/graphql/feedbackQuery";
+import React from "react";
 
 const WIDTH = 25;
 const HEIGHT = 25;
@@ -32,11 +43,25 @@ const typeTextColorsMap = new Map([
 ]);
 
 interface Props {
-    feedback: Feedback
+    feedback: Feedback,
+    reviewId: number | string,
+    solutionId: number | string
 }
 
-const FeedbackChip = ({feedback}: Props) => {
-    return <div
+const FeedbackChip = ({feedback, reviewId, solutionId}: Props) => {
+    const [unlink, {loading}] = useMutation<UnlinkFeedbackMutation, UnlinkFeedbackMutationVariables>(unlinkFeedbackMutation, {
+        refetchQueries: [{query: getSolutionQuery, variables: {id : solutionId}}]
+    });
+
+    const chipClickedHandle = async (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+
+        if (loading) { return; }
+
+        await unlink({variables: {feedbackId: feedback.id, reviewId}});
+    }
+
+    return <div onClick={chipClickedHandle}
         className={`${typeBorderColorsMap.get(feedback.type)} rounded-full border-2 text-gray-500 bg-white font-semibold text-sm flex align-center cursor-pointer active:bg-gray-300 transition duration-300 ease w-max my-1`}>
         <div className="p-2">
             {typeIconsMap.get(feedback.type)}

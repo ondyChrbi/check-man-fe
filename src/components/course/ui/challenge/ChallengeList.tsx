@@ -19,7 +19,7 @@ const ChallengeList = ({challenges, courseId, semesterId, challengeId}: Props) =
         return navigate(`/courses/${courseId}/semester/${semesterId}/challenge/${challenge.id}`, {replace: true})
     }
 
-    return <div className="w-72 absolute top-0 left-0 overflow-y-auto z-0 h-full">
+    return <div className="">
         {challenges.optional.length !== 0 && <h1 className="text-center">{t('challenge.optional')}</h1>}
         {challenges.optional.map((challenge) =>
             <ChallengeCard onClick={challengeCardClickHandler}

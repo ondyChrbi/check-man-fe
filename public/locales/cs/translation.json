@@ -160,7 +160,17 @@
       },
       "editor" : {
         "feedback" : {
-          "title" : "Hodnocení"
+          "title" : "Hodnocení",
+          "action" : {
+            "description" : {
+              "name": "Hodnocení",
+              "place-holder" : "Zadejte hodnocení",
+              "error": {
+                "max-length" : "Maximální možná délka tohoto pole je 128",
+                "required": "Toto pole je povinné"
+              }
+            }
+          }
         }
       }
     }

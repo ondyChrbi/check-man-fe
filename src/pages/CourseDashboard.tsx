@@ -5,7 +5,7 @@ import {
     getCourseDashboardQuery
 } from "../lib/graphql/meQuery";
 import {useTranslation} from "react-i18next";
-import CourseIcon from "../components/course/ui/CourseIcon"
+import CourseIcon from "../components/dashboard/CourseIcon"
 import LoadingSpinner from "../components/LoadingSpinner";
 
 const CourseDashboard: React.FC = (): ReactElement => {
