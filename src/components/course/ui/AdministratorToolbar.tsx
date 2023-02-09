@@ -6,12 +6,12 @@ import ChallengeCreateButton from "./challenge/form/ChallengeCreateButton";
 import ChallengeReviewButton from "./challenge/form/ChallengeReviewButton";
 
 interface Props {
-    semesterId: number | string;
     courseId: number | string;
+    semesterId: number | string;
     challengeId?: number | string | undefined | null;
 }
 
-const AdministratorToolbar = ({semesterId, courseId, challengeId}: Props) => {
+const AdministratorToolbar = ({courseId, semesterId, challengeId}: Props) => {
     const {roles} = useCourseRoles(semesterId);
 
     return <div className="flex flex-row [&>*]:px-2">
@@ -22,7 +22,7 @@ const AdministratorToolbar = ({semesterId, courseId, challengeId}: Props) => {
             <ChallengeDeleteButton semesterId={semesterId} courseId={courseId} challengeId={challengeId}/>
         }</div>
         <div className="px-2">{challengeId && roles.includes(SemesterRole.REVIEW_CHALLENGE) &&
-            <ChallengeReviewButton courseId={courseId}/>
+            <ChallengeReviewButton courseId={courseId} semesterId={semesterId} challengeId={challengeId} />
         }</div>
     </div>
 }

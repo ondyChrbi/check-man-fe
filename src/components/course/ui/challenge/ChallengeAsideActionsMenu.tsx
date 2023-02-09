@@ -1,8 +1,5 @@
 import {useCourseRoles} from "../../../../features/authorization/hooks";
-import {SemesterRole} from "../../../../lib/graphql/courseQuery";
-import {DocumentCheckIcon} from "@heroicons/react/24/solid";
 import React from "react";
-import {Link} from "react-router-dom";
 
 const DEFAULT_WIDTH = 64;
 const DEFAULT_HEIGHT = 64;

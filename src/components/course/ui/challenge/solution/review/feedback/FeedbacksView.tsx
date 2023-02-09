@@ -32,10 +32,10 @@ const FeedbacksView = ({review, solutionId}: Props) => {
     return <div className="flex flex-col">
         <h2 className="my-3 text-gray-600 font-light text-2xl">{t('challenge.review.editor.feedback.title')}</h2>
 
-        {review.feedbacks.length !== 0 &&
+        {review && review.feedbacks && review.feedbacks.length !== 0 &&
             <div className="flex flex-wrap justify-start space-x-2 items-end">
                 {review.feedbacks.map((feedback) =>
-                    <FeedbackChip feedback={feedback} reviewId={review.id} onClicked={chipClickHandle} />
+                    <FeedbackChip key={feedback.id} feedback={feedback} reviewId={review.id} onClicked={chipClickHandle} />
                 )}
             </div>
         }

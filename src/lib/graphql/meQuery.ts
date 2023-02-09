@@ -66,6 +66,7 @@ export interface AppUser {
     id: number
     mail: string | undefined
     displayName: string | undefined
+    stagId: string | undefined
 }
 
 export interface AvailableCoursesQuery {

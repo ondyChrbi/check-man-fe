@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import {PlusIcon} from "@heroicons/react/24/solid";
-import React from "react";
+import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 
 interface Props {
@@ -11,15 +11,24 @@ interface Props {
 const ChallengeCreateButton = ({semesterId, courseId} : Props) => {
     const {t} = useTranslation();
 
-    return <>
+    const [isHovering, setIsHovering] = useState(false);
+
+    const handleMouseOver = () => {
+        setIsHovering(true);
+    };
+
+    const handleMouseOut = () => {
+        setIsHovering(false);
+    };
+
+    return <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
         <Link to={`/courses/${courseId}/semester/${semesterId}/challenge/create`}>
-            <div
-                className="rounded-full w-fit bg-teal-400 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 inline-flex items-center">
+            <div className="rounded-full w-fit hover:bg-teal-200 text-gray-800 font-bold py-2 p-2 inline-flex items-center">
                 <PlusIcon width={20} height={20}/>
-                <span>{t('challenge.action.create')}</span>
+                {isHovering && <span>{t('challenge.action.create')}</span>}
             </div>
         </Link>
-    </>
+    </div>
 }
 
 export default ChallengeCreateButton;

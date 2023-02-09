@@ -64,6 +64,7 @@
     "mandatory": "Povinné úkoly",
     "credit": "Zápočtové úkoly",
     "exam": "Zkouškové úkoly",
+    "not-published": "Rozepsané",
     "new": {
       "title": "Vytvořit novovu úlohu"
     },
@@ -123,6 +124,7 @@
       }
     },
     "requirement": {
+      "title": "Požadavky",
       "action": {
         "name": {
           "name": "Název požadavku",
@@ -160,6 +162,18 @@
         }
       },
       "editor" : {
+        "description" : {
+          "default" : "Zadejte nové hodnocení"
+        },
+        "author" : {
+          "upload-date" : "Datum nahrání",
+          "stag-id" : "Stag ID",
+          "mail": "Email",
+          "display-name": "Jméno a přijímení"
+        },
+        "action": {
+          "title" : "Akce"
+        },
         "feedback" : {
           "title" : "Hodnocení",
           "action" : {

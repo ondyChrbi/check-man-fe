@@ -9,7 +9,8 @@ export const getChallengesQuery = gql`
             deadlineDate,
             startDate,
             description,
-            challengeKind
+            challengeKind,
+            published
         }
     }
 `;

@@ -13,7 +13,7 @@ const CourseDashboard: React.FC = (): ReactElement => {
     const {t} = useTranslation();
 
     if (loading) {
-        return <div className="w-screen h-screen flex flex-row items-center justify-center">
+        return <div className="w-full h-screen flex flex-col items-center justify-center">
             <LoadingSpinner />
         </div>
     }
@@ -27,7 +27,7 @@ const CourseDashboard: React.FC = (): ReactElement => {
     }
 
     return <>
-            <div className="flex flex-col m-8 items-center">
+            <div className="flex flex-col justify-center items-center p-8">
                 <div className="my-3">
                     <h1>{t('dashboard.courses.me')}</h1>
                 </div>

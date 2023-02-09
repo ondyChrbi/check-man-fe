@@ -12,6 +12,7 @@ import {useAppSelector} from "./features/storage/hooks";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ReviewEditor from "./components/course/ui/challenge/solution/review/ReviewEditor";
+import SolutionReview from "./components/course/ui/challenge/solution/review/SolutionReview";
 
 function App() {
     const authenticationInfo = useAppSelector((state) => state.storage.authentication);
@@ -26,11 +27,12 @@ function App() {
                         <Route path="/" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
                         <Route path="/login" element={<UnauthenticatedRoute redirectUrl={"/dashboard"}><Login /></UnauthenticatedRoute>} />
                         <Route path="/dashboard" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
-                        <Route path="/courses/:courseId/review/editor" element={<ProtectedRoute><ReviewEditor/></ProtectedRoute>} />
                         <Route path="/courses/:courseId/semester/:semesterId" element={<ProtectedRoute><CourseSemesterDetail/></ProtectedRoute>}>
                             <Route path="challenge/:challengeId" element={<ChallengeDetail />} />
                             <Route path="challenge/create" element={<ChallengeEditor />} />
                             <Route path="challenge/:challengeId/edit" element={<ChallengeEditor />} />
+                            <Route path="challenge/:challengeId/review" element={<ProtectedRoute><ReviewEditor/></ProtectedRoute>} />
+                            <Route path="challenge/:challengeId/solution/:solutionId" element={<ProtectedRoute><SolutionReview /></ProtectedRoute>} />
                         </Route>
                     </Routes>
                 </div>

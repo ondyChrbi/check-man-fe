@@ -1,12 +1,12 @@
-import {useLocation, useParams} from "react-router-dom";
+import {Outlet, useLocation, useParams} from "react-router-dom";
 import React, {useState} from "react";
-import ReviewList from "./ReviewList";
-import SolutionView, {Props} from "./SolutionView";
+import {Props} from "./SolutionReview";
+import ReviewTable from "./ReviewTable";
 
 const CHALLENGE_QUERY_PARAM = "challenge";
 
 const ReviewEditor = () => {
-    const {courseId} = useParams<'courseId'>();
+    const {challengeId, solutionId} = useParams<'courseId' | 'semesterId' | 'challengeId' | 'solutionId'>();
     const location = useLocation();
     const query = new URLSearchParams(location.search);
 
@@ -16,16 +16,14 @@ const ReviewEditor = () => {
         setSelectedSolution({solutionId, challengeTitle});
     }
 
-    if (!courseId) {
+    if (!challengeId) {
         return <p>Error</p>
     }
 
     return <div className="flex flex-row items-start justify-start">
-        <div className="flex w-80 h-full">
-            <ReviewList courseId={courseId} onSolutionSelected={selectSolutionHandle} />
-        </div>
-        {selectedSolution && <div className="flex w-full">
-            <SolutionView {...selectedSolution} />
+        <ReviewTable challengeId={challengeId} />
+        {solutionId && <div className="flex w-full">
+            <Outlet />
         </div>}
     </div>
 }

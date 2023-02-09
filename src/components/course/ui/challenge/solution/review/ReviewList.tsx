@@ -3,19 +3,19 @@ import LoadingSpinner from "../../../../../LoadingSpinner";
 import TreeView from "react-treeview";
 import React from "react";
 import {
-    getAllSolutionsToReview,
+    getSolutionsToReview,
     GetSolutionsToReviewQuery,
     GetSolutionsToReviewVariables
 } from "../../../../../../lib/graphql/reviewQuery";
 
 interface Props{
-    courseId: number | string,
+    challengeId: number | string,
     onSolutionSelected? : (solutionId: number, challengeTitle: string | undefined) => void
 }
 
-const ReviewList = ({courseId, onSolutionSelected}: Props) => {
-    const {data, loading, error} = useQuery<GetSolutionsToReviewQuery, GetSolutionsToReviewVariables>(getAllSolutionsToReview, {
-        variables: {courseId}
+const ReviewList = ({challengeId, onSolutionSelected}: Props) => {
+    const {data, loading, error} = useQuery<GetSolutionsToReviewQuery, GetSolutionsToReviewVariables>(getSolutionsToReview, {
+        variables: {challengeId}
     });
 
     if (loading) {
@@ -24,7 +24,7 @@ const ReviewList = ({courseId, onSolutionSelected}: Props) => {
         </div>
     }
 
-    if (error) {
+    if (error || !data) {
         return <p>Error</p>
     }
 
@@ -36,21 +36,21 @@ const ReviewList = ({courseId, onSolutionSelected}: Props) => {
         }
     };
 
-    return <>
-        {data?.allSolutionsToReview.map((list) =>
-            <TreeView key={list.course?.id} nodeLabel={list.course?.note}>
-                {list.reviews?.map((review) =>
-                    <TreeView key={review.challenge?.id} nodeLabel={review.challenge?.name}>
-                        {review.solutions.map((solution) =>
-                            <div onClick={(e) => onSolutionClickHandle(e, solution.id, review.challenge?.name)} key={solution.id}>
-                                {solution.id}
-                            </div>
-                        )}
-                    </TreeView>
-                )}
-            </TreeView>
+    return <div className="flex flex-col">
+        {data?.solutionsToReview.map((s) =>
+            <div className="flex flex-row" key={s.id}>({s.author.stagId}) {s.author.displayName}</div>
         )}
-    </>
+    </div>
+}
+
+interface ReviewItemProps {
+    children: React.ReactNode
+}
+
+const ReviewItem = ({children}: ReviewItemProps) => {
+    return <div className="w-24 h-6 hover:bg-gray-800">
+        {children}
+    </div>
 }
 
 export default ReviewList;
