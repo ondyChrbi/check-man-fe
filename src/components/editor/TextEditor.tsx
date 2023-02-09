@@ -8,7 +8,7 @@ import {InputProps} from "./input/Input";
 import {Control, Controller} from "react-hook-form";
 
 export interface Props extends InputProps {
-    control: Control<any>;
+    control?: Control<any>;
     required?: boolean | undefined;
 }
 

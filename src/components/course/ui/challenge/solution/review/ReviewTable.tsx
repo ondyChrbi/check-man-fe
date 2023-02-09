@@ -16,7 +16,7 @@ import {Review} from "../../../../../../lib/graphql/challengeQuery";
 import {showErrorToast} from "../../../../../editor/helpers";
 
 const DEFAULT_OFFSET = 0;
-const DEFAULT_SIZE = 5;
+const DEFAULT_SIZE = 10;
 
 interface Props {
     challengeId: number | string
@@ -45,7 +45,7 @@ const ReviewTable = ({challengeId}: Props) => {
     }
 
     const nextPageHandle = () => {
-        const max = Math.floor(offset / DEFAULT_SIZE);
+        const max = Math.floor(data?.countToReview || 0 / DEFAULT_SIZE);
 
         if (offset < max) {
             setOffset(offset + 1);
@@ -64,16 +64,16 @@ const ReviewTable = ({challengeId}: Props) => {
 
     return <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
         <div className="flex flex-col justify-center">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left text-gray-500">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr>
                     {COLUMNS.map(c => <th key={c} scope="col" className="px-6 py-3">{c}</th>)}
                 </tr>
                 </thead>
                 <tbody>
                 {data.solutionsToReview.map((solution) => <tr key={solution.id}
-                                                              className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                              className="bg-white border-b">
+                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {solution.author.stagId}
                     </th>
                     <td className="px-6 py-4">
@@ -93,7 +93,7 @@ const ReviewTable = ({challengeId}: Props) => {
             </table>
             <div className="flex flex-row justify-between items-start align-middle px-3">
                 <ReviewTableActionsFooter onPreviousClick={previousPageHandle} onNextClick={nextPageHandle}/>
-                <div className="flex flex-row h-full py-1 text-sm">{offset} / {Math.floor(offset / DEFAULT_SIZE)}</div>
+                <div className="flex flex-row h-full py-1 text-sm">{offset} / {Math.floor(data.countToReview / DEFAULT_SIZE)}</div>
             </div>
         </div>
     </div>

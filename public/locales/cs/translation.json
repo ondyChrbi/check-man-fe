@@ -162,8 +162,16 @@
         }
       },
       "editor" : {
+        "no-solution" : {
+          "title": "Žádné úlohy k opravě",
+          "description" : "Motivujte více studenty k plnění úkolů"
+        },
+        "title" : "Odevzdané řešení: {{name}}",
         "description" : {
-          "default" : "Zadejte nové hodnocení"
+          "default" : "Zadejte nové hodnocení",
+          "error" : {
+            "required": "Toto pole je povinné"
+          }
         },
         "author" : {
           "upload-date" : "Datum nahrání",

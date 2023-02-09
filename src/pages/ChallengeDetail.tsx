@@ -56,7 +56,8 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
 
     return <>
         {data.challenge.published && roles.includes(SemesterRole.REVIEW_CHALLENGE) &&
-            <ReviewAlert challengeId={challengeId}/>}
+            <ReviewAlert challengeId={challengeId}/>
+        }
         <h1 className="my-7 text-gray-600 font-light text-4xl">{data.challenge.name}</h1>
         <div dangerouslySetInnerHTML={{__html: data.challenge.description}}></div>
         <h2 className="my-7 text-gray-600 font-light text-2xl">{t('challenge.requirement.title')}</h2>

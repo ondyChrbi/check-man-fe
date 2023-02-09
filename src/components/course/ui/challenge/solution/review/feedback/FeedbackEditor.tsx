@@ -48,7 +48,7 @@ const FeedbackEditor = ({reviewId, solutionId, selectedFeedbacks = []} : Props) 
 
     return <div className="flex flex-col w-full bg-gray-200 rounded-2xl p-2">
         <FeedbackForm reviewId={reviewId} solutionId={solutionId} onInputChange={onInputChangeHandle} />
-        <div className="flex flex-wrap justify-start space-x-2 items-end">
+        <div className="flex flex-wrap justify-start items-end">
             {suggestions.map((sF) =>
                 <FeedbackChip key={sF.id} feedback={sF} reviewId={reviewId} active={false} onClicked={chipClickHandle} />
             )}

@@ -13,7 +13,7 @@ interface Props {
 const CollapsibleButton = ({onClick, open}: Props) => {
     return <div className="flex flex-col flex-2 justify-center items-center align-middle min-h-full w-8 pt-5 z-20 fill-white cursor-pointer"
                 onClick={onClick}>
-        {(open) ?
+        {(!open) ?
             <ChevronDoubleRightIcon color={ICON_COLOR} width={ICON_WIDTH} height={ICON_HEIGHT} /> :
             <ChevronDoubleLeftIcon color={ICON_COLOR} width={ICON_WIDTH} height={ICON_HEIGHT} />
         }

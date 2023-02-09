@@ -33,13 +33,12 @@ const ChallengePublishButton = ({challengeId}: Props) => {
     };
 
 
-    return <div className="flex flex-col justify-center items-center">
-        <div onClick={onClickHandle}
-             className="w-fit bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
+    return <div className="flex flex-col justify-center items-start my-2">
+        <button onClick={onClickHandle}
+             className="w-fit hover:bg-teal-300 bg-teal-200 text-gray-800 font-bold py-2 px-4 rounded-full inline-flex items-center">
             <RocketLaunchIcon width={20} height={20}/>
-
             <span>{t('common.button.publish')}</span>
-        </div>
+        </button>
     </div>
 }
 
