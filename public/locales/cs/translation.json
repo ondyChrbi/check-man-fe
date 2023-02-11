@@ -62,10 +62,20 @@
     },
     "users": {
       "title" : "Správa uživatelů",
+      "metadata" : {
+        "title" : "User metada"
+      },
+      "roles" : {
+        "title" : "Role"
+      },
       "manager" : {
         "stag-id": "Stag ID",
         "mail": "Email",
-        "display-name": "Jméno a přijímení"
+        "display-name": "Jméno a přijímení",
+        "roles": "Role",
+        "actions": "Akce",
+        "registration-date": "Datum registrace",
+        "lastAccess-date": "Poslední přihlášení"
       }
     }
   },

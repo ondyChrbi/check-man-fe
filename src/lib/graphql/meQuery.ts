@@ -71,8 +71,11 @@ export interface AppUser {
     mail: string | undefined
     displayName: string | undefined
     stagId: string | undefined
+    disabled: boolean | undefined
     globalRoles: Array<GlobalRole>
     roles? : Array<CourseSemesterRole>
+    registrationDate: string | undefined,
+    lastAccessDate: string | undefined,
 }
 
 export interface AvailableCoursesQuery {

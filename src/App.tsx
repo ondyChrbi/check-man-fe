@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import SolutionsToReview from "./pages/course/challenge/SolutionsToReview";
 import ReviewEditor from "./pages/course/challenge/ReviewEditor";
 import CourseUsersManager from "./pages/course/CourseUsersManager";
+import CourseUserDetail from "./pages/course/CourseUserDetail";
 
 function App() {
     const authenticationInfo = useAppSelector((state) => state.storage.authentication);
@@ -30,6 +31,7 @@ function App() {
                         <Route path="/dashboard" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
                         <Route path="/courses/:courseId/semester/:semesterId" element={<ProtectedRoute><CourseSemesterDetail/></ProtectedRoute>}>
                             <Route path="users" element={<CourseUsersManager />} />
+                            <Route path="users/:userId" element={<CourseUserDetail />} />
                             <Route path="challenge/:challengeId" element={<ChallengeDetail />} />
                             <Route path="challenge/create" element={<ChallengeEditor />} />
                             <Route path="challenge/:challengeId/edit" element={<ChallengeEditor />} />

@@ -1,5 +1,9 @@
-export const toFormattedDateTime = (date: string) =>
-    new Date(date).toLocaleString("en-US", {
+export const toFormattedDateTime = (date: string | undefined | number) => {
+    if (!date) {
+        return "";
+    }
+
+    return new Date(date).toLocaleString("en-US", {
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
@@ -7,6 +11,7 @@ export const toFormattedDateTime = (date: string) =>
         minute: "2-digit",
         second: "2-digit",
     }).replace(/\//g, ".").replace(',', '')
+}
 
 export const toFormattedDate = (date?: string) => {
     if (!date) {
