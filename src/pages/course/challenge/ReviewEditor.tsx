@@ -4,13 +4,13 @@ import {
     getSolutionQuery,
     GetSolutionQuery,
     GetSolutionVariables, Solution
-} from "../lib/graphql/challengeQuery";
-import Loader from "../components/course/ui/Loader";
+} from "../../../lib/graphql/challengeQuery";
+import Loader from "../../../components/course/ui/Loader";
 import React from "react";
-import FeedbacksView from "../components/course/ui/challenge/solution/review/feedback/FeedbacksView";
+import FeedbacksView from "../../../components/course/ui/challenge/solution/review/feedback/FeedbacksView";
 import {useParams} from "react-router-dom";
-import ReviewPublishButton from "../components/course/ui/challenge/solution/review/ReviewPublishButton";
-import ReviewDescriptionEditor from "../components/course/ui/challenge/solution/review/ReviewDescriptionEditor";
+import ReviewPublishButton from "../../../components/course/ui/challenge/solution/review/ReviewPublishButton";
+import ReviewDescriptionEditor from "../../../components/course/ui/challenge/solution/review/ReviewDescriptionEditor";
 
 const ReviewEditor = () => {
     const {challengeId, solutionId} = useParams<'courseId' | 'semesterId' | 'challengeId' | 'solutionId'>();

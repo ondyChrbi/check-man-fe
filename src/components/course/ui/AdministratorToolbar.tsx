@@ -4,6 +4,7 @@ import {useCourseRoles} from "../../../features/authorization/hooks";
 import ChallengeDeleteButton from "./challenge/form/ChallengeDeleteButton";
 import ChallengeCreateButton from "./challenge/form/ChallengeCreateButton";
 import ChallengeReviewButton from "./challenge/form/ChallengeReviewButton";
+import ManageCourseSemesterUsersButton from "./ManageCourseSemesterUsersButton";
 
 interface Props {
     courseId: number | string;
@@ -23,6 +24,9 @@ const AdministratorToolbar = ({courseId, semesterId, challengeId}: Props) => {
         }</div>
         <div className="px-2">{challengeId && roles.includes(SemesterRole.REVIEW_CHALLENGE) &&
             <ChallengeReviewButton courseId={courseId} semesterId={semesterId} challengeId={challengeId} />
+        }</div>
+        <div className="px-2">{
+            <ManageCourseSemesterUsersButton courseId={courseId} semesterId={semesterId} />
         }</div>
     </div>
 }

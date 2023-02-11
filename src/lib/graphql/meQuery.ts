@@ -6,6 +6,10 @@ export const meQuery = gql`
         me {
             mail
             displayName
+            globalRoles {
+                id
+                name
+            }
         }
     }
 `;
@@ -67,6 +71,8 @@ export interface AppUser {
     mail: string | undefined
     displayName: string | undefined
     stagId: string | undefined
+    globalRoles: Array<GlobalRole>
+    roles? : Array<CourseSemesterRole>
 }
 
 export interface AvailableCoursesQuery {
@@ -80,4 +86,31 @@ export interface CourseDashboardQuery {
 
 export interface MeQuery {
     me: AppUser
+}
+
+export interface GlobalRole {
+    id: number,
+    name: GlobalRoleValue
+}
+
+export interface CourseSemesterRole {
+    id: number,
+    name: GlobalRoleValue
+}
+
+export enum GlobalRoleValue {
+    ROLE_GLOBAL_ROLE_MANAGE= 'ROLE_GLOBAL_ROLE_MANAGE',
+    ROLE_GLOBAL_ROLE_VIEW= 'ROLE_GLOBAL_ROLE_VIEW',
+    ROLE_COURSE_MANAGE= 'ROLE_COURSE_MANAGE',
+    ROLE_COURSE_SEMESTER_MANAGE= 'ROLE_COURSE_SEMESTER_MANAGE',
+    ROLE_COURSE_VIEW= 'ROLE_COURSE_VIEW',
+    ROLE_COURSE_SEMESTER_VIEW= 'ROLE_COURSE_SEMESTER_VIEW',
+    ROLE_COURSE_CHALLENGE_VIEW= 'ROLE_COURSE_CHALLENGE_VIEW',
+    ROLE_COURSE_CHALLENGE_MANAGE= 'ROLE_COURSE_CHALLENGE_MANAGE',
+    ROLE_VIEW_APP_USER= 'ROLE_VIEW_APP_USER',
+    ROLE_MANAGE_APP_USER= 'ROLE_MANAGE_APP_USER',
+    ROLE_BLOCK_APP_USER= 'ROLE_BLOCK_APP_USER',
+    ROLE_UNBLOCK_APP_USER= 'ROLE_UNBLOCK_APP_USER',
+    ROLE_COURSE_ACCESS= 'ROLE_COURSE_ACCESS',
+    ROLE_CHALLENGE_ACCESS= 'ROLE_CHALLENGE_ACCESS'
 }

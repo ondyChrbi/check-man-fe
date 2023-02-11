@@ -9,11 +9,12 @@ import {
 import LoadingSpinner from "../../../../../LoadingSpinner";
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {toFormattedDateTime} from "../../../../../../features/helper";
-import {ChevronLeftIcon, ChevronRightIcon, PencilSquareIcon} from "@heroicons/react/24/solid";
+import {PencilSquareIcon} from "@heroicons/react/24/solid";
 import {useNavigate, useParams} from "react-router-dom";
-import {Review} from "../../../../../../lib/graphql/challengeQuery";
+import {Review, Solution} from "../../../../../../lib/graphql/challengeQuery";
 import {showErrorToast} from "../../../../../editor/helpers";
+import CollapsibleTable from "../../../../../ui/CollapsibleTable";
+import {toFormattedDateTime} from "../../../../../../features/helper";
 
 const DEFAULT_OFFSET = 0;
 const DEFAULT_SIZE = 10;
@@ -30,7 +31,7 @@ const ReviewTable = ({challengeId}: Props) => {
         variables: {challengeId, offset, size: DEFAULT_SIZE}
     });
 
-    const COLUMNS = [
+    const CAPTIONS = [
         t('challenge.review.editor.author.stag-id'),
         t('challenge.review.editor.author.upload-date'),
         t('challenge.review.editor.author.mail'),
@@ -64,39 +65,39 @@ const ReviewTable = ({challengeId}: Props) => {
 
     return <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
         <div className="flex flex-col justify-center">
-            <table className="w-full text-sm text-left text-gray-500">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-                <tr>
-                    {COLUMNS.map(c => <th key={c} scope="col" className="px-6 py-3">{c}</th>)}
-                </tr>
-                </thead>
-                <tbody>
-                {data.solutionsToReview.map((solution) => <tr key={solution.id}
-                                                              className="bg-white border-b">
-                    <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                        {solution.author.stagId}
-                    </th>
-                    <td className="px-6 py-4">
-                        {toFormattedDateTime(solution.uploadDate)}
-                    </td>
-                    <td className="px-6 py-4">
-                        {solution.author.mail}
-                    </td>
-                    <td className="px-6 py-4">
-                        {solution.author.displayName}
-                    </td>
-                    <td className="px-6 py-4">
-                        <ReviewTableActions solutionId={solution.id}/>
-                    </td>
-                </tr>)}
-                </tbody>
-            </table>
-            <div className="flex flex-row justify-between items-start align-middle px-3">
-                <ReviewTableActionsFooter onPreviousClick={previousPageHandle} onNextClick={nextPageHandle}/>
-                <div className="flex flex-row h-full py-1 text-sm">{offset} / {Math.floor(data.countToReview / DEFAULT_SIZE)}</div>
-            </div>
+            <CollapsibleTable captions={CAPTIONS} offset={offset} onNextPageClicked={nextPageHandle}
+                              onPreviousPageClicked={previousPageHandle}
+                              max={Math.floor(data?.countToReview || 0 / DEFAULT_SIZE)}>
+                {data.solutionsToReview.map((solution) =>
+                    <ReviewTableBody solution={solution} />
+                )}
+            </CollapsibleTable>
         </div>
     </div>
+}
+
+interface ReviewTableBodyProps {
+    solution: Solution
+}
+
+const ReviewTableBody = ({solution}: ReviewTableBodyProps) => {
+    return <tr key={solution.id} className="bg-white border-b">
+        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+            {solution.author.stagId}
+        </th>
+        <td className="px-6 py-4">
+            {toFormattedDateTime(solution.uploadDate)}
+        </td>
+        <td className="px-6 py-4">
+            {solution.author.mail}
+        </td>
+        <td className="px-6 py-4">
+            {solution.author.displayName}
+        </td>
+        <td className="px-6 py-4">
+            <ReviewTableActions solutionId={solution.id}/>
+        </td>
+    </tr>
 }
 
 const WIDTH = 15;
@@ -118,9 +119,9 @@ const ReviewTableActions = ({solutionId, review = null}: ReviewTableActionsProps
         e.preventDefault();
 
         if (!review) {
-            const input = { description: t('challenge.review.editor.description.default') };
+            const input = {description: t('challenge.review.editor.description.default')};
             try {
-                await createEmpty({variables: { solutionId, input}});
+                await createEmpty({variables: {solutionId, input}});
             } catch (error) {
                 showErrorToast(error);
                 return;
@@ -130,27 +131,9 @@ const ReviewTableActions = ({solutionId, review = null}: ReviewTableActionsProps
     };
 
     return <div className="flex flex-row justify-center items-center align-middle">
-            <button onClick={addReviewClickHandle}
+        <button onClick={addReviewClickHandle}
                 className="rounded-full w-fit hover:bg-teal-200 text-gray-800 font-bold py-2 p-2 inline-flex items-center">
-                <PencilSquareIcon width={WIDTH} height={HEIGHT}/>
-            </button>
-        </div>
-}
-
-interface ReviewTableActionsFooterProps {
-    onPreviousClick: () => void
-    onNextClick: () => void
-}
-
-const ReviewTableActionsFooter = ({onPreviousClick, onNextClick}: ReviewTableActionsFooterProps) => {
-    return <div className="flex flex-row">
-        <button onClick={onPreviousClick}
-                className="rounded-full w-fit hover:bg-teal-200 text-gray-800 font-bold py-2 p-2 inline-flex items-center">
-            <ChevronLeftIcon width={WIDTH} height={HEIGHT}/>
-        </button>
-        <button onClick={onNextClick}
-                className="rounded-full w-fit hover:bg-teal-200 text-gray-800 font-bold py-2 p-2 inline-flex items-center">
-            <ChevronRightIcon width={WIDTH} height={HEIGHT}/>
+            <PencilSquareIcon width={WIDTH} height={HEIGHT}/>
         </button>
     </div>
 }

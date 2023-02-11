@@ -1,18 +1,14 @@
-import {Outlet, useLocation, useParams} from "react-router-dom";
+import {Outlet, useParams} from "react-router-dom";
 import React from "react";
-import ReviewTable from "../components/course/ui/challenge/solution/review/ReviewTable";
+import ReviewTable from "../../../components/course/ui/challenge/solution/review/ReviewTable";
 import {useTranslation} from "react-i18next";
 import {useQuery} from "@apollo/client";
-import {ChallengeQuery, getChallengeQuery} from "../lib/graphql/challengeQuery";
-import LoadingSpinner from "../components/LoadingSpinner";
-
-const CHALLENGE_QUERY_PARAM = "challenge";
+import {ChallengeQuery, getChallengeQuery} from "../../../lib/graphql/challengeQuery";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const SolutionsToReview = () => {
     const {t} = useTranslation();
     const {challengeId, solutionId} = useParams<'courseId' | 'semesterId' | 'challengeId' | 'solutionId'>();
-    const location = useLocation();
-    const query = new URLSearchParams(location.search);
 
     const {loading, error, data} = useQuery<ChallengeQuery>(getChallengeQuery, {
         variables: {id: challengeId}

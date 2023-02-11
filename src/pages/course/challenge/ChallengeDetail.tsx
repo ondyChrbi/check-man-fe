@@ -1,18 +1,18 @@
 import {useQuery} from "@apollo/client";
-import {ChallengeQuery, getChallengeQuery} from "../lib/graphql/challengeQuery";
-import LoadingSpinner from "../components/LoadingSpinner";
+import {ChallengeQuery, getChallengeQuery} from "../../../lib/graphql/challengeQuery";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 import React, {useState} from "react";
 import {useParams} from "react-router-dom";
-import RequirementList from "../components/course/ui/challenge/requirement/RequirementList";
+import RequirementList from "../../../components/course/ui/challenge/requirement/RequirementList";
 import {useTranslation} from "react-i18next";
-import RequirementEditor from "../components/course/ui/challenge/requirement/RequirementEditor";
-import ChallengeUploadSolutionForm from "../components/course/ui/challenge/form/ChallengeUploadSolutionForm";
-import {useCourseRoles} from "../features/authorization/hooks";
-import {SemesterRole} from "../lib/graphql/courseQuery";
-import ChallengePublishButton from "../components/course/ui/challenge/form/ChallengePublishButton";
-import SolutionsArea from "../components/course/ui/challenge/solution/SolutionArea";
-import ReviewAlert from "../components/course/ui/challenge/solution/review/ReviewAlert";
-import {Requirement} from "../lib/graphql/requirementQuery";
+import RequirementEditor from "../../../components/course/ui/challenge/requirement/RequirementEditor";
+import ChallengeUploadSolutionForm from "../../../components/course/ui/challenge/form/ChallengeUploadSolutionForm";
+import {useCourseRoles} from "../../../features/authorization/hooks";
+import {SemesterRole} from "../../../lib/graphql/courseQuery";
+import ChallengePublishButton from "../../../components/course/ui/challenge/form/ChallengePublishButton";
+import SolutionsArea from "../../../components/course/ui/challenge/solution/SolutionArea";
+import ReviewAlert from "../../../components/course/ui/challenge/solution/review/ReviewAlert";
+import {Requirement} from "../../../lib/graphql/requirementQuery";
 
 interface Props {
     argChallengeId?: number

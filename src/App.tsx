@@ -1,18 +1,19 @@
 import './index.css'
 import {Route, Routes} from 'react-router-dom'
-import CourseDashboard from "./pages/CourseDashboard";
+import CourseDashboard from "./pages/course/CourseDashboard";
 import ProtectedRoute from "./features/authentication/component/ProtectedRoute";
-import CourseSemesterDetail from "./pages/CourseSemesterDetail";
+import CourseSemesterDetail from "./pages/course/CourseSemesterDetail";
 import Login from "./pages/Login";
 import UnauthenticatedRoute from "./features/authentication/component/UnauthenticatedRoute";
-import ChallengeDetail from "./pages/ChallengeDetail";
+import ChallengeDetail from "./pages/course/challenge/ChallengeDetail";
 import ChallengeEditor from "./components/course/ui/challenge/ChallengeEditor";
 import Header from "./components/Header";
 import {useAppSelector} from "./features/storage/hooks";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import SolutionsToReview from "./pages/SolutionsToReview";
-import ReviewEditor from "./pages/ReviewEditor";
+import SolutionsToReview from "./pages/course/challenge/SolutionsToReview";
+import ReviewEditor from "./pages/course/challenge/ReviewEditor";
+import CourseUsersManager from "./pages/course/CourseUsersManager";
 
 function App() {
     const authenticationInfo = useAppSelector((state) => state.storage.authentication);
@@ -28,6 +29,7 @@ function App() {
                         <Route path="/login" element={<UnauthenticatedRoute redirectUrl={"/dashboard"}><Login /></UnauthenticatedRoute>} />
                         <Route path="/dashboard" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
                         <Route path="/courses/:courseId/semester/:semesterId" element={<ProtectedRoute><CourseSemesterDetail/></ProtectedRoute>}>
+                            <Route path="users" element={<CourseUsersManager />} />
                             <Route path="challenge/:challengeId" element={<ChallengeDetail />} />
                             <Route path="challenge/create" element={<ChallengeEditor />} />
                             <Route path="challenge/:challengeId/edit" element={<ChallengeEditor />} />

@@ -12,6 +12,29 @@ export const courseQuery = gql`
         courseRoles(id: $id)
     }
 `
+export const courseQueryWithRelatedUser = gql`
+    query GetCourseSemester($courseId: ID!, $semesterId: ID!) {
+        semester(id: $courseId) {
+            semesterId: id,
+            note,
+            dateStart,
+            dateEnd,
+            relatedUsers {
+                id,
+                stagId,
+                displayName,
+                mail,
+                disabled,
+                lastAccessDate,
+                registrationDate,
+                roles(semesterId: $semesterId) {
+                    id,
+                    name
+                }
+            }
+        }
+    }
+`
 
 export const courseRoles = gql`
    query GetCourseRoles($id: ID!) {
@@ -27,6 +50,15 @@ export const createSemesterAccessRequestMutation = gql`
         }
     }
 `
+
+export interface CourseQueryWithRelatedUserQuery {
+    semester?: Semester
+}
+
+export interface CourseQueryWithRelatedUserVariables {
+    courseId: number | string,
+    semesterId: number | string,
+}
 
 export interface SemesterAccessRequestVariables {
     semesterId: number
@@ -59,6 +91,7 @@ export interface Semester {
     note: string;
     dateStart: string;
     dateEnd: string;
+    relatedUsers?: Array<AppUser>
 }
 
 export interface SemesterQuery {
@@ -78,4 +111,6 @@ export enum SemesterRole {
     SUBMIT_CHALLENGE_SOLUTION = 'SUBMIT_CHALLENGE_SOLUTION',
     REVIEW_CHALLENGE = 'REVIEW_CHALLENGE',
     VIEW_SOLUTIONS = 'VIEW_SOLUTIONS',
+    MANAGE_USERS = 'MANAGE_USERS',
+    VIEW_USERS = 'VIEW_USERS',
 }
