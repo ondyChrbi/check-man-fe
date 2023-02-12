@@ -19,6 +19,22 @@ export const appUser = gql`
     }
 `
 
+export const removeCourseRole = gql`
+    mutation RemoveCourseRoleMutation($appUserId: ID!, $semesterId: ID!, $roleId: ID!) {
+        removeCourseRole(appUserId: $appUserId, semesterId: $semesterId, roleId: $roleId)
+    }
+`
+
+export interface RemoveCourseRoleMutation {
+    removeCourseRole: Boolean
+}
+
+export interface RemoveCourseRoleVariables {
+    appUserId: number | string,
+    semesterId: number | string,
+    roleId: number | string,
+}
+
 export interface AppUserQuery {
     appUser: AppUser
 }

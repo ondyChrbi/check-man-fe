@@ -1,13 +1,21 @@
 import Avatar from "react-avatar";
 import React from "react";
-import {useQuery} from "@apollo/client";
-import {appUser, AppUserQuery, AppUserVariables} from "../../lib/graphql/appUserQuery";
+import {useMutation, useQuery} from "@apollo/client";
+import {
+    appUser,
+    AppUserQuery,
+    AppUserVariables,
+    removeCourseRole,
+    RemoveCourseRoleMutation, RemoveCourseRoleVariables
+} from "../../lib/graphql/appUserQuery";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import {useParams} from "react-router-dom";
 import MetadataTable from "../../components/ui/MetadataTable";
 import {useTranslation} from "react-i18next";
 import {toFormattedDate, toFormattedDateTime} from "../../features/helper";
 import CourseUserRolesField from "../../components/course/ui/user/CourseUserRolesField";
+import {CourseSemesterRole} from "../../lib/graphql/meQuery";
+import {showErrorToast} from "../../components/editor/helpers";
 
 const SIZE = 80;
 
@@ -18,6 +26,21 @@ const CourseUserDetail = () => {
     const {data, loading, error} = useQuery<AppUserQuery, AppUserVariables>(appUser, {
         variables: {semesterId: semesterId!, id: userId!}
     });
+
+    const [removeRole, {loading : removeRoleLoading}] = useMutation<RemoveCourseRoleMutation, RemoveCourseRoleVariables>(removeCourseRole, {
+        onError: (error) => {
+            showErrorToast(error);
+        },
+        refetchQueries: [{query: appUser, variables: {semesterId: semesterId!, id: userId!}}]
+    });
+
+    const roleChipClickHandle = async (role: CourseSemesterRole) => {
+        if (!removeRoleLoading) {
+            await removeRole({variables: {
+                    semesterId: semesterId!, roleId: role.id, appUserId: userId!
+            }});
+        }
+    }
 
     if (loading) {
         return <div className="w-screen h-screen flex flex-row items-center justify-center">
@@ -53,7 +76,7 @@ const CourseUserDetail = () => {
         <div className="flex flex-col">
             <h4 className="font-roboto text-gray-500 font-light text-xl mb-3 text-left">{t('course.users.roles.title')}</h4>
             <div className="flex flex-col">
-                <CourseUserRolesField roles={data.appUser.roles} />
+                <CourseUserRolesField roles={data.appUser.roles} onChipClicked={roleChipClickHandle} />
             </div>
         </div>
     </div>
