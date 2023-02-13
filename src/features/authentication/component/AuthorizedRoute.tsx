@@ -13,16 +13,18 @@ interface Props {
 
 const AuthorizedRoute = ({children, semesterId, mandatoryRoles} : Props) => {
     const {t} = useTranslation();
-
     const {semesterId : semesterIdSearchParam} = useParams<'semesterId'>();
 
     const authenticationInfo = useAppSelector((state) => state.storage.authentication);
-    const {roles : userRoles} = useCourseRoles(semesterId!);
+    const {roles} = useCourseRoles(semesterId! || semesterIdSearchParam!);
 
-    if ((!semesterId && !semesterIdSearchParam ) || AuthenticationService.isNotAuthenticated(authenticationInfo) || !mandatoryRoles.every(r => userRoles.includes(r))) {
-        return <Navigate to={`/error?message=${t('common.message.error.unauthorized')}`} replace />
+    if (AuthenticationService.isNotAuthenticated(authenticationInfo)) {
+        return <Navigate to={"/login"} replace />
     }
 
+    if (!roles || !mandatoryRoles.every(r => roles.includes(r))) {
+        return <Navigate to={`/error?message=${t('common.message.error.unauthorized')}`} replace />
+    }
 
     return children;
 }

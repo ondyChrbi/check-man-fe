@@ -33,11 +33,7 @@ function App() {
                         <Route path="/login" element={<UnauthenticatedRoute redirectUrl={"/dashboard"}><Login /></UnauthenticatedRoute>} />
                         <Route path="/error" element={<Error />} />
                         <Route path="/dashboard" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
-                        <Route path="/courses/:courseId/semester/:semesterId" element={
-                            <AuthorizedRoute mandatoryRoles={[SemesterRole.ACCESS]}>
-                                <CourseSemesterDetail/>
-                            </AuthorizedRoute>
-                        }>
+                        <Route path="/courses/:courseId/semester/:semesterId" element={<ProtectedRoute><CourseSemesterDetail/></ProtectedRoute>}>
                             <Route path="users" element={
                                 <AuthorizedRoute mandatoryRoles={[SemesterRole.MANAGE_USERS]}>
                                     <CourseUsersManager />

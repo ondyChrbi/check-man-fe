@@ -25,7 +25,7 @@ const AdministratorToolbar = ({courseId, semesterId, challengeId}: Props) => {
         <div className="px-2">{challengeId && roles.includes(SemesterRole.REVIEW_CHALLENGE) &&
             <ChallengeReviewButton courseId={courseId} semesterId={semesterId} challengeId={challengeId} />
         }</div>
-        <div className="px-2">{
+        <div className="px-2">{roles.includes(SemesterRole.MANAGE_USERS) &&
             <ManageCourseSemesterUsersButton courseId={courseId} semesterId={semesterId} />
         }</div>
     </div>
