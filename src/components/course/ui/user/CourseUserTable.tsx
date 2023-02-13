@@ -9,7 +9,7 @@ import {
 } from "../../../../lib/graphql/courseQuery";
 import LoadingSpinner from "../../../LoadingSpinner";
 import {AppUser} from "../../../../lib/graphql/meQuery";
-import CourseUserRolesField from "./CourseUserRolesField";
+import CourseUserRolesList from "./CourseUserRolesList";
 import {ArchiveBoxXMarkIcon, CheckIcon, UserPlusIcon} from "@heroicons/react/24/solid";
 import {Link} from "react-router-dom";
 
@@ -97,7 +97,7 @@ const CourseUserTableBody = ({user, courseId, semesterId}: CourseUserTableBodyPr
             {user.displayName}
         </td>
         <td className="px-6 py-4">
-            <CourseUserRolesField roles={user.roles} />
+            <CourseUserRolesList roles={user.roles} />
         </td>
         <td className="px-6 py-4">
             <CourseUserTableActions courseId={courseId} semesterId={semesterId} userId={user.id} />

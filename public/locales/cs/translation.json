@@ -9,7 +9,11 @@
     },
     "message": {
       "remove": "Úspěšně odebráno",
-      "publish": "Úspěšně publikováno"
+      "publish": "Úspěšně publikováno",
+      "error" : {
+        "basic" : "Někde se stala chyba",
+        "unauthorized" : "Nemáte oprávnění pro přístup na tuto stránku"
+      }
     },
     "upload": {
       "title": "Nahrát řešení",
@@ -66,7 +70,23 @@
         "title" : "User metada"
       },
       "roles" : {
-        "title" : "Role"
+        "list" : {
+          "title" : "Role"
+        },
+        "add" : {
+          "title" : "Přidal roli"
+        },
+        "editor" : {
+          "action" : {
+            "name" : {
+              "place-holder" : "Zadejte roli",
+              "error" : {
+                "max-length" : "Maximální možná délka tohoto pole je 128",
+                "required" : "Toto pole je povinné"
+              }
+            }
+          }
+        }
       },
       "manager" : {
         "stag-id": "Stag ID",

@@ -61,7 +61,6 @@ const FeedbackForm = ({reviewId, solutionId, onInputChange} : Props) => {
             <div className="flex flex-row">
                 <FeedbackTypeSelect onTypeSelected={typeSelectHandle}/>
             </div>
-
             <div className="flex flex-col w-4/5 pr-2">
                 <Input onInputChange={onInputChange}
                        propertyName="description"

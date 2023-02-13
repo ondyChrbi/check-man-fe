@@ -1,9 +1,8 @@
 import Avatar from "react-avatar";
-import React from "react";
+import React, {useState} from "react";
 import {useMutation, useQuery} from "@apollo/client";
 import {
-    appUser,
-    AppUserQuery,
+    appUser, appUserAllRoles, AppUserAllRolesQuery,
     AppUserVariables,
     removeCourseRole,
     RemoveCourseRoleMutation, RemoveCourseRoleVariables
@@ -13,18 +12,30 @@ import {useParams} from "react-router-dom";
 import MetadataTable from "../../components/ui/MetadataTable";
 import {useTranslation} from "react-i18next";
 import {toFormattedDate, toFormattedDateTime} from "../../features/helper";
-import CourseUserRolesField from "../../components/course/ui/user/CourseUserRolesField";
 import {CourseSemesterRole} from "../../lib/graphql/meQuery";
 import {showErrorToast} from "../../components/editor/helpers";
+import CourseUserRolesList from "../../components/course/ui/user/CourseUserRolesList";
+import CourseUserEditor from "../../components/course/ui/user/CourseUserEditor";
+import {SemesterRole} from "../../lib/graphql/courseQuery";
+import {TrashIcon} from "@heroicons/react/24/solid";
 
 const SIZE = 80;
+const ICON_WIDTH = 20;
+const ICON_HEIGHT = 20;
 
 const CourseUserDetail = () => {
     const {t} = useTranslation();
     const {semesterId, userId} = useParams<'semesterId' | 'userId'>();
 
-    const {data, loading, error} = useQuery<AppUserQuery, AppUserVariables>(appUser, {
-        variables: {semesterId: semesterId!, id: userId!}
+    const [availableRoles, setAvailableRoles] = useState<Array<CourseSemesterRole>>([]);
+    const [userRoles, setUserRoles] = useState<Array<CourseSemesterRole>>([]);
+
+    const {data, loading, error} = useQuery<AppUserAllRolesQuery, AppUserVariables>(appUserAllRoles, {
+        variables: {semesterId: semesterId!, id: userId!},
+        onCompleted: (data) => {
+            setUserRoles([...data.appUser.roles!])
+            setAvailableRoles(data.allCourseRoles.filter(r => !(data.appUser.roles?.map(r => r.id).includes(r.id))));
+        }
     });
 
     const [removeRole, {loading : removeRoleLoading}] = useMutation<RemoveCourseRoleMutation, RemoveCourseRoleVariables>(removeCourseRole, {
@@ -34,11 +45,18 @@ const CourseUserDetail = () => {
         refetchQueries: [{query: appUser, variables: {semesterId: semesterId!, id: userId!}}]
     });
 
-    const roleChipClickHandle = async (role: CourseSemesterRole) => {
+    const removeRoleChipClickHandle = async (removedRole: CourseSemesterRole) => {
         if (!removeRoleLoading) {
             await removeRole({variables: {
-                    semesterId: semesterId!, roleId: role.id, appUserId: userId!
+                    semesterId: semesterId!, roleId: removedRole.id, appUserId: userId!
             }});
+            setAvailableRoles([...(availableRoles.filter(r => r.id !== removedRole.id))])
+        }
+    }
+
+    const addRoleChipClickHandle = async (addedRole: CourseSemesterRole) => {
+        if (!removeRoleLoading) {
+            setUserRoles([...userRoles, addedRole])
         }
     }
 
@@ -73,12 +91,21 @@ const CourseUserDetail = () => {
                 <MetadataTable title={t('course.users.metadata.title')} data={metadataRecords} />
             </div>
         </div>
-        <div className="flex flex-col">
-            <h4 className="font-roboto text-gray-500 font-light text-xl mb-3 text-left">{t('course.users.roles.title')}</h4>
+        {userRoles.length > 0 &&
+        <div className="flex flex-col mb-3">
+            <h4 className="font-roboto text-gray-500 font-light text-xl mb-3 text-left">{t('course.users.roles.list.title')}</h4>
             <div className="flex flex-col">
-                <CourseUserRolesField roles={data.appUser.roles} onChipClicked={roleChipClickHandle} />
+                <CourseUserRolesList roles={userRoles} onRoleClicked={removeRoleChipClickHandle}
+                                     itemIcon={<TrashIcon style={{margin: '0.05em'}} width={ICON_WIDTH} height={ICON_HEIGHT} />} />
             </div>
         </div>
+        }
+        {Object.values(SemesterRole).length !== userRoles.length &&
+            <div className="flex flex-col my-3">
+                <h4 className="font-roboto text-gray-500 font-light text-xl mb-3 text-left">{t('course.users.roles.add.title')}</h4>
+                <CourseUserEditor onRoleClicked={addRoleChipClickHandle} semesterId={semesterId!} userId={userId!} availableRoles={availableRoles} />
+            </div>
+        }
     </div>
 }
 

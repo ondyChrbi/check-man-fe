@@ -1,5 +1,5 @@
 import {gql} from "@apollo/client";
-import {AppUser} from "./meQuery";
+import {AppUser, CourseSemesterRole} from "./meQuery";
 
 export const courseQuery = gql`
     query GetCourseSemester($id: ID!) {
@@ -50,6 +50,19 @@ export const createSemesterAccessRequestMutation = gql`
         }
     }
 `
+
+export const allCourseRoles = gql`
+    query GetAllCourseRoles {
+        allCourseRoles {
+            id,
+            name
+        }
+    }
+`;
+
+export interface AllCourseRolesQuery {
+    allCourseRoles: Array<CourseSemesterRole>
+}
 
 export interface CourseQueryWithRelatedUserQuery {
     semester?: Semester
