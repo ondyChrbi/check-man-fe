@@ -1,5 +1,6 @@
 import {gql} from "@apollo/client";
 import {AppUser} from "./meQuery";
+import {Requirement} from "./requirementQuery";
 
 export const getChallengesQuery = gql`
     query GetChallengeQuery($semesterId: ID!) {
@@ -29,6 +30,14 @@ export const getChallengeQuery = gql`
                 id
                 stagId
                 displayName
+            }
+            requirements {
+                id,
+                name,
+                description,
+                minPoint,
+                maxPoint,
+                active
             }
         }
     }
@@ -178,7 +187,8 @@ export interface Challenge {
     startDate?: string,
     published: boolean,
     author? : AppUser,
-    challengeKind: ChallengeKind
+    challengeKind: ChallengeKind,
+    requirements: Array<Requirement>
 }
 
 export interface Feedback {

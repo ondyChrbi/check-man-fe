@@ -11,8 +11,12 @@ import FeedbacksView from "../../../components/course/ui/challenge/solution/revi
 import {useParams} from "react-router-dom";
 import ReviewPublishButton from "../../../components/course/ui/challenge/solution/review/ReviewPublishButton";
 import ReviewDescriptionEditor from "../../../components/course/ui/challenge/solution/review/ReviewDescriptionEditor";
+import RequirementPointsEditor
+    from "../../../components/course/ui/challenge/solution/review/requirement/RequirementPointsEditor";
+import {useTranslation} from "react-i18next";
 
 const ReviewEditor = () => {
+    const {t} = useTranslation();
     const {challengeId, solutionId} = useParams<'courseId' | 'semesterId' | 'challengeId' | 'solutionId'>();
 
     const {
@@ -34,6 +38,12 @@ const ReviewEditor = () => {
 
     return <div className="flex flex-col w-full h-full">
         <h1 className="my-7 text-gray-600 font-light text-4xl">{challengeData?.challenge.name}</h1>
+         <div className="my-2">
+            <h2 className="my-3 text-gray-600 font-light text-2xl">{t('challenge.requirement.title')}</h2>
+            {challengeData?.challenge.requirements.map(r =>
+                <RequirementPointsEditor requirement={r} />
+            )}
+        </div>
         <div className="my-2">
             <FeedbacksView review={solutionData.solution.review} solutionId={solutionId!}/>
         </div>

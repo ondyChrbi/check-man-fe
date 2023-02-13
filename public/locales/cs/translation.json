@@ -5,7 +5,8 @@
       "publish": "Publikovat",
       "add": "Přidat",
       "remove": "Odebrat",
-      "edit": "Editovat"
+      "edit": "Editovat",
+      "update": "Aktulizovat"
     },
     "message": {
       "remove": "Úspěšně odebráno",
@@ -197,6 +198,14 @@
           "name": "Maximální počet bodů",
           "place-holder": "Maximální počet bodů",
           "error": {}
+        },
+        "point": {
+          "name": "Počet bodů",
+          "place-holder": "",
+          "error": {
+            "required": "Toto pole je povinné",
+            "max-length": "Maximální možná délka tohoto pole je 20"
+          }
         }
       },
       "new": {

@@ -36,8 +36,6 @@ const ReviewPublishOptions = ({onClicked}: Props) => {
     const clickHandle = async (e: React.MouseEvent<HTMLElement>, status: Status) => {
         e.preventDefault();
 
-        debugger
-
         if (onClicked) {
             await onClicked(status);
         }

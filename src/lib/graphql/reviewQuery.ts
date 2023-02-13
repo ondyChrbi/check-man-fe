@@ -47,6 +47,26 @@ export const editReviewMutation = gql`
     }
 `;
 
+export const addRequirementReview = gql`
+    mutation AddRequirementReview($reviewId: ID!, $requirementId: ID!, $input: ReviewPointsInput!) {
+        addReviewPoints(reviewId: $reviewId, requirementId: $requirementId, reviewPointsInput: $input)
+    }
+`;
+
+export interface AddRequirementReviewMutation {
+    addReviewPoints: Boolean
+}
+
+export interface AddReviewPointsVariables {
+    reviewId: number | string,
+    requirementId: number | string,
+    input: ReviewPointsInput
+}
+
+export interface ReviewPointsInput {
+    points: number
+}
+
 export interface EditReviewMutation {
     editReview: Review
 }
