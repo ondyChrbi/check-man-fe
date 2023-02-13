@@ -1,5 +1,5 @@
 import {gql} from "@apollo/client";
-import {Review, Solution} from "./challengeQuery";
+import {Review, Solution, Status} from "./challengeQuery";
 
 export const getSolutionsCountToReview = gql`
     query GetSolutionCountToReview($challengeId: ID!) {
@@ -33,8 +33,8 @@ export const createReviewMutation = gql`
 `;
 
 export const publishReviewMutation = gql`
-    mutation PublishReviewMutation($id: ID!) {
-        publishReview(id: $id)
+    mutation PublishReviewMutation($id: ID!, $status: String!) {
+        publishReview(id: $id, status: $status)
     }
 `;
 
@@ -62,6 +62,7 @@ export interface PublishReviewMutation {
 
 export interface PublishReviewVariables {
     id: number | string
+    status: Status
 }
 
 export interface CreateReviewMutation{

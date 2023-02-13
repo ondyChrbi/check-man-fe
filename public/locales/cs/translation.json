@@ -162,6 +162,14 @@
         "action": {
           "send": "Odevzdat řešení"
         }
+      },
+      "status" : {
+        "action" : {
+          "APPROVED": "Akceptovat",
+          "RETURN_TO_EDIT": "Vrátit k opravě",
+          "DENIED": "Zamítnout",
+          "WAITING_TO_REVIEW": "Vrátit k opravě"
+        }
       }
     },
     "requirement": {
