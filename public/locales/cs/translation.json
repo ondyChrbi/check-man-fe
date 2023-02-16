@@ -68,7 +68,7 @@
     "users": {
       "title" : "Správa uživatelů",
       "metadata" : {
-        "title" : "User metada"
+        "title" : "User metadata"
       },
       "roles" : {
         "list" : {
@@ -107,6 +107,13 @@
     "credit": "Zápočtové úkoly",
     "exam": "Zkouškové úkoly",
     "not-published": "Rozepsané",
+    "id": "ID",
+    "name": "Název úlohy",
+    "start-date": "Datum vytvoření",
+    "deadline-date": "Deadline",
+    "metadata" : {
+      "title" : "Metadata úlohy"
+    },
     "new": {
       "title": "Vytvořit novovu úlohu"
     },

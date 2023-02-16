@@ -60,7 +60,7 @@ function App() {
                                     <SolutionsToReview/>
                                 </AuthorizedRoute>
                             } />
-                            <Route path="challenge/:challengeId/solution/:solutionId" element={
+                            <Route path="challenge/:challengeId/solution/:solutionId/review/:reviewId" element={
                                 <AuthorizedRoute mandatoryRoles={[SemesterRole.REVIEW_CHALLENGE]}>
                                     <ReviewEditor />
                                 </AuthorizedRoute>

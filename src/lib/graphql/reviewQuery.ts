@@ -13,6 +13,10 @@ export const getSolutionsToReview = gql`
         solutionsToReview(challengeId: $challengeId, offset: $offset, size: $size) {
             id,
             uploadDate,
+            review {
+                id,
+                description
+            }
             author {
                 id
                 stagId,
@@ -47,20 +51,20 @@ export const editReviewMutation = gql`
     }
 `;
 
-export const addRequirementReview = gql`
-    mutation AddRequirementReview($reviewId: ID!, $requirementId: ID!, $input: ReviewPointsInput!) {
-        addReviewPoints(reviewId: $reviewId, requirementId: $requirementId, reviewPointsInput: $input)
+export const editReviewPoints = gql`
+    mutation AddRequirementReview($reviewId: ID!, $requirementId: ID!, $reviewPointsInput: ReviewPointsInput!) {
+        editReviewPoints(reviewId: $reviewId, requirementId: $requirementId, reviewPointsInput: $reviewPointsInput)
     }
 `;
 
-export interface AddRequirementReviewMutation {
+export interface EditReviewPointsMutation {
     addReviewPoints: Boolean
 }
 
-export interface AddReviewPointsVariables {
+export interface EditReviewPointsVariables {
     reviewId: number | string,
     requirementId: number | string,
-    input: ReviewPointsInput
+    reviewPointsInput: ReviewPointsInput
 }
 
 export interface ReviewPointsInput {

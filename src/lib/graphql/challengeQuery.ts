@@ -59,8 +59,12 @@ export const getSolutionQuery = gql`
                 }
             }
             author {
+                stagId,
+                mail,
                 displayName,
-                mail
+                mail,
+                registrationDate,
+                lastAccessDate
             }
         }
     }

@@ -6,57 +6,76 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
-
-const WIDTH = 30;
-const HEIGHT = 30;
+import {useMutation} from "@apollo/client";
+import {
+    editReviewPoints,
+    EditReviewPointsMutation,
+    EditReviewPointsVariables
+} from "../../../../../../../lib/graphql/reviewQuery";
+import {showErrorToast, showSuccessToast} from "../../../../../../editor/helpers";
+import {ClockIcon} from "@heroicons/react/24/outline";
 
 interface Props {
     requirement: Requirement
+    reviewId: number | string
 }
 
 interface Inputs {
-    point: number,
+    points: number,
 }
 
-const getIcon = (current: number, requirement: Requirement) => {
-    if (current >= requirement.minPoint!) {
-        return <CheckIcon width={WIDTH} height={HEIGHT}/>
-    }
-
-    return <XMarkIcon width={WIDTH} height={HEIGHT}/>
-}
-
-const RequirementPointsEditor = ({requirement}: Props) => {
+const RequirementPointsEditor = ({reviewId, requirement}: Props) => {
     const {t} = useTranslation();
-    const [current, setCurrent] = useState(requirement.minPoint || 0);
+    const [current, setCurrent] = useState<number | null>(null);
+
+    const [addPoints] = useMutation<EditReviewPointsMutation, EditReviewPointsVariables>(editReviewPoints, {
+        onError: (error) => {
+            showErrorToast(error);
+        },
+        onCompleted: () => {
+            showSuccessToast(t('common.message.publish'));
+        },
+    });
 
     const resolver = yupResolver(yup.object({
-        "point": yup.number()
+        "points": yup.number()
             .nullable()
             .required(t('challenge.requirement.action.point.error.required')),
     }));
 
-    const {register, handleSubmit, reset, formState: {errors}} = useForm<Inputs>({resolver});
+    const {register, handleSubmit, formState: {errors}} = useForm<Inputs>({resolver});
 
     const defaultInputs = {
-        point: 0,
+        points: 0,
     };
 
-    const submitHandler: SubmitHandler<Inputs> = async input => {
+    const inputChangeHandler = (value: string) => {
+        setCurrent(Number(value));
     }
 
-    return <div className="flex flex-row justify-start bg-gray-100 rounded-2xl my-3 p-5 w-full">
+    const submitHandler: SubmitHandler<Inputs> = async input => {
+        const {points} = input
+
+        await addPoints({variables: {
+            reviewId, requirementId: requirement.id, reviewPointsInput : { points }
+        }});
+
+        setCurrent(points);
+    }
+
+    return <div className={`${getColorProps(current, requirement)} flex flex-row justify-start bg-gray-100 rounded-2xl my-3 p-5 w-full`}>
         <form className="flex flex-row justify-around items-start align-middle w-full"
               onSubmit={handleSubmit(submitHandler)}>
-            <div className="flex flex-row">
+            <div className="flex flex-row h-full">
                 <div className="flex flex-col justify-center items-center align-middle h-full mr-4">
                     {getIcon(current, requirement)}
                 </div>
                 <div className="flex flex-row justify-center items-center align-middle">
                     <div className="flex flex-col w-12">
-                        <Input propertyName="point" defaultValue={defaultInputs.point}
+                        <Input propertyName="points" defaultValue={defaultInputs.points}
+                               onInputChange={inputChangeHandler}
                                placeHolder={t('challenge.requirement.action.point.place-holder')}
-                               register={register} error={errors.point?.message}
+                               register={register} error={errors.points?.message}
                         />
                     </div>
                     <div className="mx-2">/</div>
@@ -69,13 +88,40 @@ const RequirementPointsEditor = ({requirement}: Props) => {
             </div>
             <div className="flex flex-col w-20">
                 <button type="submit"
-                        className="w-fit hover:bg-gray-300 bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-full inline-flex items-center">
+                        className=" w-fit hover:bg-gray-300 bg-gray-200 text-gray-800 font-bold py-2 px-4 rounded-full inline-flex items-center">
                     <PencilIcon width={20} height={20}/>
                     <span>{t('common.button.update')}</span>
                 </button>
             </div>
         </form>
     </div>
+}
+
+const WIDTH_ICON = 30;
+const HEIGHT_ICON = 30;
+
+const getIcon = (current: number | null | undefined, requirement: Requirement) => {
+    if (!current && current !== 0) {
+        return <ClockIcon width={WIDTH_ICON} height={HEIGHT_ICON} />;
+    }
+
+    if (current > requirement.minPoint!) {
+        return <CheckIcon width={WIDTH_ICON} height={HEIGHT_ICON}/>;
+    }
+
+    return <XMarkIcon width={WIDTH_ICON} height={HEIGHT_ICON}/>;
+}
+
+const getColorProps = (current: number | null | undefined, requirement: Requirement) => {
+    if (!current && current !== 0) {
+        return "border-2 border-red-400";
+    }
+
+    if (current > requirement.minPoint!) {
+        return "border-2 border-teal-300";
+    }
+
+    return "";
 }
 
 export default RequirementPointsEditor;

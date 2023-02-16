@@ -11,7 +11,7 @@ import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {PencilSquareIcon} from "@heroicons/react/24/solid";
 import {useNavigate, useParams} from "react-router-dom";
-import {Review, Solution} from "../../../../../../lib/graphql/challengeQuery";
+import {Solution} from "../../../../../../lib/graphql/challengeQuery";
 import {showErrorToast} from "../../../../../editor/helpers";
 import CollapsibleTable from "../../../../../ui/CollapsibleTable";
 import {toFormattedDateTime} from "../../../../../../features/helper";
@@ -95,7 +95,7 @@ const ReviewTableBody = ({solution}: ReviewTableBodyProps) => {
             {solution.author.displayName}
         </td>
         <td className="px-6 py-4">
-            <ReviewTableActions solutionId={solution.id}/>
+            <ReviewTableActions solution={solution} />
         </td>
     </tr>
 }
@@ -104,30 +104,34 @@ const WIDTH = 15;
 const HEIGHT = 15;
 
 interface ReviewTableActionsProps {
-    solutionId: number | string,
-    review?: Review | undefined | null
+    solution: Solution
 }
 
-const ReviewTableActions = ({solutionId, review = null}: ReviewTableActionsProps) => {
+const ReviewTableActions = ({solution}: ReviewTableActionsProps) => {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId'>();
+    const {id: solutionId} = solution;
 
     const [createEmpty] = useMutation<CreateReviewMutation, CreateReviewVariables>(createReviewMutation);
 
     const addReviewClickHandle = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
 
-        if (!review) {
+        let reviewId = solution.review?.id
+
+        if (!reviewId) {
             const input = {description: t('challenge.review.editor.description.default')};
             try {
-                await createEmpty({variables: {solutionId, input}});
+                const result = await createEmpty({variables: {solutionId, input}});
+
+                reviewId = result.data?.createReview.id!
             } catch (error) {
                 showErrorToast(error);
                 return;
             }
         }
-        navigate(`/courses/${courseId}/semester/${semesterId}/challenge/${challengeId}/solution/${solutionId}`)
+        navigate(`/courses/${courseId}/semester/${semesterId}/challenge/${challengeId}/solution/${solutionId}/review/${reviewId}`)
     };
 
     return <div className="flex flex-row justify-center items-center align-middle">
