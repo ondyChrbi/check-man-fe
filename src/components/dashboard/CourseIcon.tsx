@@ -22,10 +22,11 @@ const CourseIcon = ({course, available = false}: Props) => {
     const {t} = useTranslation();
     const navigate = useNavigate();
 
-    const [sendAccessRequest, {data, loading, error}] = useMutation<CreateSemesterAccessRequestMutation,
+    const [sendAccessRequest] = useMutation<CreateSemesterAccessRequestMutation,
         SemesterAccessRequestVariables>(createSemesterAccessRequestMutation);
 
     const [showSign, setShowSign] = useState(false);
+    const [isHovering, setIsHovering] = useState(false);
 
     const semesters = course.semesters ?? [];
 
@@ -55,6 +56,8 @@ const CourseIcon = ({course, available = false}: Props) => {
         if (available) {
             setShowSign(true);
         }
+
+        setIsHovering(true);
     }
 
     const mouseIconLeaveHandler = (event: React.MouseEvent<HTMLElement>) => {
@@ -63,18 +66,26 @@ const CourseIcon = ({course, available = false}: Props) => {
         if (available) {
             setShowSign(false);
         }
+
+        setIsHovering(false);
     }
 
-    return <div className="course-container flex flex-col mx-10 hover:cursor-pointer"
+    return <div className="course-container flex flex-col mr-5 hover:cursor-pointer"
                 onClick={iconClickHandler}
                 onMouseEnter={mouseIconEnterHandler}
                 onMouseLeave={mouseIconLeaveHandler}>
         <div className="flex flex-col justify-center course-icon rounded-3xl w-40 h-40 shadow hover:shadow-lg"
              style={{backgroundColor: course.template}}>
-            {(!available || (available && !showSign)) && <img className="m-5" src={course.icon} alt={course.name}/>}
-            {available && showSign && <button>{t('course.available.join')}</button>}
+            {(course.icon && !available || (available && !showSign)) &&
+                <img className="m-5" src={course.icon} alt={course.name}/>
+            }
+            {available && showSign &&
+                <button>{t('course.available.join')}</button>
+            }
         </div>
-        <div className="my-4">{course.name}</div>
+        <div className="h-14">
+            {isHovering && <div className="my-4 text-center">{course.name}</div>}
+        </div>
     </div>
 }
 

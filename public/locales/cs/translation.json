@@ -27,6 +27,9 @@
     },
     "field": {
       "upload-date": "Datum nahrání"
+    },
+    "title" : {
+      "settings" : "Nastavení"
     }
   },
   "application": {
@@ -55,14 +58,37 @@
     "courses": {
       "me": "Zapsané kurzy",
       "not-available": "Žádné kurzy nejsou dostupné",
-      "available": "Dostupné kurzy"
+      "available": "Dostupné kurzy",
+      "manager" : "Správa kurzů"
     }
   },
   "course": {
     "available": {
       "join": "Zažádat o zapsání"
     },
+    "new": {
+      "title" : "Přidat úlohu"
+    },
     "action": {
+      "name" : {
+        "name": "Název kurzu",
+        "place-holder": "Název kurzu",
+        "error" : {
+          "max-length" : "Maximální možná délka tohoto pole je 256",
+          "required" : "Toto pole je povinné"
+        }
+      },
+      "stag-id" : {
+        "name": "Stag ID",
+        "place-holder": "Stag ID",
+        "error" : {
+          "max-length" : "Maximální možná délka tohoto pole je 128",
+          "required" : "Toto pole je povinné"
+        }
+      },
+      "template": {
+        "name": "Barva pozadí"
+      },
       "users": "Spravovat uživatele"
     },
     "users": {
@@ -97,6 +123,33 @@
         "actions": "Akce",
         "registration-date": "Datum registrace",
         "lastAccess-date": "Poslední přihlášení"
+      }
+    },
+    "manager" : {
+      "title" : "Editor kurzu: {{name}}",
+      "id": "ID",
+      "date-start" : "Datum zahájení",
+      "date-end" : "Datum ukončení"
+    },
+    "semester" : {
+      "new" : {
+        "title" : "Přidání nového semesteru"
+      },
+      "action" : {
+        "note" : {
+          "name" : "Poznámka ke kurzu",
+          "place-holder": "Poznámka ke kurzu",
+          "error" : {
+            "max-length" : "Maximální možná délka tohoto pole je 1024",
+            "required" : "Toto pole je povinné"
+          }
+        },
+        "dateStart" : {
+          "name" : "Datum začátku kurzu"
+        },
+        "dateEnd" : {
+          "name" : "Datum konce kurzu"
+        }
       }
     }
   },

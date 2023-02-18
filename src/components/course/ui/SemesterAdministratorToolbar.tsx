@@ -12,7 +12,7 @@ interface Props {
     challengeId?: number | string | undefined | null;
 }
 
-const AdministratorToolbar = ({courseId, semesterId, challengeId}: Props) => {
+const SemesterAdministratorToolbar = ({courseId, semesterId, challengeId}: Props) => {
     const {roles} = useCourseRoles(semesterId);
 
     return <div className="flex flex-row [&>*]:px-2">
@@ -31,4 +31,4 @@ const AdministratorToolbar = ({courseId, semesterId, challengeId}: Props) => {
     </div>
 }
 
-export default AdministratorToolbar;
+export default SemesterAdministratorToolbar;

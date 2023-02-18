@@ -67,7 +67,7 @@ const CourseUserTable = ( {courseId, semesterId} : Props) => {
                           onPreviousPageClicked={previousPageHandle}
                           max={Math.floor(DEFAULT_SIZE)}>
             {data.semester?.relatedUsers.map((user) =>
-                <CourseUserTableBody user={user} courseId={courseId} semesterId={semesterId} />
+                <CourseUserTableBody key={user.id} user={user} courseId={courseId} semesterId={semesterId} />
             )}
         </CollapsibleTable>
     </div>
@@ -85,7 +85,7 @@ const HEIGHT = 15;
 const CourseUserTableBody = ({user, courseId, semesterId}: CourseUserTableBodyProps) => {
     return <tr key={user.id} className="bg-white border-b">
         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-            { user.disabled ? <ArchiveBoxXMarkIcon width={WIDTH} height={HEIGHT} /> : <CheckIcon width={WIDTH} height={HEIGHT} /> }
+            {user.disabled ? <ArchiveBoxXMarkIcon width={WIDTH} height={HEIGHT} /> : <CheckIcon width={WIDTH} height={HEIGHT} /> }
         </th>
         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
             {user.stagId}

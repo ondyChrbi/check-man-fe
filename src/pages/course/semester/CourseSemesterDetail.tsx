@@ -1,12 +1,12 @@
 import {Outlet, useParams} from "react-router-dom";
 import {useQuery} from "@apollo/client";
-import ChallengeAside from "../../components/course/ui/challenge/ChallengeAside";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import ChallengeAside from "../../../components/course/ui/challenge/ChallengeAside";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 import React from "react";
-import {courseQuery, SemesterQuery} from "../../lib/graphql/courseQuery";
-import AdministratorToolbar from "../../components/course/ui/AdministratorToolbar";
-import {useAppDispatch} from "../../features/storage/hooks";
-import {addRoles} from "../../features/storage/storageSlice";
+import {courseQuery, SemesterQuery} from "../../../lib/graphql/courseQuery";
+import SemesterAdministratorToolbar from "../../../components/course/ui/SemesterAdministratorToolbar";
+import {useAppDispatch} from "../../../features/storage/hooks";
+import {addRoles} from "../../../features/storage/storageSlice";
 
 const CourseSemesterDetail = () => {
     const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId'| 'challengeId'>();
@@ -32,7 +32,7 @@ const CourseSemesterDetail = () => {
         <ChallengeAside semesterId={semesterId} courseId={courseId}/>
         <section className="w-full my-2 pl-10 pr-1 lg:m-0 lg:my-0 lg:m-10 lg:m-8">
             <div className="my-5 w-full flex flex-row items-end justify-end">
-                <AdministratorToolbar courseId={courseId} semesterId={semesterId} challengeId={challengeId} />
+                <SemesterAdministratorToolbar courseId={courseId} semesterId={semesterId} challengeId={challengeId} />
             </div>
             <Outlet/>
         </section>

@@ -60,6 +60,87 @@ export const allCourseRoles = gql`
     }
 `;
 
+export const createCourse = gql`
+    mutation CreateCourseMutation($input : CourseInput!) {
+        createCourse(input: $input) {
+            id,
+            stagId
+            name,
+            dateCreation,
+            icon,
+            template,
+        }
+    }
+`;
+
+export const course = gql`
+    query Course($id: ID!) {
+        course(id: $id) {
+            id,
+            stagId,
+            dateCreation,
+            icon,
+            template,
+            semesters {
+                id,
+                dateStart,
+                dateEnd,
+                note
+            }
+        }
+    }
+`
+
+export const createSemester = gql`
+    mutation CreateSemesterMutation($courseId: ID! $input: SemesterInput!) {
+        createSemester(courseId: $courseId, input: $input) {
+            id,
+            note,
+            dateStart,
+            dateEnd
+        }
+    }
+`
+
+export interface CreateSemesterMutation {
+    createSemester: Semester
+}
+
+export interface CreateSemesterVariables {
+    courseId: string | number,
+    input: SemesterInput
+}
+
+export interface SemesterInput {
+    note?: string
+    dateStart: string,
+    dateEnd?: string
+}
+
+export interface CourseQuery {
+    course: Course
+}
+
+export interface CourseVariables {
+    id: string | number
+}
+
+export interface CreateCourseMutation {
+    createCourse: Course
+}
+
+export interface CreateCourseVariables {
+    input: CourseInput
+}
+
+export interface CourseInput {
+    stagId: string;
+    name: string;
+    dateCreation?: Date;
+    icon?: string;
+    template?: string;
+}
+
 export interface AllCourseRolesQuery {
     allCourseRoles: Array<CourseSemesterRole>
 }

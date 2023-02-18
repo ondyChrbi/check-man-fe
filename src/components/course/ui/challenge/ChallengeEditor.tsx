@@ -22,7 +22,7 @@ interface Inputs {
 }
 
 const ChallengeEditor = () => {
-    const {semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId'>();
+    const {semesterId, challengeId} = useParams<'semesterId' | 'challengeId'>();
     const {t} = useTranslation();
 
     const {getChallenge, createChallenge, editChallenge, challengeKindSelectValue, resolver} = useChallenge({semesterId});
@@ -55,7 +55,7 @@ const ChallengeEditor = () => {
         </div>
     }
 
-    return <>
+    return <div className="flex flex-col w-full">
         <h1 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.new.title')}</h1>
         <form onSubmit={handleSubmit(submitHandler)}>
             <div className="my-5 grid grid-cols-1 md:grid-cols-2">
@@ -101,7 +101,7 @@ const ChallengeEditor = () => {
                 </div>
             </div>
         </form>
-    </>
+    </div>
 }
 
 export default ChallengeEditor;

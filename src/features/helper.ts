@@ -24,3 +24,10 @@ export const toFormattedDate = (date?: string) => {
         year: "numeric",
     }).replace(/\//g, ".").replace(',', '')
 }
+
+export const isBetween = (startDate: string, endDate: string, toCheck = new Date()) => {
+    const from = new Date(startDate);
+    const to = new Date(endDate);
+
+    return toCheck > from && toCheck < to;
+}

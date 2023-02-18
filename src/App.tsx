@@ -1,8 +1,8 @@
 import './index.css'
 import {Route, Routes} from 'react-router-dom'
-import CourseDashboard from "./pages/course/CourseDashboard";
+import CourseDashboard from "./pages/course/dashboard/CourseDashboard";
 import ProtectedRoute from "./features/authentication/component/ProtectedRoute";
-import CourseSemesterDetail from "./pages/course/CourseSemesterDetail";
+import CourseSemesterDetail from "./pages/course/semester/CourseSemesterDetail";
 import Login from "./pages/Login";
 import UnauthenticatedRoute from "./features/authentication/component/UnauthenticatedRoute";
 import ChallengeDetail from "./pages/course/challenge/ChallengeDetail";
@@ -18,6 +18,9 @@ import CourseUserDetail from "./pages/course/CourseUserDetail";
 import AuthorizedRoute from "./features/authentication/component/AuthorizedRoute";
 import {SemesterRole} from "./lib/graphql/courseQuery";
 import Error from "./pages/Error";
+import CourseEditor from "./pages/course/CourseEditor";
+import CourseDetail from "./pages/course/CourseDetail";
+import SemesterEditor from "./pages/course/semester/SemesterEditor";
 
 function App() {
     const authenticationInfo = useAppSelector((state) => state.storage.authentication);
@@ -33,6 +36,9 @@ function App() {
                         <Route path="/login" element={<UnauthenticatedRoute redirectUrl={"/dashboard"}><Login /></UnauthenticatedRoute>} />
                         <Route path="/error" element={<Error />} />
                         <Route path="/dashboard" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
+                        <Route path="/courses/add" element={<ProtectedRoute><CourseEditor /></ProtectedRoute>} />
+                        <Route path="/courses/:courseId" element={<CourseDetail />} />
+                        <Route path="/courses/:courseId/semester/add" element={<SemesterEditor />} />
                         <Route path="/courses/:courseId/semester/:semesterId" element={<ProtectedRoute><CourseSemesterDetail/></ProtectedRoute>}>
                             <Route path="users" element={
                                 <AuthorizedRoute mandatoryRoles={[SemesterRole.MANAGE_USERS]}>

@@ -63,6 +63,14 @@ export const getCourseDashboardQuery = gql`
                 dateEnd
             }
         }
+        courses {
+            id,
+            stagId,
+            name,
+            dateCreation,
+            icon,
+            template,
+        }
     }
 `;
 
@@ -85,6 +93,7 @@ export interface AvailableCoursesQuery {
 export interface CourseDashboardQuery {
     availableCourses: Array<Course>;
     myCourses: Array<Course>;
+    courses: Array<Course>;
 }
 
 export interface MeQuery {
