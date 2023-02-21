@@ -1,6 +1,6 @@
 import {InputProps} from "./Input";
 import {Control, Controller} from "react-hook-form";
-import DatePicker from "react-multi-date-picker";
+import DatePicker, {DateObject} from "react-multi-date-picker";
 import React from "react";
 import './DateTime.css';
 
@@ -23,8 +23,15 @@ const DateTime = ({
                         <DatePicker value={value || defaultValue}
                                     required={required}
                                     onChange={(date) => {
-                                        //@ts-ignore
-                                        onChange(date.toDate().toISOString())
+                                        if (date) {
+                                            if (Array.isArray(date)) {
+                                                const oneDate = date[0];
+                                                return onChange(oneDate.toDate().toISOString());
+                                            }
+
+                                            const oneDate = date as DateObject;
+                                            return onChange(oneDate.toDate().toISOString());
+                                        }
                                     }}
                         />
                     )}

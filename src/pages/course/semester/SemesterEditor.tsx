@@ -42,13 +42,9 @@ const SemesterEditor = ({semester} : Props) => {
         "note": yup.string()
             .max(1024, t('course.semester.action.note.error.max-length')),
         "dateStart": yup.date()
-            .transform(function (value) {
-                return value.toISOString();
-            }),
+            .required(t('course.semester.action.dateStart.error.required')),
         "dateEnd": yup.date()
-            .transform(function (value) {
-                return value.toISOString();
-            }),
+            .required(t('course.semester.action.dateEnd.error.required')),
     }));
 
     const defaultInputs = {
@@ -80,12 +76,14 @@ const SemesterEditor = ({semester} : Props) => {
                     <DateTime propertyName="dateStart" defaultValue={defaultInputs.dateStart} register={register}
                               label={t('course.semester.action.dateStart.name')} control={control}
                     />
+                    <div>{errors.dateStart?.message}</div>
                 </div>
 
                 <div className="m-0 lg:ml-5 mt-1 lg:mt-0 flex flex-col items-start justify-start">
                     <DateTime propertyName="dateEnd" defaultValue={defaultInputs.dateEnd} register={register}
                               label={t('course.semester.action.dateEnd.name')} control={control}
                     />
+                    <div>{errors.dateEnd?.message}</div>
                 </div>
             </div>
 

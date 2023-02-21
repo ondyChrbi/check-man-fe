@@ -145,10 +145,16 @@
           }
         },
         "dateStart" : {
-          "name" : "Datum začátku kurzu"
+          "name" : "Datum začátku kurzu",
+          "error" : {
+            "required" : "Toto pole je povinné"
+          }
         },
         "dateEnd" : {
-          "name" : "Datum konce kurzu"
+          "name" : "Datum konce kurzu",
+          "error" : {
+            "required" : "Toto pole je povinné"
+          }
         }
       }
     }

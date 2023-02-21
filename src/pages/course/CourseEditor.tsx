@@ -57,7 +57,7 @@ const CourseEditor = ({course}: Props) => {
     };
 
     return <div className="flex flex-col w-full">
-        <h1 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.new.title')}</h1>
+        <h1 className="my-7 text-gray-600 font-light text-4xl">{t('course.new.title')}</h1>
         <form onSubmit={handleSubmit(submitHandler)}>
             <div className="my-5 grid grid-cols-1 md:grid-cols-2">
                 <div className="m-0 lg:mr-5 mt-1 lg:mt-0 flex flex-col items-start justify-start">

@@ -114,14 +114,14 @@ const getIcon = (current: number | null | undefined, requirement: Requirement) =
 
 const getColorProps = (current: number | null | undefined, requirement: Requirement) => {
     if (!current && current !== 0) {
-        return "border-2 border-red-400";
+        return "";
     }
 
     if (current > requirement.minPoint!) {
         return "border-2 border-teal-300";
     }
 
-    return "";
+    return "border-2 border-red-400";
 }
 
 export default RequirementPointsEditor;
