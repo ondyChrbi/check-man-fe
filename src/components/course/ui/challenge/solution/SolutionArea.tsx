@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import SolutionDetail from "./SolutionDetail";
 import {useQuery} from "@apollo/client";
 import {getSolutionsQuery, GetSolutionsQuery, GetSolutionsVariables} from "../../../../../lib/graphql/challengeQuery";
-import Loader from "../../Loader";
+import Loader from "../../../../ui/Loader";
 
 
 interface Props {

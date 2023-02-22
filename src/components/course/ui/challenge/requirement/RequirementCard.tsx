@@ -1,6 +1,6 @@
 import {Requirement} from "../../../../../lib/graphql/requirementQuery";
 import {useTranslation} from "react-i18next";
-import {useRequirements} from "../../../../../features/authentication/hooks/challenge";
+import {useRequirements} from "../../../../../features/hooks/challenge";
 import React from "react";
 import {showErrorToast, showSuccessToast} from "../../../../editor/helpers";
 import {PencilIcon, TrashIcon} from "@heroicons/react/24/solid";

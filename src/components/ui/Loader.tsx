@@ -1,4 +1,4 @@
-import LoadingSpinner from "../../LoadingSpinner";
+import LoadingSpinner from "../LoadingSpinner";
 import React from "react";
 
 const ErrorLoader = () => {

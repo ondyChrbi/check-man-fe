@@ -6,7 +6,7 @@ import {
     GetSolutionQuery,
     GetSolutionVariables, Solution
 } from "../../../lib/graphql/challengeQuery";
-import Loader from "../../../components/course/ui/Loader";
+import Loader from "../../../components/ui/Loader";
 import React from "react";
 import FeedbacksView from "../../../components/course/ui/challenge/solution/review/feedback/FeedbacksView";
 import {useParams} from "react-router-dom";

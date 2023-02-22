@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {showErrorToast} from "../../../../editor/helpers";
 import {Requirement} from "../../../../../lib/graphql/requirementQuery";
-import {useRequirements} from "../../../../../features/authentication/hooks/challenge";
+import {useRequirements} from "../../../../../features/hooks/challenge";
 import {XMarkIcon} from "@heroicons/react/24/solid";
 
 interface Inputs {

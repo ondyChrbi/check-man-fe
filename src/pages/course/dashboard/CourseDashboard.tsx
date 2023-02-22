@@ -7,9 +7,7 @@ import {
 import {useTranslation} from "react-i18next";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import DashboardList from "./DashboardList";
-import Icon from "../../../components/dashboard/Icon";
-import {useNavigate} from "react-router-dom";
-import {PlusIcon} from "@heroicons/react/24/solid";
+import AddCourseIcon from "../../../components/course/AddCourseIcon";
 
 const CourseDashboard: React.FC = (): ReactElement => {
     const {t} = useTranslation();
@@ -39,20 +37,5 @@ const CourseDashboard: React.FC = (): ReactElement => {
     </div>
 }
 
-const ICON_WIDTH = 80;
-const ICON_HEIGHT = 80;
-
-const AddCourseIcon = () => {
-    const {t} = useTranslation();
-    const navigate = useNavigate();
-
-    const clickHandle = () => {
-        return navigate("/courses/add", {replace: true})
-    }
-
-    return <Icon onClick={clickHandle} title={t('common.title.settings')} color="#f2f2f2">
-        <PlusIcon width={ICON_WIDTH} height={ICON_HEIGHT} />
-    </Icon>
-}
 
 export default CourseDashboard;

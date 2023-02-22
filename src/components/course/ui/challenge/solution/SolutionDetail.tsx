@@ -1,7 +1,7 @@
 import {useQuery} from "@apollo/client";
 import {getSolutionQuery, GetSolutionQuery, GetSolutionVariables} from "../../../../../lib/graphql/challengeQuery";
 import React from "react";
-import Loader from "../../Loader";
+import Loader from "../../../../ui/Loader";
 
 interface Props {
     solutionId: number | string

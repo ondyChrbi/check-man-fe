@@ -10,7 +10,7 @@ import {
     EditChallengeVariables,
     getChallengeQuery,
     getChallengesQuery
-} from "../../../lib/graphql/challengeQuery";
+} from "../../lib/graphql/challengeQuery";
 import {useTranslation} from "react-i18next";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -22,7 +22,7 @@ import {
     RemoveRequirementMutation,
     removeRequirementMutation,
     RemoveRequirementVariables
-} from "../../../lib/graphql/requirementQuery";
+} from "../../lib/graphql/requirementQuery";
 
 interface UseChallengeProps {
     semesterId: string | number | undefined

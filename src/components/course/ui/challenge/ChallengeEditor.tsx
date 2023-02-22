@@ -7,7 +7,7 @@ import {
 import {useParams} from "react-router-dom";
 import LoadingSpinner from "../../../LoadingSpinner";
 import TextEditor from "../../../editor/TextEditor";
-import {useChallenge} from "../../../../features/authentication/hooks/challenge";
+import {useChallenge} from "../../../../features/hooks/challenge";
 import Input from "../../../editor/input/Input";
 import Select from "../../../editor/input/Select";
 import DateTime from "../../../editor/input/DateTime";
