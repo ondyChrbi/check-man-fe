@@ -1,5 +1,6 @@
 import {gql} from "@apollo/client";
 import {AppUser, CourseSemesterRole} from "./meQuery";
+import {SortOptions} from "./index";
 
 export const courseQuery = gql`
     query GetCourseSemester($id: ID!) {
@@ -74,14 +75,14 @@ export const createCourse = gql`
 `;
 
 export const course = gql`
-    query Course($id: ID!) {
+    query Course($id: ID!, $semesterSortBy: SemesterOrderByField) {
         course(id: $id) {
             id,
             stagId,
             dateCreation,
             icon,
             template,
-            semesters {
+            semesters(semesterSortBy: $semesterSortBy) {
                 id,
                 dateStart,
                 dateEnd,
@@ -89,7 +90,29 @@ export const course = gql`
             }
         }
     }
-`
+`;
+
+export const semesters = gql`
+    query Semesters($courseId: ID!, $oderBy: SemesterOrderByField, $sortOder: SortOrder, $pageSize: Int, $page: Int) {
+        semesters(courseId: $courseId, oderBy: $oderBy, sortOder: $sortOder, pageSize: $pageSize, page: $page) {
+            id,
+            dateStart,
+            dateEnd,
+            note,
+            
+            page,
+            pageSize
+        }
+    }
+`;
+
+export interface SemestersVariables extends SortOptions<SemesterSortField>{
+    courseId: string | number
+}
+
+export interface SemestersQuery {
+    semesters: Array<Semester>
+}
 
 export const createSemester = gql`
     mutation CreateSemesterMutation($courseId: ID! $input: SemesterInput!) {
@@ -100,7 +123,7 @@ export const createSemester = gql`
             dateEnd
         }
     }
-`
+`;
 
 export interface CreateSemesterMutation {
     createSemester: Semester
@@ -123,6 +146,7 @@ export interface CourseQuery {
 
 export interface CourseVariables {
     id: string | number
+    semesterSortBy? : string
 }
 
 export interface CreateCourseMutation {
@@ -207,4 +231,10 @@ export enum SemesterRole {
     VIEW_SOLUTIONS = 'VIEW_SOLUTIONS',
     MANAGE_USERS = 'MANAGE_USERS',
     VIEW_USERS = 'VIEW_USERS',
+}
+
+export enum SemesterSortField {
+    id = 'id',
+    dateStart = 'dateStart',
+    dateEnd = 'dateEnd'
 }

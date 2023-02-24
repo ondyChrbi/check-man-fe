@@ -1,4 +1,10 @@
-import {course, CourseQuery, CourseVariables, Semester} from "../../lib/graphql/courseQuery";
+import {
+    Semester,
+    semesters,
+    SemesterSortField,
+    SemestersQuery,
+    SemestersVariables
+} from "../../lib/graphql/courseQuery";
 import React, {useState} from "react";
 import {ArchiveBoxXMarkIcon, CheckIcon} from "@heroicons/react/24/solid";
 import {isBetween, toFormattedDateTime} from "../../features/helper";
@@ -6,9 +12,10 @@ import CollapsibleTable from "../ui/CollapsibleTable";
 import {useQuery} from "@apollo/client";
 import {useTranslation} from "react-i18next";
 import LoadingSpinner from "../LoadingSpinner";
+import {SortOrder} from "../../lib/graphql";
 
 const DEFAULT_OFFSET = 0;
-const DEFAULT_SIZE = 10;
+const DEFAULT_SIZE = 3;
 
 interface Props {
     courseId: number | string
@@ -18,8 +25,8 @@ const CourseSemesterList = ({courseId} : Props) => {
     const {t} = useTranslation();
 
     const [offset, setOffset] = useState<number>(DEFAULT_OFFSET);
-    const {data, loading, error} = useQuery<CourseQuery, CourseVariables>(course, {
-        variables: {id: courseId!}
+    const {data, loading, error} = useQuery<SemestersQuery, SemestersVariables>(semesters, {
+        variables: {courseId: courseId!, oderBy: SemesterSortField.dateStart, sortOrder: SortOrder.DESC, pageSize: DEFAULT_SIZE, page: DEFAULT_OFFSET}
     });
 
     const CAPTIONS = [
@@ -56,8 +63,8 @@ const CourseSemesterList = ({courseId} : Props) => {
     return <CollapsibleTable captions={CAPTIONS} offset={offset} onNextPageClicked={nextPageHandle}
                              onPreviousPageClicked={previousPageHandle}
                              max={Math.floor(DEFAULT_SIZE)}>
-        {data?.course?.semesters?.map((semester) =>
-            <SemesterTableBody semester={semester} />
+        {data?.semesters?.map((semester) =>
+            <SemesterTableBody key={semester.id} semester={semester} />
         )}
     </CollapsibleTable>
 }
@@ -81,7 +88,7 @@ const SemesterTableBody = ({semester, onClick}: SemesterTableBodyProps) => {
 
     return <tr onClick={clickHandle} key={semester.id} className="bg-white border-b">
         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-            {isActive(semester.dateStart, semester.dateEnd) ? <ArchiveBoxXMarkIcon width={ICON_WIDTH} height={ICON_HEIGHT} /> : <CheckIcon width={ICON_WIDTH} height={ICON_HEIGHT} /> }
+            {isActive(semester.dateStart, semester.dateEnd) ? <CheckIcon width={ICON_WIDTH} height={ICON_HEIGHT} /> : <ArchiveBoxXMarkIcon width={ICON_WIDTH} height={ICON_HEIGHT} /> }
         </th>
         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
             {semester.id}
