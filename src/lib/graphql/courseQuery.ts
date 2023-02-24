@@ -93,8 +93,8 @@ export const course = gql`
 `;
 
 export const semesters = gql`
-    query Semesters($courseId: ID!, $oderBy: SemesterOrderByField, $sortOder: SortOrder, $pageSize: Int, $page: Int) {
-        semesters(courseId: $courseId, oderBy: $oderBy, sortOder: $sortOder, pageSize: $pageSize, page: $page) {
+    query Semesters($courseId: ID!, $oderBy: SemesterOrderByField, $sortOrder: SortOrder, $pageSize: Int, $page: Int) {
+        semesters(courseId: $courseId, oderBy: $oderBy, sortOrder: $sortOrder, pageSize: $pageSize, page: $page) {
             id,
             dateStart,
             dateEnd,
