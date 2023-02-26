@@ -8,6 +8,8 @@ import {useParams} from "react-router-dom";
 import ChallengeAsideActionsMenu from "./ChallengeAsideActionsMenu";
 import CollapsibleButton from "../../../CollapsibleButton";
 
+import './ChallengeAside.css';
+
 interface Props {
     courseId: number | string
     semesterId: number | string
@@ -81,7 +83,7 @@ const ChallengeAside = ({courseId, semesterId}: Props) => {
 
     const challenges = groupChallenges(data.challenges);
 
-    return <aside className="flex flex-row justify-start items-start md:w-80 h-full fixed bg-gray-600 z-10"
+    return <aside className="flex flex-row justify-start items-start md:w-80 h-full fixed background z-10"
                   style={{left: (isOpen) ? OPEN : HIDDEN}}>
         <menu className="w-72 h-full">
             <div className="w-72 absolute top-0 left-0 overflow-y-auto z-0 h-full">

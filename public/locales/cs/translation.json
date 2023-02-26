@@ -193,7 +193,8 @@
         "name": "Zadání úlohy",
         "place-holder": "",
         "error": {
-          "required": "Toto pole je povinné"
+          "required": "Toto pole je povinné",
+          "max-length": "Maximální možná délka tohoto pole je 4098"
         }
       },
       "start-date": {

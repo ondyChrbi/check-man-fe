@@ -49,7 +49,7 @@ const ChallengeCard = ({challenge, onClick}: Props) => {
         <li onMouseOver={handleMouseOver}
             onMouseOut={handleMouseOut}
             onClick={onChallengeClickHandler}
-            className="my-1 py-2.5 md:w-72 flex flex-row hover:bg-gray-500 hover:cursor-pointer">
+            className="my-1 py-2.5 md:w-72 flex flex-row hover:cursor-pointer">
             <div className="m-2 w-10 h-full flex items-center justify-center">
                 <object className="w-5 h-5 fill-white"
                         data={`/icons/${challenge.challengeKind.toLowerCase()}-course.svg`} type="image/svg+xml"/>

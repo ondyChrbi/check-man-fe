@@ -92,6 +92,11 @@ export const editChallengeMutation = gql`
     mutation EditChallengeMutation($challengeId: ID!, $input: ChallengeInput!) {
         editChallenge(challengeId: $challengeId, input: $input) {
             id
+            name
+            description
+            startDate
+            deadlineDate
+            challengeKind
         }
     }
 `;
@@ -130,6 +135,14 @@ export interface ChallengeInput {
     challengeKind: ChallengeKind
 }
 
+export interface EditChallengeInput {
+    name?: string,
+    description?: string,
+    deadlineDate?: string,
+    startDate?: string,
+    challengeKind?: ChallengeKind
+}
+
 export interface CreateChallengeVariables{
     semesterId: string,
     input: ChallengeInput
@@ -144,8 +157,8 @@ export interface GetSolutionsVariables {
 }
 
 export interface EditChallengeVariables{
-    challengeId: string,
-    input: ChallengeInput
+    challengeId: string | number,
+    input: EditChallengeInput
 }
 
 export interface PublishChallengeMutationVariables {

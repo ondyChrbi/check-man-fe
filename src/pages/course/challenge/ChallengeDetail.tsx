@@ -13,6 +13,7 @@ import ChallengePublishButton from "../../../components/course/ui/challenge/form
 import SolutionsArea from "../../../components/course/ui/challenge/solution/SolutionArea";
 import ReviewAlert from "../../../components/course/ui/challenge/solution/review/ReviewAlert";
 import {Requirement} from "../../../lib/graphql/requirementQuery";
+import ChallengeDescription from "./ChallengeDescription";
 
 interface Props {
     argChallengeId?: number
@@ -59,7 +60,7 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
             <ReviewAlert challengeId={challengeId}/>
         }
         <h1 className="my-7 text-gray-600 font-light text-4xl">{data.challenge.name}</h1>
-        <div dangerouslySetInnerHTML={{__html: data.challenge.description}}></div>
+        <ChallengeDescription semesterId={semesterId!} challenge={data.challenge} />
         <h2 className="my-7 text-gray-600 font-light text-2xl">{t('challenge.requirement.title')}</h2>
         <RequirementList challengeId={challengeId} semesterId={semesterId!} onNewRecord={showRequirementEditorHandle}
                          onEditRecord={editRequirementHandle}

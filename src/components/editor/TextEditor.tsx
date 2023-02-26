@@ -10,11 +10,12 @@ import {Control, Controller} from "react-hook-form";
 export interface Props extends InputProps {
     control?: Control<any>;
     required?: boolean | undefined;
+    defaultValue?: string
 }
 
-const TextEditor = ({propertyName, required = false, label, control}: Props) => {
+const TextEditor = ({propertyName, required = false, label, control, defaultValue = ""}: Props) => {
     const [editor, setEditor] = useState<IDomEditor | null>(null)
-    const [editorState, setEditorState] = useState<string | undefined>('<p>hello</p>')
+    const [editorState, setEditorState] = useState<string | undefined>(defaultValue)
 
     const editorValueChangeHandler = (editor: IDomEditor | null) => {
         setEditorState(editor?.getHtml());

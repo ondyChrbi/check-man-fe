@@ -1,10 +1,10 @@
 import {Outlet, useParams} from "react-router-dom";
 import React from "react";
-import ReviewTable from "../../../components/course/ui/challenge/solution/review/ReviewTable";
+import ReviewTable from "../../../../components/course/ui/challenge/solution/review/ReviewTable";
 import {useTranslation} from "react-i18next";
 import {useQuery} from "@apollo/client";
-import {ChallengeQuery, getChallengeQuery} from "../../../lib/graphql/challengeQuery";
-import LoadingSpinner from "../../../components/LoadingSpinner";
+import {ChallengeQuery, getChallengeQuery} from "../../../../lib/graphql/challengeQuery";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
 
 const SolutionsToReview = () => {
     const {t} = useTranslation();

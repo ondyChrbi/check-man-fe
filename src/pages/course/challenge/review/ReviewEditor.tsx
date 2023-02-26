@@ -5,19 +5,19 @@ import {
     getSolutionQuery,
     GetSolutionQuery,
     GetSolutionVariables, Solution
-} from "../../../lib/graphql/challengeQuery";
-import Loader from "../../../components/ui/Loader";
+} from "../../../../lib/graphql/challengeQuery";
+import Loader from "../../../../components/ui/Loader";
 import React from "react";
-import FeedbacksView from "../../../components/course/ui/challenge/solution/review/feedback/FeedbacksView";
+import FeedbacksView from "../../../../components/course/ui/challenge/solution/review/feedback/FeedbacksView";
 import {useParams} from "react-router-dom";
-import ReviewPublishButton from "../../../components/course/ui/challenge/solution/review/ReviewPublishButton";
-import ReviewDescriptionEditor from "../../../components/course/ui/challenge/solution/review/ReviewDescriptionEditor";
+import ReviewPublishButton from "../../../../components/course/ui/challenge/solution/review/ReviewPublishButton";
+import ReviewDescriptionEditor from "../../../../components/course/ui/challenge/solution/review/ReviewDescriptionEditor";
 import RequirementPointsEditor
-    from "../../../components/course/ui/challenge/solution/review/requirement/RequirementPointsEditor";
+    from "../../../../components/course/ui/challenge/solution/review/requirement/RequirementPointsEditor";
 import {useTranslation} from "react-i18next";
-import MetadataTable from "../../../components/ui/MetadataTable";
-import {toFormattedDate, toFormattedDateTime} from "../../../features/helper";
-import {AppUser} from "../../../lib/graphql/meQuery";
+import MetadataTable from "../../../../components/ui/MetadataTable";
+import {toFormattedDate, toFormattedDateTime} from "../../../../features/helper";
+import {AppUser} from "../../../../lib/graphql/meQuery";
 
 const ReviewEditor = () => {
     const {t} = useTranslation();
