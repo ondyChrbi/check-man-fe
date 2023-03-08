@@ -29,14 +29,16 @@ const LoginForm = () => {
 
     return (
         <div className="flex flex-row justify-center align-middle mx-3 md:mx-0 h-full">
-            <div className="flex flex-col justify-center align-middle rounded-lg shadow-md shadow-gray-300 bg-white w-96 h-fit p-8">
+            <div className="flex flex-col justify-center align-middle">
+                <div className="flex flex-row justify-center align-middle items-center pb-14">
+                    <object className="w-48 h-48 fill-white" data="/pages/fingerprint.svg" type="image/svg+xml"/>
+                </div>
                 <h1 className="font-roboto text-teal-600 text-2xl md:text-5xl uppercase font-bold text-center">{t('application.name')}</h1>
-                <h2 className="font-roboto text-gray-600 text-sm text-center pb-7">{t('application.subtitle')}</h2>
+                <h2 className="font-roboto text-gray-500 text-sm text-right font-bold pb-7">{t('application.subtitle')}</h2>
                 <div className="mt-7">
-                    <h3 className="text-center text-gray-500 font-bold text-sm mb-3">{t('authentication.title')}</h3>
                     {AuthenticationService.isNotAuthenticated(authenticationInfo) &&
                         <button
-                            className="w-full text-center text-gray-900 bg-white hover:shadow-gray-300 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-md shadow-sm shadow-gray-200 text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-800 dark:bg-white dark:border-gray-700 dark:text-gray-900 dark:hover:shadow-gray-600 mr-2 mb-2"
+                            className="w-full text-center text-gray-900 bg-white hover:shadow-gray-300 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-full shadow-sm shadow-gray-200 text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2"
                             onClick={loginToMicrosoftAccount}>
                             <object className="w-6 h-6 mr-5" data={`/icons/button/microsoft-logo.svg`}
                                     type="image/svg+xml"/>
@@ -46,8 +48,6 @@ const LoginForm = () => {
                 </div>
                 <div className="flex flex-row justify-center align-middle text-xs text-center mt-8 text-gray-500">
                     <div>{t('authentication.troubleshooting.login')}</div>
-                    <div className="w-1 h-1 mt-1.5 mx-2.5 bg-gray-400 rounded-full"></div>
-                    <div>{t('authentication.troubleshooting.report-bug')}</div>
                 </div>
             </div>
         </div>

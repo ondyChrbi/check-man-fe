@@ -83,8 +83,7 @@ const ChallengeAside = ({courseId, semesterId}: Props) => {
 
     const challenges = groupChallenges(data.challenges);
 
-    return <aside className="flex flex-row justify-start items-start md:w-80 h-full fixed background z-10"
-                  style={{left: (isOpen) ? OPEN : HIDDEN}}>
+    return <aside className="flex flex-row justify-start items-start md:w-80 h-full fixed background z-10" style={{left: (isOpen) ? OPEN : HIDDEN}}>
         <menu className="w-72 h-full">
             <div className="w-72 absolute top-0 left-0 overflow-y-auto z-0 h-full">
                 <ChallengeList challenges={challenges} courseId={courseId} semesterId={semesterId}

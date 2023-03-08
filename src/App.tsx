@@ -26,14 +26,14 @@ function App() {
     const authenticationInfo = useAppSelector((state) => state.storage.authentication);
     
     return (
-        <div className="w-full flex flex-col flex-wrap">
+        <div className="w-full flex flex-col h-full">
             {authenticationInfo?.jwtInfo?.token && <Header />}
             <ToastContainer />
-            <main className="flex lg:m-0 flex-row w-full sm:w-full justify-center">
-                <div className="w-full lg:w-256 ">
+            <main className="flex lg:m-0 flex-row w-full sm:w-full justify-center h-full">
+                <div className="w-full h-full">
                     <Routes>
-                        <Route path="/" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
                         <Route path="/login" element={<UnauthenticatedRoute redirectUrl={"/dashboard"}><Login /></UnauthenticatedRoute>} />
+                        <Route path="/" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
                         <Route path="/error" element={<Error />} />
                         <Route path="/dashboard" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
                         <Route path="/courses/add" element={<ProtectedRoute><CourseEditor /></ProtectedRoute>} />

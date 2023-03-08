@@ -28,14 +28,16 @@ const CourseSemesterDetail = () => {
 
     if (error || !semesterId || !courseId) return <>Error</>
 
-    return <div className="w-full h-full flex flex-row">
-        <ChallengeAside semesterId={semesterId} courseId={courseId}/>
-        <section className="w-full my-2 pl-10 pr-1 lg:m-0 lg:my-0 lg:m-10 lg:m-8">
-            <div className="my-5 w-full flex flex-row items-end justify-end">
-                <SemesterAdministratorToolbar courseId={courseId} semesterId={semesterId} challengeId={challengeId} />
-            </div>
-            <Outlet/>
-        </section>
+    return <div className="w-full flex flex-col justify-center items-center align-middle">
+        <div className="w-full lg:w-256 h-full flex flex-row">
+            <ChallengeAside semesterId={semesterId} courseId={courseId}/>
+            <section className="w-full my-2 pl-10 pr-1 lg:m-0 lg:my-0 lg:m-10 lg:m-8">
+                <div className="my-5 w-full flex flex-row items-end justify-end">
+                    <SemesterAdministratorToolbar courseId={courseId} semesterId={semesterId} challengeId={challengeId} />
+                </div>
+                <Outlet/>
+            </section>
+        </div>
     </div>
 }
 

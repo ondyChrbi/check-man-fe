@@ -40,7 +40,7 @@
   "authentication": {
     "title": "Přihlešte se ke svému účtu",
     "login": {
-      "button": "Univerzitní Microsoft účet"
+      "button": "Microsoft účet"
     },
     "logout": {
       "button": "Odhlásit se"
@@ -323,5 +323,12 @@
         }
       }
     }
+  },
+  "tip" : {
+    "0" : "Časová složitost algoritmu buble sort je zhruba O(n^2). Quick sortu O(n log n).",
+    "1" : "Interface je pouze předpis metod. Při jeho využití musí třída implementovat dané metody nebo být označena jako abstraktní.",
+    "2" : "Strategy je behaviorální návrhový vzor určující, který algoritmus bude použit pro konkrétní situaci.",
+    "3" : "Deadlock je nežádoucí stav, kdy vlákna navzájem čekají na přístup k prostředku, který je v držení toho druhého.",
+    "4" : "Pole v Javě má pevnou velikost. Nelze jej dynamicky rozšiřovat. Jiné jazyky jako například JavaScript toto umožňují."
   }
 }

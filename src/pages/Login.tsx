@@ -10,7 +10,7 @@ const Login = () => {
         return <Navigate to="/dashboard" replace />;
     }
 
-    return <div className="w-full h-full bg-gray-50 pt-5 md:pt-10">
+    return <div className="w-full h-full bg-white pt-5 md:pt-10">
         <LoginForm />
     </div>;
 }

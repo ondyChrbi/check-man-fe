@@ -8,11 +8,12 @@ import {disableJwtToken} from "../features/storage/storageSlice";
 
 interface Props {
     size?: string | number | undefined
+    showLogo? : boolean | null | undefined
 }
 
 const AVATAR_DEFAULT_SIZE = '30';
 
-const Header = ({size = AVATAR_DEFAULT_SIZE}: Props) => {
+const Header = ({size = AVATAR_DEFAULT_SIZE, showLogo = true}: Props) => {
     const {t} = useTranslation()
 
     const {loading, data} = useQuery<MeQuery>(meQuery);
@@ -24,11 +25,10 @@ const Header = ({size = AVATAR_DEFAULT_SIZE}: Props) => {
         dispatch(disableJwtToken());
     }
 
-    return <div
-        className="flex w-full grid grid-cols-2 shadow-lg hover:drop-shadow-xl bg-gray-100 px-5 sticky top-0 z-50 h-14">
-        <div className="flex flex-col items-start justify-center">
+    return <div className="flex w-full grid grid-cols-2 px-5 sticky top-0 z-50 h-14">
+        {showLogo && <div className="flex flex-col items-start justify-center">
             <h1 className="font-roboto text-teal-600 text-2xl uppercase font-bold text-center">{t('application.name')}</h1>
-        </div>
+        </div>}
         {!loading && data?.me.displayName &&
             <div className="flex flex-row justify-end p-2.5">
                 <Avatar className="mt-0.5" name={data.me.displayName} round={true} size={size.toString()}/>
