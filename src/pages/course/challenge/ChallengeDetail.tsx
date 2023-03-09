@@ -3,7 +3,7 @@ import {ChallengeQuery, getChallengeQuery} from "../../../lib/graphql/challengeQ
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import React, {useState} from "react";
 import {useParams} from "react-router-dom";
-import RequirementList from "../../../components/course/ui/challenge/requirement/RequirementList";
+import Requirements from "../../../components/course/ui/challenge/requirement/Requirements";
 import {useTranslation} from "react-i18next";
 import RequirementEditor from "../../../components/course/ui/challenge/requirement/RequirementEditor";
 import ChallengeUploadSolutionForm from "../../../components/course/ui/challenge/form/ChallengeUploadSolutionForm";
@@ -14,6 +14,7 @@ import SolutionsArea from "../../../components/course/ui/challenge/solution/Solu
 import ReviewAlert from "../../../components/course/ui/challenge/solution/review/ReviewAlert";
 import {Requirement} from "../../../lib/graphql/requirementQuery";
 import ChallengeDescription from "./ChallengeDescription";
+import FadeIn from "../../../components/ui/animated/FadeIn";
 
 interface Props {
     argChallengeId?: number
@@ -59,12 +60,16 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
         {data.challenge.published && roles.includes(SemesterRole.REVIEW_CHALLENGE) &&
             <ReviewAlert challengeId={challengeId}/>
         }
-        <h1 className="my-7 text-gray-600 font-light text-4xl">{data.challenge.name}</h1>
-        <ChallengeDescription semesterId={semesterId!} challenge={data.challenge} />
-        <h2 className="my-7 text-gray-600 font-light text-2xl">{t('challenge.requirement.title')}</h2>
-        <RequirementList challengeId={challengeId} semesterId={semesterId!} onNewRecord={showRequirementEditorHandle}
-                         onEditRecord={editRequirementHandle}
-                         editable={!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE)}/>
+
+        <FadeIn>
+            <h1 className="my-7 text-gray-600 font-light text-4xl">{data.challenge.name}</h1>
+            <ChallengeDescription semesterId={semesterId!} challenge={data.challenge} />
+        </FadeIn>
+
+        <Requirements challengeId={challengeId} semesterId={semesterId!} onNewRecord={showRequirementEditorHandle}
+                      onEditRecord={editRequirementHandle}
+                      editable={!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE)}
+        />
 
         {requirementEditorDisplayed && !data.challenge.published && <>
             {roles.includes(SemesterRole.EDIT_CHALLENGE) && <>
@@ -73,12 +78,11 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
         </>}
 
         {!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE) && <ChallengePublishButton challengeId={challengeId}/>}
-
         {data.challenge.published && roles.includes(SemesterRole.SUBMIT_CHALLENGE_SOLUTION) &&
-            <>
+            <FadeIn>
                 <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.solution.upload.title')}</h2>
                 <ChallengeUploadSolutionForm courseId={courseId!} semesterId={semesterId!} challengeId={challengeId!}/>
-            </>
+            </FadeIn>
         }
         <SolutionsArea challengeId={challengeId}/>
     </>

@@ -13,6 +13,7 @@ import './ChallengeAside.css';
 interface Props {
     courseId: number | string
     semesterId: number | string
+    open?: boolean | null | undefined
 }
 
 export interface ChallengeMap {
@@ -53,22 +54,24 @@ const groupChallenges = (challenges: Array<Challenge>) => {
 const HIDDEN = '-18rem';
 const OPEN = '0rem'
 
-const ChallengeAside = ({courseId, semesterId}: Props) => {
+const ChallengeAside = ({courseId, semesterId, open = true}: Props) => {
     const {challengeId} = useParams<'challengeId'>();
     const {loading, error, data} = useQuery<ChallengesQuery>(getChallengesQuery, {variables: {"semesterId": semesterId}});
     const {t} = useTranslation();
 
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(open!);
 
     const collapsibleButtonClickHandler = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
         setIsOpen(!isOpen);
     }
 
+    const challengePickedHandle = (_challenge: Challenge) => {
+        setIsOpen(false);
+    }
+
     if (loading) {
-        return <div className="md:w-80 h-full flex flex-row items-center justify-center">
-            <LoadingSpinner/>
-        </div>
+        return;
     }
 
     if (error) {
@@ -87,7 +90,7 @@ const ChallengeAside = ({courseId, semesterId}: Props) => {
         <menu className="w-72 h-full">
             <div className="w-72 absolute top-0 left-0 overflow-y-auto z-0 h-full">
                 <ChallengeList challenges={challenges} courseId={courseId} semesterId={semesterId}
-                               challengeId={challengeId!}/>
+                               challengeId={challengeId!} onChallengePicked={challengePickedHandle}/>
                 <ChallengeAsideActionsMenu courseId={courseId} semesterId={semesterId} />
             </div>
         </menu>

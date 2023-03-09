@@ -24,7 +24,7 @@ const ChallengeCreateButton = ({semesterId, courseId}: Props) => {
     return <animated.div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
         <Link to={`/courses/${courseId}/semester/${semesterId}/challenge/create`}>
             <div
-                className="rounded-full w-fit hover:bg-teal-200 text-gray-800 font-bold py-2 p-2 inline-flex items-center">
+                className="rounded-full w-fit hover:bg-teal-200 text-gray-800 font-bold py-2 px-4 inline-flex items-center">
                 <PlusIcon width={20} height={20}/>
                 {isHovering && <animated.div>{t('challenge.action.create')}</animated.div>}
             </div>

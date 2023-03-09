@@ -14,7 +14,7 @@ interface Props {
 const AVATAR_DEFAULT_SIZE = '30';
 
 const Header = ({size = AVATAR_DEFAULT_SIZE, showLogo = true}: Props) => {
-    const {t} = useTranslation()
+    const {t} = useTranslation();
 
     const {loading, data} = useQuery<MeQuery>(meQuery);
     const dispatch = useAppDispatch();
@@ -26,9 +26,7 @@ const Header = ({size = AVATAR_DEFAULT_SIZE, showLogo = true}: Props) => {
     }
 
     return <div className="flex w-full grid grid-cols-2 px-5 sticky top-0 z-50 h-14">
-        {showLogo && <div className="flex flex-col items-start justify-center">
-            <h1 className="font-roboto text-teal-600 text-2xl uppercase font-bold text-center">{t('application.name')}</h1>
-        </div>}
+        {showLogo && <Logo />}
         {!loading && data?.me.displayName &&
             <div className="flex flex-row justify-end p-2.5">
                 <Avatar className="mt-0.5" name={data.me.displayName} round={true} size={size.toString()}/>
@@ -39,6 +37,17 @@ const Header = ({size = AVATAR_DEFAULT_SIZE, showLogo = true}: Props) => {
                 </button>
             </div>
         }
+    </div>
+}
+
+const Logo = () => {
+    const {t} = useTranslation();
+
+    return <div className="flex flex-col items-start justify-center">
+        <div className="flex flex-row">
+            <object className="w-8 h-8 fill-white mr-2" data="/pages/fingerprint.svg" type="image/svg+xml"/>
+            <h1 className="font-roboto text-teal-600 text-2xl uppercase font-bold text-center">{t('application.name')}</h1>
+        </div>
     </div>
 }
 

@@ -102,7 +102,7 @@ const RequirementEditor = ({challengeId, requirement, onFinished, onHide}: Props
                             </div>
                         </div>
 
-                        <div className="flex flex-col w-96 justify-center items-center">
+                        <div className="flex flex-col w-full max-w-96 justify-center items-center">
                             <div className="flex flex-col my-1 w-full">
                                 <Input propertyName="name" defaultValue={defaultInputs.name}
                                        placeHolder={t('challenge.requirement.action.name.place-holder')}

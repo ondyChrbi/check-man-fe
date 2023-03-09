@@ -11,13 +11,18 @@ interface Props {
     courseId: string | number;
     semesterId: string | number;
     showCaptions?: boolean
+    onChallengePicked?: (challenge: Challenge) => void | Promise<void>
 }
 
-const ChallengeList = ({challenges, courseId, semesterId, challengeId, showCaptions = false}: Props) => {
+const ChallengeList = ({challenges, courseId, semesterId, challengeId, onChallengePicked, showCaptions = false}: Props) => {
     const navigate = useNavigate();
     const {t} = useTranslation();
 
-    const challengeCardClickHandler = (challenge: Challenge) => {
+    const challengeCardClickHandler = async (challenge: Challenge) => {
+        if (onChallengePicked) {
+            await onChallengePicked(challenge);
+        }
+
         return navigate(`/courses/${courseId}/semester/${semesterId}/challenge/${challenge.id}`, {replace: true})
     }
 

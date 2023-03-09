@@ -15,7 +15,7 @@ interface Props {
     challengeId: string | number,
     semesterId: string | number,
     onEditRequirementClick?: (requirement: Requirement) => void | undefined | Promise<void | undefined>,
-    editable?: boolean,
+    editable?: boolean | undefined | null,
 }
 
 const RequirementCard = ({ requirement, challengeId, semesterId, onEditRequirementClick, editable = false }: Props) => {
