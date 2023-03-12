@@ -7,6 +7,7 @@ import {courseQuery, SemesterQuery} from "../../../lib/graphql/courseQuery";
 import SemesterAdministratorToolbar from "../../../components/course/ui/SemesterAdministratorToolbar";
 import {useAppDispatch} from "../../../features/storage/hooks";
 import {addRoles} from "../../../features/storage/storageSlice";
+import CourseSemesterRequirements from "../../../components/course/CourseSemesterRequirements";
 
 const CourseSemesterDetail = () => {
     const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId'| 'challengeId'>();
@@ -35,6 +36,7 @@ const CourseSemesterDetail = () => {
                 <div className="my-5 w-full flex flex-row items-end justify-end">
                     <SemesterAdministratorToolbar courseId={courseId} semesterId={semesterId} challengeId={challengeId} />
                 </div>
+                <CourseSemesterRequirements semesterId={semesterId} />
                 <Outlet/>
             </section>
         </div>

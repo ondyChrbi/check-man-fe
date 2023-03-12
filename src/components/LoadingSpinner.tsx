@@ -2,7 +2,7 @@ import {useTranslation} from "react-i18next";
 import {animated, useSpring} from "@react-spring/web";
 
 const RANDOM_TIP_MIN = 0
-const RANDOM_TIP_MAX = 4
+const RANDOM_TIP_MAX = 7
 
 
 const LoadingSpinner = () => {

@@ -63,6 +63,17 @@
     }
   },
   "course": {
+    "requirement": {
+      "title" : "Požadavky pro splnění kurzu",
+      "input" : {
+        "title" : {
+          "OPTIONAL" : "Dobrovolná úloha",
+          "MANDATORY" : "Povinná úloha",
+          "CREDIT" : "Zápočtová úloha",
+          "EXAM" : "Zkoušková úloha"
+        }
+      }
+    },
     "available": {
       "join": "Zažádat o zapsání"
     },
@@ -329,6 +340,9 @@
     "1" : "Interface je pouze předpis metod. Při jeho využití musí třída implementovat dané metody nebo být označena jako abstraktní.",
     "2" : "Strategy je behaviorální návrhový vzor určující, který algoritmus bude použit pro konkrétní situaci.",
     "3" : "Deadlock je nežádoucí stav, kdy vlákna navzájem čekají na přístup k prostředku, který je v držení toho druhého.",
-    "4" : "Pole v Javě má pevnou velikost. Nelze jej dynamicky rozšiřovat. Jiné jazyky jako například JavaScript toto umožňují."
+    "4" : "Pole v Javě má pevnou velikost. Nelze jej dynamicky rozšiřovat. Jiné jazyky jako například JavaScript toto umožňují.",
+    "5" : "Normalizace je proces kdy je tabulka přeorganizována tak aby maximálně využila výhody relačního modelu.",
+    "6" : "Přetížení je deklarace metody se stejným názvem ale jinými parametry. Změna názvů parametrů ovšem nestačí.",
+    "7" : "Kdo se moc ptá málo Googlí. Kdo googlí příliš, nezná AI."
   }
 }

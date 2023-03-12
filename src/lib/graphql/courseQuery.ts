@@ -8,7 +8,8 @@ export const courseQuery = gql`
             id,
             note,
             dateStart,
-            dateEnd
+            dateEnd,
+            fulfillmentConditions
         }
         courseRoles(id: $id)
     }
@@ -209,6 +210,7 @@ export interface Semester {
     note: string;
     dateStart: string;
     dateEnd: string;
+    fulfillmentConditions: any;
     relatedUsers?: Array<AppUser>
 }
 
@@ -231,6 +233,7 @@ export enum SemesterRole {
     VIEW_SOLUTIONS = 'VIEW_SOLUTIONS',
     MANAGE_USERS = 'MANAGE_USERS',
     VIEW_USERS = 'VIEW_USERS',
+    EDIT_COURSE = 'EDIT_COURSE',
 }
 
 export enum SemesterSortField {

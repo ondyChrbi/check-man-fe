@@ -71,7 +71,7 @@ const ChallengeAside = ({courseId, semesterId, open = true}: Props) => {
     }
 
     if (loading) {
-        return;
+        return <LoadingSpinner />;
     }
 
     if (error) {
