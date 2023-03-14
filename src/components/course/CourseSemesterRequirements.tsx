@@ -2,45 +2,43 @@ import {ChallengeKind} from "../../lib/graphql/challengeQuery";
 import CounterInput from "../editor/input/CounterInput";
 import {useTranslation} from "react-i18next";
 import {useCourseRoles} from "../../features/authorization/hooks";
-import {SemesterRole} from "../../lib/graphql/courseQuery";
+import {
+    CourseRequirements,
+    editSemesterRequirements,
+    EditSemesterRequirementsMutation,
+    EditSemesterRequirementsVariables,
+    SemesterRole
+} from "../../lib/graphql/courseQuery";
 import {useState} from "react";
+import {useMutation} from "@apollo/client";
+import {showErrorToast, showSuccessToast} from "../editor/helpers";
 
 interface Props {
     semesterId: number | string
+    requirements?: CourseRequirements | undefined | null
 }
 
-interface Input {
-    minOptional: number,
-    minMandatory: number,
-    minCredit: number,
-    minExam: number,
-}
-
-const CourseSemesterRequirements = ({semesterId} : Props) => {
+const CourseSemesterRequirements = ({semesterId, requirements = INIT_REQUIREMENTS} : Props) => {
     const {t} = useTranslation();
     const {roles} = useCourseRoles(semesterId);
 
-    const [input, setInput] = useState<Input>({
-        minOptional: 0, minMandatory: 0, minCredit: 0, minExam: 0
-    });
+    const [edit] = useMutation<EditSemesterRequirementsMutation, EditSemesterRequirementsVariables>(editSemesterRequirements, {
+        onError: (error) => {
+            showErrorToast(error);
+        },
+        onCompleted: () => {
+            showSuccessToast(t('common.message.publish'));
+        },
+    })
 
-    const changeInputHandle = (name: ChallengeKind, value: number) => {
-        debugger;
+    const [formValues, setFormValues] = useState(requirements || INIT_REQUIREMENTS);
 
-        switch (name) {
-            case ChallengeKind.OPTIONAL:
-                setInput({...input, minOptional: value});
-                break;
-            case ChallengeKind.MANDATORY:
-                setInput({...input, minMandatory: value});
-                break;
-            case ChallengeKind.CREDIT:
-                setInput({...input, minCredit: value});
-                break;
-            case ChallengeKind.EXAM:
-                setInput({...input, minExam: value});
-                break;
-        }
+    const changeInputHandle = async (name: ChallengeKind, value: number) => {
+        //@ts-ignore
+        const {__typename, ...input} = updateFormValue(formValues, name, value);
+
+        setFormValues({...input});
+        await edit({variables: {semesterId, input}});
     }
 
     return <div className="flex flex-col">
@@ -51,12 +49,45 @@ const CourseSemesterRequirements = ({semesterId} : Props) => {
                 <h2 className={`w-fit font-roboto text-gray-700 text-center font-light text-md mb-3 font-bold ${textColorMap.get(k)}`}>
                     {t(`course.requirement.input.title.${k}`)}
                 </h2>
-                <CounterInput key={k} color={colorMap.get(k)} textColor={textColorMap.get(k)} name={k}
+                <CounterInput key={k} color={colorMap.get(k)} textColor={textColorMap.get(k)} name={k} current={getCurrent(k, formValues)}
                               editable={roles.includes(SemesterRole.EDIT_COURSE)} onValueChange={changeInputHandle} />
             </div>)}
         </div>
     </div>
 }
+
+const updateFormValue = (formValues: CourseRequirements, name: ChallengeKind, value: number) => {
+    let input = {...formValues};
+
+    switch (name) {
+        case ChallengeKind.OPTIONAL:
+            input = {...input, minOptional: value};
+            break;
+        case ChallengeKind.MANDATORY:
+            input = {...input, minMandatory: value};
+            break;
+        case ChallengeKind.CREDIT:
+            input = {...input, minCredit: value};
+            break;
+        case ChallengeKind.EXAM:
+            input = {...input, minExam: value};
+            break;
+    }
+    return input;
+}
+
+const getCurrent = (kind: ChallengeKind, requirements: CourseRequirements) => {
+    switch (kind) {
+        case ChallengeKind.OPTIONAL:
+            return requirements.minOptional;
+        case ChallengeKind.MANDATORY:
+            return requirements.minMandatory;
+        case ChallengeKind.CREDIT:
+            return requirements.minCredit;
+        default:
+            return requirements.minExam;
+    }
+};
 
 const colorMap = new Map();
 colorMap.set(ChallengeKind.OPTIONAL, 'border-teal-300');
@@ -69,5 +100,12 @@ textColorMap.set(ChallengeKind.OPTIONAL, 'text-teal-400');
 textColorMap.set(ChallengeKind.MANDATORY, 'text-teal-600');
 textColorMap.set(ChallengeKind.CREDIT, 'text-teal-800');
 textColorMap.set(ChallengeKind.EXAM, 'text-teal-900');
+
+const INIT_REQUIREMENTS : CourseRequirements = {
+    minOptional: 0,
+    minMandatory: 0,
+    minCredit: 0,
+    minExam: 0
+};
 
 export default CourseSemesterRequirements;

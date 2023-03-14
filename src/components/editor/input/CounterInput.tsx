@@ -8,20 +8,19 @@ interface Props {
     color?: string
     textColor?: string
     current?: number
-    onValueChange?: (name: any, value: number) => void
+    onValueChange?: (name: any, value: number) => void | Promise<void>
 }
 
 export const enum Operation {
     PLUS, MINUS, DIRECT
 }
 
-const CounterInput = ({name, editable = false, color = "border-teal-600", textColor = "text-teal-700", current = 0,
-                          onValueChange}: Props) => {
+const CounterInput = ({name, editable = false, color = "border-teal-600", textColor = "text-teal-700", current = 0, onValueChange}: Props) => {
     const [value, setValue] = useState(current);
 
     useEffect(() => {
         const timeOutId = setTimeout(() => {
-            if (editable && onValueChange && name) {
+            if (editable && onValueChange && name && value != current) {
                 onValueChange(name, value)
             }
         }, TYPING_DELAY);

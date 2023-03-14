@@ -1,5 +1,5 @@
 import {gql} from "@apollo/client";
-import {AppUser, CourseSemesterRole} from "./meQuery";
+import {AppUser} from "./meQuery";
 import {SortOptions} from "./index";
 
 export const courseQuery = gql`
@@ -9,7 +9,12 @@ export const courseQuery = gql`
             note,
             dateStart,
             dateEnd,
-            fulfillmentConditions
+            fulfillmentConditions {
+                minOptional
+                minMandatory
+                minCredit
+                minExam
+            }
         }
         courseRoles(id: $id)
     }
@@ -38,12 +43,6 @@ export const courseQueryWithRelatedUser = gql`
     }
 `
 
-export const courseRoles = gql`
-   query GetCourseRoles($id: ID!) {
-       courseRoles(id: $id)
-   }
-`
-
 export const createSemesterAccessRequestMutation = gql`
     mutation CreateSemesterAccessRequestMutation($semesterId: ID!) {
         createSemesterAccessRequest(semesterId: $semesterId) {
@@ -52,15 +51,6 @@ export const createSemesterAccessRequestMutation = gql`
         }
     }
 `
-
-export const allCourseRoles = gql`
-    query GetAllCourseRoles {
-        allCourseRoles {
-            id,
-            name
-        }
-    }
-`;
 
 export const createCourse = gql`
     mutation CreateCourseMutation($input : CourseInput!) {
@@ -121,10 +111,49 @@ export const createSemester = gql`
             id,
             note,
             dateStart,
-            dateEnd
+            dateEnd,
+            fulfillmentConditions {
+                minOptional
+                minMandatory
+                minCredit
+                minExam
+            }
         }
     }
 `;
+
+export const editSemesterRequirements = gql`
+    mutation EditSemesterRequirementsMutation($semesterId: ID!, $input: CourseSemesterRequirementsInput!) {
+        editSemesterRequirements(semesterId: $semesterId, input: $input) {
+            id,
+            note,
+            dateStart,
+            dateEnd,
+            fulfillmentConditions {
+                minOptional
+                minMandatory
+                minCredit
+                minExam
+            }
+        }
+    }
+`;
+
+export interface EditSemesterRequirementsMutation {
+    editSemesterRequirements: Semester
+}
+
+export interface EditSemesterRequirementsVariables {
+    semesterId: number | string
+    input: CourseSemesterRequirements
+}
+
+export interface CourseSemesterRequirements {
+    minOptional: number,
+    minMandatory: number,
+    minCredit: number,
+    minExam: number,
+}
 
 export interface CreateSemesterMutation {
     createSemester: Semester
@@ -141,15 +170,6 @@ export interface SemesterInput {
     dateEnd?: string
 }
 
-export interface CourseQuery {
-    course: Course
-}
-
-export interface CourseVariables {
-    id: string | number
-    semesterSortBy? : string
-}
-
 export interface CreateCourseMutation {
     createCourse: Course
 }
@@ -164,10 +184,6 @@ export interface CourseInput {
     dateCreation?: Date;
     icon?: string;
     template?: string;
-}
-
-export interface AllCourseRolesQuery {
-    allCourseRoles: Array<CourseSemesterRole>
 }
 
 export interface CourseQueryWithRelatedUserQuery {
@@ -210,16 +226,19 @@ export interface Semester {
     note: string;
     dateStart: string;
     dateEnd: string;
-    fulfillmentConditions: any;
+    fulfillmentConditions: CourseRequirements;
     relatedUsers?: Array<AppUser>
+}
+
+export interface CourseRequirements {
+    minOptional: number;
+    minMandatory: number;
+    minCredit: number;
+    minExam: number;
 }
 
 export interface SemesterQuery {
     semester?: Semester;
-    courseRoles: SemesterRole[];
-}
-
-export interface CourseRolesQuery {
     courseRoles: SemesterRole[];
 }
 

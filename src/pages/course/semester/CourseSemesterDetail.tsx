@@ -10,11 +10,12 @@ import {addRoles} from "../../../features/storage/storageSlice";
 import CourseSemesterRequirements from "../../../components/course/CourseSemesterRequirements";
 
 const CourseSemesterDetail = () => {
-    const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId'| 'challengeId'>();
+    const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId'>();
     const dispatch = useAppDispatch();
-    const {loading, error} = useQuery<SemesterQuery>(courseQuery, {
+
+    const {data, loading, error} = useQuery<SemesterQuery>(courseQuery, {
         variables: {"id": semesterId},
-        onCompleted: ({courseRoles : roles}) => {
+        onCompleted: ({courseRoles: roles}) => {
             if (courseId) {
                 dispatch(addRoles({semesterId: courseId, roles}));
             }
@@ -29,15 +30,18 @@ const CourseSemesterDetail = () => {
 
     if (error || !semesterId || !courseId) return <>Error</>
 
+    debugger
+
     return <div className="w-full flex flex-col justify-center items-center align-middle">
         <div className="w-full lg:w-256 h-full flex flex-row">
-            <ChallengeAside semesterId={semesterId} courseId={courseId} open={false} />
+            <ChallengeAside semesterId={semesterId} courseId={courseId} open={false}/>
             <section className="w-full my-2 pl-10 pr-1 lg:m-0 lg:my-0 lg:m-10 lg:m-8">
                 <div className="my-5 w-full flex flex-row items-end justify-end">
-                    <SemesterAdministratorToolbar courseId={courseId} semesterId={semesterId} challengeId={challengeId} />
+                    <SemesterAdministratorToolbar courseId={courseId} semesterId={semesterId}
+                                                  challengeId={challengeId}/>
                 </div>
-                <CourseSemesterRequirements semesterId={semesterId} />
-                <Outlet/>
+                {Outlet ? <Outlet/> : <CourseSemesterRequirements requirements={data?.semester?.fulfillmentConditions}
+                                                                  semesterId={semesterId}/>}
             </section>
         </div>
     </div>
