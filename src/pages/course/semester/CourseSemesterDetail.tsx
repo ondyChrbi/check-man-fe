@@ -30,8 +30,6 @@ const CourseSemesterDetail = () => {
 
     if (error || !semesterId || !courseId) return <>Error</>
 
-    debugger
-
     return <div className="w-full flex flex-col justify-center items-center align-middle">
         <div className="w-full lg:w-256 h-full flex flex-row">
             <ChallengeAside semesterId={semesterId} courseId={courseId} open={false}/>
@@ -40,8 +38,9 @@ const CourseSemesterDetail = () => {
                     <SemesterAdministratorToolbar courseId={courseId} semesterId={semesterId}
                                                   challengeId={challengeId}/>
                 </div>
-                {Outlet ? <Outlet/> : <CourseSemesterRequirements requirements={data?.semester?.fulfillmentConditions}
+                {!challengeId && <CourseSemesterRequirements requirements={data?.semester?.fulfillmentConditions}
                                                                   semesterId={semesterId}/>}
+                <Outlet />
             </section>
         </div>
     </div>
