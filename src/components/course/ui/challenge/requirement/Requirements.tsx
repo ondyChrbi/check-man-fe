@@ -3,7 +3,6 @@ import {getRequirementsQuery, Requirement, RequirementQuery} from "../../../../.
 import LoadingSpinner from "../../../../LoadingSpinner";
 import React from "react";
 import RequirementCard from "./RequirementCard";
-import {useTranslation} from "react-i18next";
 import FadeIn from "../../../../ui/animated/FadeIn";
 import AddRequirementButton from "./AddRequirementButton";
 
@@ -16,7 +15,6 @@ interface Props {
 }
 
 const Requirements = ({challengeId, semesterId, onNewRecord, onEditRecord, editable = false}: Props) => {
-    const {t} = useTranslation();
     const {data, loading} = useQuery<RequirementQuery>(getRequirementsQuery, {
         variables: {"challengeId": challengeId}
     });
@@ -35,12 +33,11 @@ const Requirements = ({challengeId, semesterId, onNewRecord, onEditRecord, edita
 
     return <FadeIn>
         <div className="w-full flex flex-col">
-            <h2 className="my-7 text-gray-600 font-light text-2xl">{t('challenge.requirement.title')}</h2>
             {data && data.requirements && data.requirements.length !== 0 ?
                 <RequirementList requirements={data?.requirements} challengeId={challengeId} semesterId={semesterId}
                                  onEditRequirementClick={editRequirementClickHandle} editable={editable}
                                  onNewRecord={onNewRecord}/> :
-                <EmptyRequirementsArea onClick={onNewRecord}/>
+                <>{editable && <EmptyRequirementsArea onClick={onNewRecord}/>}</>
             }
         </div>
     </FadeIn>

@@ -34,7 +34,7 @@ const CourseSemesterDetail = () => {
         <div className="w-full lg:w-256 h-full flex flex-row">
             <ChallengeAside semesterId={semesterId} courseId={courseId} open={false}/>
             <section className="w-full my-2 pl-10 pr-1 lg:m-0 lg:my-0 lg:m-10 lg:m-8">
-                <div className="my-5 w-full flex flex-row items-end justify-end">
+                <div className="my-5 w-full md:h-14 flex flex-col items-end justify-center align-middle">
                     <SemesterAdministratorToolbar courseId={courseId} semesterId={semesterId}
                                                   challengeId={challengeId}/>
                 </div>

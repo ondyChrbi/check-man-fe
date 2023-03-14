@@ -25,6 +25,9 @@ module.exports = {
         extend: {
             width: {
                 '256': '64rem',
+            },
+            minWidth: {
+                '14' : '3.5rem;'
             }
         },
         fontFamily: {

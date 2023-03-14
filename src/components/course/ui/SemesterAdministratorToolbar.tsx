@@ -15,7 +15,7 @@ interface Props {
 const SemesterAdministratorToolbar = ({courseId, semesterId, challengeId}: Props) => {
     const {roles} = useCourseRoles(semesterId);
 
-    return <div className="flex flex-row [&>*]:px-2">
+    return <div className="flex flex-row md:h-14 h-fit [&>*]:px-2 ">
         <div className="px-2">{roles.includes(SemesterRole.CREATE_CHALLENGE) &&
             <ChallengeCreateButton semesterId={semesterId} courseId={courseId}/>
         }</div>
