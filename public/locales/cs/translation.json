@@ -240,7 +240,8 @@
       "upload": {
         "title": "Nahrát řešení",
         "action": {
-          "send": "Odevzdat řešení"
+          "send": "Odevzdat řešení",
+          "uploaded" : "Řešení bylo odesláno k revizi"
         }
       },
       "status" : {

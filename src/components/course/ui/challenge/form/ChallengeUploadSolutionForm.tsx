@@ -2,23 +2,20 @@ import React, {useState} from 'react';
 import FileListItem from "../../../../editor/input/upload/FileListItem";
 import {UploadArea, UploadedFile} from "../../../../editor/input/upload/UploadArea";
 import {generateZip} from "../../../../../features/upload/helper";
-import {ChallengeV1ApiFp} from "../../../../../lib/api/api";
 import {useAppSelector} from "../../../../../features/storage/hooks";
 import {useTranslation} from "react-i18next";
+import {useChallengeUpload} from "../../../../../features/hooks/challenge";
 
 interface Props {
-    courseId: number | string;
-    semesterId: number | string;
     challengeId: number | string;
 }
 
-const ChallengeUploadSolutionForm = ({courseId, semesterId, challengeId}: Props) => {
+const ChallengeUploadSolutionForm = ({challengeId}: Props) => {
     const {t} = useTranslation();
+    const {uploadSolution, uploadProgress} = useChallengeUpload(challengeId);
 
     const authenticationInfo = useAppSelector((state) => state.storage.authentication.jwtInfo);
-
     const [fileList, setFileList] = useState<UploadedFile[]>([]);
-    const [, setUploading] = useState(false);
 
     const deleteFromUploadHandle = (uid: string) => {
         const filtered = fileList.filter((f) => f.uid !== uid);
@@ -32,16 +29,10 @@ const ChallengeUploadSolutionForm = ({courseId, semesterId, challengeId}: Props)
 
     const handleUpload = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
-
-        setUploading(true);
-
         const file = await generateZip(fileList);
 
         if (authenticationInfo) {
-            const response = (await ChallengeV1ApiFp().upload(+courseId, +semesterId, +challengeId, {file}, {}));
-
-            await response();
-            setUploading(false);
+            await uploadSolution(file);
         }
     };
 
@@ -66,6 +57,9 @@ const ChallengeUploadSolutionForm = ({courseId, semesterId, challengeId}: Props)
                 {t('challenge.solution.upload.action.send')}
             </button>
         </div>
+        {uploadProgress > 0 && <>
+            Uploading...
+        </>}
     </>;
 };
 

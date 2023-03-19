@@ -23,6 +23,10 @@ import {
     removeRequirementMutation,
     RemoveRequirementVariables
 } from "../../lib/graphql/requirementQuery";
+import {useState} from "react";
+import axios from "axios";
+import {useAppSelector} from "../storage/hooks";
+import {showErrorToast, showSuccessToast} from "../../components/editor/helpers";
 
 interface UseChallengeProps {
     semesterId: string | number | undefined
@@ -96,4 +100,50 @@ export const useRequirements = ({ challengeId } : UseRequirementsProps) => {
     }));
 
     return {createRequirement, editRequirement, removeRequirement, resolver};
+}
+
+const TESTING_SUBSYSTEM_API_URL = import.meta.env.VITE_TESTING_SUBSYSTEM_API_URL;
+
+export interface SolutionDtoV1 {
+    id: number;
+    path: string;
+    uploadDate: Date;
+}
+
+export const useChallengeUpload = (challengeId: string | number) => {
+    const {t} = useTranslation();
+
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const authenticationInfo = useAppSelector((state) => state.storage.authentication.jwtInfo);
+
+    const uploadSolution = async (solution : Blob) => {
+        if (!solution || !challengeId || !authenticationInfo?.token) {
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', solution);
+
+        try {
+            const result = await axios.post<SolutionDtoV1>(`${TESTING_SUBSYSTEM_API_URL}/challenge/${challengeId}/solution`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `${authenticationInfo.token}`
+                },
+                onUploadProgress: (progressEvent) => {
+                    if (progressEvent && progressEvent.total) {
+                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        setUploadProgress(percentCompleted);
+                    }
+                },
+            });
+
+            showSuccessToast(t('challenge.solution.upload.action.uploaded'));
+            return result.data;
+        } catch (error) {
+            showErrorToast(error);
+        }
+    };
+
+    return {uploadSolution, uploadProgress}
 }

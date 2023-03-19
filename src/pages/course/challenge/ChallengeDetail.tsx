@@ -21,7 +21,7 @@ interface Props {
 }
 
 const ChallengeDetail = ({argChallengeId}: Props) => {
-    const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId'>();
+    const {semesterId, challengeId} = useParams<'semesterId' | 'challengeId'>();
 
     const {t} = useTranslation();
     const {roles} = useCourseRoles(semesterId!);
@@ -81,7 +81,7 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
         {data.challenge.published && roles.includes(SemesterRole.SUBMIT_CHALLENGE_SOLUTION) &&
             <FadeIn>
                 <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.solution.upload.title')}</h2>
-                <ChallengeUploadSolutionForm courseId={courseId!} semesterId={semesterId!} challengeId={challengeId!}/>
+                <ChallengeUploadSolutionForm challengeId={challengeId!}/>
             </FadeIn>
         }
         <SolutionsArea challengeId={challengeId}/>
