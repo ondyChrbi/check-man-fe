@@ -1,6 +1,7 @@
 import {gql} from "@apollo/client";
 import {AppUser} from "./meQuery";
 import {Requirement} from "./requirementQuery";
+import {TestResult} from "./solutionQuery";
 
 export const getChallengesQuery = gql`
     query GetChallengeQuery($semesterId: ID!) {
@@ -65,6 +66,13 @@ export const getSolutionQuery = gql`
                 mail,
                 registrationDate,
                 lastAccessDate
+            }
+            testResult {
+                id,
+                log,
+                creationDate,
+                updateDate,
+                status
             }
         }
     }
@@ -225,7 +233,8 @@ export interface Solution {
     uploadDate: string,
     status: Status,
     review: Review,
-    author: AppUser
+    author: AppUser,
+    testResult?: TestResult | null | undefined
 }
 
 export enum Status {

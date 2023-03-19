@@ -245,11 +245,17 @@
         }
       },
       "status" : {
+        "title" : {
+          "APPROVED": "Akceptováno",
+          "RETURN_TO_EDIT": "Vráceno k opravě",
+          "DENIED": "Zamítnuto",
+          "WAITING_TO_REVIEW": "Čeká na revizi"
+        },
         "action" : {
           "APPROVED": "Akceptovat",
           "RETURN_TO_EDIT": "Vrátit k opravě",
           "DENIED": "Zamítnout",
-          "WAITING_TO_REVIEW": "Vrátit k opravě"
+          "WAITING_TO_REVIEW": "Vrátit k čekání na opravu"
         }
       }
     },

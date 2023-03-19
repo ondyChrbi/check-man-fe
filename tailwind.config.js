@@ -17,6 +17,10 @@ module.exports = {
         'text-red-800',
         'text-gray-500',
         'text-blue-600',
+        'text-green-300',
+        'text-purple-800',
+        'text-red-800',
+        'text-blue-400',
         'bg-teal-300',
         'bg-blue-400',
         'bg-red-500'
