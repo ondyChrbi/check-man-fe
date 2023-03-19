@@ -10,13 +10,12 @@ interface Props {
 
 const DashboardList = ({courses = [], title, children}: Props) => {
     return <div className="flex flex-col w-full">
-        {title && <div className="my-3 bg">
-            <h1>{title}</h1>
-        </div>}
-        <div className="flex flex-wrap justify-start items-end w-full">
-            {courses.map((course) =>
-                <CourseIcon key={course.id} course={course}/>)
-            }
+        <div className="flex flex-wrap justify-center align-middle w-full">
+            {courses.map(course =>
+                <div className="mx-5">
+                    <CourseIcon key={course.id} course={course} />
+                </div>
+            )}
             {children}
         </div>
     </div>

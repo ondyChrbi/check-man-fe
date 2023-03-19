@@ -3,15 +3,18 @@ import {useQuery} from "@apollo/client";
 import ChallengeAside from "../../../components/course/ui/challenge/ChallengeAside";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import React from "react";
-import {courseQuery, SemesterQuery} from "../../../lib/graphql/courseQuery";
+import {courseQuery, SemesterQuery, SemesterRole} from "../../../lib/graphql/courseQuery";
 import SemesterAdministratorToolbar from "../../../components/course/ui/SemesterAdministratorToolbar";
 import {useAppDispatch} from "../../../features/storage/hooks";
 import {addRoles} from "../../../features/storage/storageSlice";
 import CourseSemesterRequirements from "../../../components/course/CourseSemesterRequirements";
+import {useCourseRoles} from "../../../features/authorization/hooks";
 
 const CourseSemesterDetail = () => {
     const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId'>();
     const dispatch = useAppDispatch();
+
+    const {roles} = useCourseRoles(semesterId!!);
 
     const {data, loading, error} = useQuery<SemesterQuery>(courseQuery, {
         variables: {"id": semesterId},
@@ -38,8 +41,11 @@ const CourseSemesterDetail = () => {
                     <SemesterAdministratorToolbar courseId={courseId} semesterId={semesterId}
                                                   challengeId={challengeId}/>
                 </div>
-                {!challengeId && <CourseSemesterRequirements requirements={data?.semester?.fulfillmentConditions}
-                                                                  semesterId={semesterId}/>}
+                {!challengeId && data?.semester &&
+                    <CourseSemesterRequirements requirements={data?.semester?.fulfillmentConditions}
+                                                editable={roles.includes(SemesterRole.EDIT_COURSE)}
+                                                semester={data.semester} />
+                }
                 <Outlet />
             </section>
         </div>

@@ -28,10 +28,8 @@ const CourseDashboard: React.FC = (): ReactElement => {
         return <p>{t('challenge.courses.not-available')}</p>;
     }
 
-    return <div className="flex flex-col justify-center items-center p-8">
-        <DashboardList courses={data.myCourses} title={t('dashboard.courses.me')} />
-        <DashboardList courses={data.availableCourses} title={t('dashboard.courses.available')} />
-        <DashboardList courses={data.courses} title={t('dashboard.courses.manager')}>
+    return <div className="flex flex-col justify-center items-center p-8 h-full">
+        <DashboardList courses={data.myCourses} title={t('dashboard.courses.me')}>
             <AddCourseIcon />
         </DashboardList>
     </div>

@@ -1,26 +1,25 @@
 import {ChallengeKind} from "../../lib/graphql/challengeQuery";
 import CounterInput from "../editor/input/CounterInput";
 import {useTranslation} from "react-i18next";
-import {useCourseRoles} from "../../features/authorization/hooks";
 import {
     CourseRequirements,
     editSemesterRequirements,
     EditSemesterRequirementsMutation,
     EditSemesterRequirementsVariables,
-    SemesterRole
+    Semester
 } from "../../lib/graphql/courseQuery";
 import {useState} from "react";
 import {useMutation} from "@apollo/client";
 import {showErrorToast, showSuccessToast} from "../editor/helpers";
 
 interface Props {
-    semesterId: number | string
+    semester: Semester
     requirements?: CourseRequirements | undefined | null
+    editable?: boolean
 }
 
-const CourseSemesterRequirements = ({semesterId, requirements = INIT_REQUIREMENTS} : Props) => {
+const CourseSemesterRequirements = ({semester, requirements = INIT_REQUIREMENTS, editable = false}: Props) => {
     const {t} = useTranslation();
-    const {roles} = useCourseRoles(semesterId);
 
     const [edit] = useMutation<EditSemesterRequirementsMutation, EditSemesterRequirementsVariables>(editSemesterRequirements, {
         onError: (error) => {
@@ -38,19 +37,20 @@ const CourseSemesterRequirements = ({semesterId, requirements = INIT_REQUIREMENT
         const {__typename, ...input} = updateFormValue(formValues, name, value);
 
         setFormValues({...input});
-        await edit({variables: {semesterId, input}});
+        await edit({variables: {semesterId: semester.id, input}});
     }
 
     return <div className="flex flex-col">
         <h1 className="mt-7 mb-10 text-gray-600 font-light text-4xl">{t('course.requirement.title')}</h1>
         <div className="flex flex-wrap justify-around md:justify-between items-end w-full">
-            {Object.values(ChallengeKind).map((k) => <div
+            {Object.values(ChallengeKind).filter((k) => isDisplayable(editable, k, formValues)).map((k) => <div
                 className="flex flex-col w-fit text-center justify-center items-center align-middle mx-5">
                 <h2 className={`w-fit font-roboto text-gray-700 text-center font-light text-md mb-3 font-bold ${textColorMap.get(k)}`}>
                     {t(`course.requirement.input.title.${k}`)}
                 </h2>
-                <CounterInput key={k} color={colorMap.get(k)} textColor={textColorMap.get(k)} name={k} current={getCurrent(k, formValues)}
-                              editable={roles.includes(SemesterRole.EDIT_COURSE)} onValueChange={changeInputHandle} />
+                <CounterInput key={k} color={colorMap.get(k)} textColor={textColorMap.get(k)} name={k}
+                              current={getCurrent(k, formValues)}
+                              editable={editable} onValueChange={changeInputHandle}/>
             </div>)}
         </div>
     </div>
@@ -101,11 +101,16 @@ textColorMap.set(ChallengeKind.MANDATORY, 'text-teal-600');
 textColorMap.set(ChallengeKind.CREDIT, 'text-teal-800');
 textColorMap.set(ChallengeKind.EXAM, 'text-teal-900');
 
-const INIT_REQUIREMENTS : CourseRequirements = {
+const INIT_REQUIREMENTS: CourseRequirements = {
     minOptional: 0,
     minMandatory: 0,
     minCredit: 0,
     minExam: 0
 };
+
+const isDisplayable = (editable: boolean | undefined, challengeKind: ChallengeKind, formValues: CourseRequirements) => {
+    return editable || getCurrent(challengeKind, formValues) > 0;
+}
+
 
 export default CourseSemesterRequirements;

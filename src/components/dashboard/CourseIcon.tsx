@@ -74,7 +74,7 @@ const CourseIcon = ({course, available = false}: Props) => {
                 onClick={iconClickHandler}
                 onMouseEnter={mouseIconEnterHandler}
                 onMouseLeave={mouseIconLeaveHandler}>
-        <div className="flex flex-col justify-center course-icon rounded-3xl w-40 h-40 shadow hover:shadow-lg"
+        <div className="flex flex-col justify-center course-icon rounded-3xl w-40 h-40"
              style={{backgroundColor: course.template}}>
             {(course.icon && !available || (available && !showSign)) &&
                 <img className="m-5" src={course.icon} alt={course.name}/>
@@ -84,7 +84,7 @@ const CourseIcon = ({course, available = false}: Props) => {
             }
         </div>
         <div className="h-14">
-            {isHovering && <div className="my-4 text-center">{course.name}</div>}
+            <div className="my-4 text-center">{course.name}</div>
         </div>
     </div>
 }

@@ -50,8 +50,8 @@ const AddCourseIcon = ({}: Props) => {
                 onClick={clickHandle}
                 onMouseEnter={mouseIconEnterHandler}
                 onMouseLeave={mouseIconLeaveHandler}>
-        <div className="flex flex-col justify-center align-middle items-center course-icon rounded-3xl w-40 h-40 shadow bg-gray-100 hover:shadow-lg">
-            <PlusIcon width={ICON_WIDTH} height={ICON_HEIGHT} />
+        <div className="flex flex-col justify-center align-middle items-center course-icon rounded-3xl w-40 h-40">
+            <PlusIcon width={ICON_WIDTH} height={ICON_HEIGHT} fill="#0c9488" />
         </div>
         <div className="h-14">
             {isHovering && <div className="my-4 text-center">{t('common.title.settings')}</div>}
