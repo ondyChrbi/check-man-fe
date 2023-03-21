@@ -3,6 +3,60 @@ import {HandThumbDownIcon, HandThumbUpIcon, MinusIcon, StarIcon, XMarkIcon} from
 import React from "react";
 import {Feedback as SuggestedFeedback} from "../../../../../../../lib/axois";
 
+interface Props {
+    feedback: Feedback | SuggestedFeedback,
+    reviewId?: number | string | undefined | null,
+    onClicked?: (feedback: Feedback | SuggestedFeedback, reviewId: string | number) => void | Promise<void>
+    active?: boolean
+}
+
+const FeedbackChip = ({feedback, reviewId, onClicked, active = true}: Props) => {
+    const chipClickedHandle = async (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault();
+
+        if (onClicked && reviewId) {
+            await onClicked(feedback, reviewId);
+        }
+    }
+
+    return <div onClick={chipClickedHandle}
+        className={`${getBorderColor(feedback.type, active)} rounded-full border-2 text-gray-500 bg-white font-semibold text-sm flex align-center cursor-pointer active:bg-gray-300 transition duration-300 ease w-max my-1`}>
+        <div className="p-2">
+            {getIcon(feedback.type, active)}
+        </div>
+        <span className={`${getTextColor(feedback.type, active)} flex items-center px-3 pr-2 pl-0`}>
+            {feedback.description}
+        </span>
+        <button className="bg-transparent hover focus:outline-none">
+            <XMarkIcon/>
+        </button>
+    </div>
+}
+
+
+const getIcon = (type: string, active: boolean) => {
+    const color = (active) ? typeIconsColorsMap.get(type) : NEUTRAL_COLOR;
+
+    switch (type) {
+        case 'EXTREMELY_POSITIVE':
+            return <StarIcon color={color} width={WIDTH} height={HEIGHT}/>
+        case 'POSITIVE':
+            return <HandThumbUpIcon color={color} width={WIDTH} height={HEIGHT}/>
+        case 'NEGATIVE':
+            return <HandThumbDownIcon color={color} width={WIDTH} height={HEIGHT}/>
+        default:
+            return <MinusIcon color={color} width={WIDTH} height={HEIGHT}/>
+    }
+};
+
+const getBorderColor = (type: string, active: boolean) => {
+    return (active) ? typeBorderColorsMap.get(type) : NEUTRAL_BORDER_COLOR;
+}
+
+const getTextColor = (type: string, active: boolean) => {
+    return (active) ? typeTextColorsMap.get(type) : NEUTRAL_TEXT_COLOR;
+}
+
 const WIDTH = 15;
 const HEIGHT = 15;
 
@@ -30,58 +84,5 @@ const typeTextColorsMap = new Map([
     ['NEUTRAL', 'text-blue-400'],
     ['NEGATIVE', 'text-red-800'],
 ]);
-
-const getIcon = (type: string, active: boolean) => {
-    const color = (active) ? typeIconsColorsMap.get(type) : NEUTRAL_COLOR;
-
-    switch (type) {
-        case 'EXTREMELY_POSITIVE':
-            return <StarIcon color={color} width={WIDTH} height={HEIGHT}/>
-        case 'POSITIVE':
-            return <HandThumbUpIcon color={color} width={WIDTH} height={HEIGHT}/>
-        case 'NEGATIVE':
-            return <HandThumbDownIcon color={color} width={WIDTH} height={HEIGHT}/>
-        default:
-            return <MinusIcon color={color} width={WIDTH} height={HEIGHT}/>
-    }
-};
-
-const getBorderColor = (type: string, active: boolean) => {
-    return (active) ? typeBorderColorsMap.get(type) : NEUTRAL_BORDER_COLOR;
-}
-
-const getTextColor = (type: string, active: boolean) => {
-    return (active) ? typeTextColorsMap.get(type) : NEUTRAL_TEXT_COLOR;
-}
-
-interface Props {
-    feedback: Feedback | SuggestedFeedback,
-    reviewId: number | string,
-    onClicked?: (feedback: Feedback | SuggestedFeedback, reviewId: string | number) => void | Promise<void>
-    active?: boolean
-}
-
-const FeedbackChip = ({feedback, reviewId, onClicked, active = true}: Props) => {
-    const chipClickedHandle = async (e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
-
-        if (onClicked) {
-            await onClicked(feedback, reviewId);
-        }
-    }
-
-    return <div onClick={chipClickedHandle}
-        className={`${getBorderColor(feedback.type, active)} rounded-full border-2 text-gray-500 bg-white font-semibold text-sm flex align-center cursor-pointer active:bg-gray-300 transition duration-300 ease w-max my-1`}>
-        <div className="p-2">
-            {getIcon(feedback.type, active)}
-        </div>
-        <span className={`${getTextColor(feedback.type, active)} flex items-center px-3 pr-2 pl-0`}>
-            {feedback.description}
-        </span>
-        <button className="bg-transparent hover focus:outline-none">
-            <XMarkIcon/>
-        </button>
-    </div>
-}
 
 export default FeedbackChip;

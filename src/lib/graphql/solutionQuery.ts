@@ -1,4 +1,5 @@
 import {gql} from "@apollo/client";
+import {Feedback} from "./challengeQuery";
 
 export const testResultQuery = gql`
     query TestResultQuery($id: ID!) {
@@ -8,6 +9,11 @@ export const testResultQuery = gql`
             creationDate
             updateDate
             status
+            feedbacks {
+                id
+                description
+                type
+            }
         }
     }
 `;
@@ -26,6 +32,7 @@ export interface TestResult {
     creationDate: Date;
     updateDate?: Date | null;
     status?: TestStatus | null;
+    feedbacks?: [Feedback] | null | undefined;
 }
 
 export enum TestStatus {

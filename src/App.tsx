@@ -12,7 +12,7 @@ import {useAppSelector} from "./features/storage/hooks";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SolutionsToReview from "./pages/course/challenge/review/SolutionsToReview";
-import ReviewEditor from "./pages/course/challenge/review/ReviewEditor";
+import ReviewEditor from "./pages/course/challenge/review/editor/ReviewEditor";
 import CourseUsersManager from "./pages/course/CourseUsersManager";
 import CourseUserDetail from "./pages/course/CourseUserDetail";
 import AuthorizedRoute from "./features/authentication/component/AuthorizedRoute";

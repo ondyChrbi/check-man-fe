@@ -1,6 +1,5 @@
 import {Feedback, getSolutionQuery, Review} from "../../../../../../../lib/graphql/challengeQuery";
 import {useTranslation} from "react-i18next";
-import FeedbackChip from "./FeedbackChip";
 import React from "react";
 import {Feedback as SuggestedFeedback} from "../../../../../../../lib/axois";
 import {useMutation} from "@apollo/client";
@@ -10,6 +9,7 @@ import {
     UnlinkFeedbackMutationVariables
 } from "../../../../../../../lib/graphql/feedbackQuery";
 import FeedbackEditor from "./FeedbackEditor";
+import FeedbackList from "./FeedbackList";
 
 interface Props {
     review: Review,
@@ -34,9 +34,7 @@ const FeedbacksView = ({review, solutionId}: Props) => {
 
         {review && review.feedbacks && review.feedbacks.length !== 0 &&
             <div className="flex flex-wrap justify-start items-end">
-                {review.feedbacks.map((feedback) =>
-                    <FeedbackChip key={feedback.id} feedback={feedback} reviewId={review.id} onClicked={chipClickHandle} />
-                )}
+                <FeedbackList feedbacks={review.feedbacks} reviewId={review.id} onChipClick={chipClickHandle} />
             </div>
         }
 

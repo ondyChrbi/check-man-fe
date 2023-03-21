@@ -1,23 +1,21 @@
 import {useQuery} from "@apollo/client";
 import {
-    Challenge,
     ChallengeQuery, getChallengeQuery,
     getSolutionQuery,
     GetSolutionQuery,
     GetSolutionVariables, Solution
-} from "../../../../lib/graphql/challengeQuery";
-import Loader from "../../../../components/ui/Loader";
+} from "../../../../../lib/graphql/challengeQuery";
+import Loader from "../../../../../components/ui/Loader";
 import React from "react";
-import FeedbacksView from "../../../../components/course/ui/challenge/solution/review/feedback/FeedbacksView";
+import FeedbacksView from "../../../../../components/course/ui/challenge/solution/review/feedback/FeedbacksView";
 import {useParams} from "react-router-dom";
-import ReviewPublishButton from "../../../../components/course/ui/challenge/solution/review/ReviewPublishButton";
-import ReviewDescriptionEditor from "../../../../components/course/ui/challenge/solution/review/ReviewDescriptionEditor";
+import ReviewPublishButton from "../../../../../components/course/ui/challenge/solution/review/ReviewPublishButton";
+import ReviewDescriptionEditor from "../../../../../components/course/ui/challenge/solution/review/ReviewDescriptionEditor";
 import RequirementPointsEditor
-    from "../../../../components/course/ui/challenge/solution/review/requirement/RequirementPointsEditor";
+    from "../../../../../components/course/ui/challenge/solution/review/requirement/RequirementPointsEditor";
 import {useTranslation} from "react-i18next";
-import MetadataTable from "../../../../components/ui/MetadataTable";
-import {toFormattedDate, toFormattedDateTime} from "../../../../features/helper";
-import {AppUser} from "../../../../lib/graphql/meQuery";
+import AuthorMetadata from "./AuthorMetadata";
+import ChallengeMetadata from "./ChallengeMetadata";
 
 const ReviewEditor = () => {
     const {t} = useTranslation();
@@ -71,45 +69,6 @@ const SolutionEditorActions = ({solution}: SolutionEditorActionsProps) => {
     return <div className="flex flex-row justify-start items-center align-middle">
         <ReviewPublishButton reviewId={solution.review.id}/>
     </div>
-}
-
-export interface ChallengeMetadataProps {
-    challenge: Challenge
-}
-
-const ChallengeMetadata = ({challenge}: ChallengeMetadataProps) => {
-    const {t} = useTranslation();
-
-    const data = [
-        [t('challenge.id'), challenge.id.toString()],
-        [t('challenge.name'), challenge.name],
-        [t('challenge.start-date'), toFormattedDateTime(challenge.startDate)],
-        [t('challenge.deadline-date'), toFormattedDateTime(challenge.deadlineDate)],
-    ];
-
-    return <>
-        <MetadataTable title={t('challenge.metadata.title')} data={data} />
-    </>
-}
-
-export interface AuthorMetadataProps {
-    author: AppUser
-}
-
-const AuthorMetadata = ({author}: AuthorMetadataProps) => {
-    const {t} = useTranslation();
-
-    const data = [
-        [t('course.users.manager.stag-id'), author.stagId || ""],
-        [t('course.users.manager.mail'), author.mail || ""],
-        [t('course.users.manager.display-name'), author.displayName || ""],
-        [t('course.users.manager.registration-date'), toFormattedDate(author.registrationDate)],
-        [t('course.users.manager.lastAccess-date'), toFormattedDateTime(author.lastAccessDate)],
-    ];
-
-    return <>
-        <MetadataTable title={t('course.users.metadata.title')} data={data} />
-    </>
 }
 
 export default ReviewEditor;
