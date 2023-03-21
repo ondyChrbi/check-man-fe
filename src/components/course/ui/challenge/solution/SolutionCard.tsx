@@ -17,6 +17,7 @@ import LoadingSpinner from "../../../../LoadingSpinner";
 import {useCourseRoles} from "../../../../../features/authorization/hooks";
 import {SemesterRole} from "../../../../../lib/graphql/courseQuery";
 import TestResultButton from "./TestResultButton";
+import {toFormattedDateTime} from "../../../../../features/helper";
 
 interface Props {
     solutionId: number | string
@@ -52,7 +53,7 @@ const SolutionCard = ({solutionId, courseId, semesterId}: Props) => {
                     {t(`challenge.solution.status.title.${data.solution.status}`)}
                 </p>
                 <h2 className="mt-0.5 text-gray-600 font-light text-sm">
-                    {data.solution.uploadDate}
+                    {toFormattedDateTime(data.solution.uploadDate)}
                 </h2>
             </div>
         </div>

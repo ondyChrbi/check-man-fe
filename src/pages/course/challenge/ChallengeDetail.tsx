@@ -14,7 +14,6 @@ import SolutionsArea from "../../../components/course/ui/challenge/solution/Solu
 import ReviewAlert from "../../../components/course/ui/challenge/solution/review/ReviewAlert";
 import {Requirement} from "../../../lib/graphql/requirementQuery";
 import ChallengeDescription from "./ChallengeDescription";
-import FadeIn from "../../../components/ui/animated/FadeIn";
 
 interface Props {
     argChallengeId?: number
@@ -61,10 +60,9 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
             <ReviewAlert challengeId={challengeId}/>
         }
 
-        <FadeIn>
-            <h1 className="my-7 text-gray-600 font-light text-4xl">{data.challenge.name}</h1>
-            <ChallengeDescription semesterId={semesterId!} challenge={data.challenge} />
-        </FadeIn>
+        <h1 className="my-7 text-gray-600 font-light text-4xl">{data.challenge.name}</h1>
+        <ChallengeDescription semesterId={semesterId!} challenge={data.challenge}/>
+
 
         <Requirements challengeId={challengeId} semesterId={semesterId!} onNewRecord={showRequirementEditorHandle}
                       onEditRecord={editRequirementHandle}
@@ -73,18 +71,20 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
 
         {requirementEditorDisplayed && !data.challenge.published && <>
             {roles.includes(SemesterRole.EDIT_CHALLENGE) && <>
-                <RequirementEditor challengeId={challengeId} onHide={hideRequirementEditorHandle} requirement={editingRequirement} />
+                <RequirementEditor challengeId={challengeId} onHide={hideRequirementEditorHandle}
+                                   requirement={editingRequirement}/>
             </>}
         </>}
 
-        {!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE) && <ChallengePublishButton challengeId={challengeId}/>}
+        {!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE) &&
+            <ChallengePublishButton challengeId={challengeId}/>}
         {data.challenge.published && roles.includes(SemesterRole.SUBMIT_CHALLENGE_SOLUTION) &&
-            <FadeIn>
+            <>
                 <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.solution.upload.title')}</h2>
                 <ChallengeUploadSolutionForm challengeId={challengeId!}/>
-            </FadeIn>
+            </>
         }
-        <SolutionsArea challengeId={challengeId} courseId={courseId!} semesterId={semesterId!} />
+        <SolutionsArea challengeId={challengeId} courseId={courseId!} semesterId={semesterId!}/>
     </>
 }
 
