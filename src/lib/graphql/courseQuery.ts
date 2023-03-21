@@ -14,6 +14,13 @@ export const courseQuery = gql`
                 minMandatory
                 minCredit
                 minExam
+            },
+            statistic {
+                semesterId
+                challengeId
+                description
+                feedbackTypeId
+                count
             }
         }
         courseRoles(id: $id)
@@ -228,7 +235,17 @@ export interface Semester {
     dateEnd: string;
     fulfillmentConditions: CourseRequirements;
     relatedUsers?: Array<AppUser>
+    statistic?: Array<FeedbackStatisticsQL>
 }
+
+export interface FeedbackStatisticsQL {
+    courseId?: string | null | undefined;
+    challengeId?: string | null | undefined;
+    description?: string | null | undefined;
+    feedbackTypeId: string | null | undefined;
+    count: number | null | undefined;
+}
+
 
 export interface CourseRequirements {
     minOptional: number;

@@ -9,6 +9,7 @@ import {useAppDispatch} from "../../../features/storage/hooks";
 import {addRoles} from "../../../features/storage/storageSlice";
 import CourseSemesterRequirements from "../../../components/course/CourseSemesterRequirements";
 import {useCourseRoles} from "../../../features/authorization/hooks";
+import BarChartExample from "../../../components/ui/chart/BarChartExample";
 
 const CourseSemesterDetail = () => {
     const {courseId, semesterId, challengeId, testResultId} = useParams<'courseId' | 'semesterId' | 'challengeId' | 'testResultId'>();
@@ -46,6 +47,7 @@ const CourseSemesterDetail = () => {
                                                 editable={roles.includes(SemesterRole.EDIT_COURSE)}
                                                 semester={data.semester} />
                 }
+                <BarChartExample />
                 <Outlet />
             </section>
         </div>
