@@ -257,6 +257,11 @@
           "DENIED": "Zamítnout",
           "WAITING_TO_REVIEW": "Vrátit k čekání na opravu"
         }
+      },
+      "test-result" : {
+        "action" : {
+          "go-to" : "Výsledky testu"
+        }
       }
     },
     "requirement": {

@@ -116,7 +116,7 @@ export const useChallengeUpload = (challengeId: string | number) => {
     const [uploadProgress, setUploadProgress] = useState(0);
     const authenticationInfo = useAppSelector((state) => state.storage.authentication.jwtInfo);
 
-    const uploadSolution = async (solution : Blob) => {
+    const uploadSolution = async (solution : any) => {
         if (!solution || !challengeId || !authenticationInfo?.token) {
             return;
         }

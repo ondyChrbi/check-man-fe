@@ -253,6 +253,7 @@ export enum SemesterRole {
     MANAGE_USERS = 'MANAGE_USERS',
     VIEW_USERS = 'VIEW_USERS',
     EDIT_COURSE = 'EDIT_COURSE',
+    VIEW_TEST_RESULT = 'VIEW_TEST_RESULT'
 }
 
 export enum SemesterSortField {

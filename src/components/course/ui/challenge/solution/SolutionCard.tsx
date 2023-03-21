@@ -6,7 +6,6 @@ import {
     Status
 } from "../../../../../lib/graphql/challengeQuery";
 import React from "react";
-import Loader from "../../../../ui/Loader";
 import {
     ArrowUturnLeftIcon,
     CheckIcon,
@@ -14,15 +13,20 @@ import {
 } from "@heroicons/react/24/solid";
 import {ClockIcon} from "@heroicons/react/24/outline";
 import {useTranslation} from "react-i18next";
-import TestResultDetail from "./test/TestResultDetail";
 import LoadingSpinner from "../../../../LoadingSpinner";
+import {useCourseRoles} from "../../../../../features/authorization/hooks";
+import {SemesterRole} from "../../../../../lib/graphql/courseQuery";
+import TestResultButton from "./TestResultButton";
 
 interface Props {
     solutionId: number | string
+    courseId: number | string
+    semesterId: number | string
 }
 
-const SolutionDetail = ({solutionId}: Props) => {
+const SolutionCard = ({solutionId, courseId, semesterId}: Props) => {
     const {t} = useTranslation();
+    const {roles} = useCourseRoles(semesterId!);
 
     const {data, loading, error} = useQuery<GetSolutionQuery, GetSolutionVariables>(getSolutionQuery, {
         variables: {id: solutionId}
@@ -52,9 +56,9 @@ const SolutionDetail = ({solutionId}: Props) => {
                 </h2>
             </div>
         </div>
-        {data.solution.testResult &&
-            <div className="flex flex-col">
-                <TestResultDetail testResult={data.solution.testResult}/>
+        {roles.includes(SemesterRole.VIEW_TEST_RESULT) && data.solution.testResult &&
+            <div className="flex flex-col my-3.5">
+                <TestResultButton testResult={data.solution.testResult} courseId={courseId} semesterId={semesterId} />
             </div>
         }
     </div>
@@ -72,23 +76,23 @@ const SolutionStatusIcon = ({status}: SolutionStatusIconProps) => {
 
 const statusBorderColorMap = new Map([
     [Status.APPROVED, "border-green-500"],
-    [Status.RETURN_TO_EDIT, "border-purple-800"],
+    [Status.RETURN_TO_EDIT, "border-orange-300"],
     [Status.DENIED, "border-red-800"],
-    [Status.WAITING_TO_REVIEW, "border-blue-400"],
+    [Status.WAITING_TO_REVIEW, "border-gray-300"],
 ]);
 
 const statusFontColorMap = new Map([
     [Status.APPROVED, "text-green-500"],
-    [Status.RETURN_TO_EDIT, "text-purple-800"],
+    [Status.RETURN_TO_EDIT, "text-orange-300"],
     [Status.DENIED, "text-red-800"],
-    [Status.WAITING_TO_REVIEW, "text-blue-400"],
+    [Status.WAITING_TO_REVIEW, "text-gray-300"],
 ]);
 
 const statusColorIcons = new Map([
     [Status.APPROVED, <CheckIcon color="#22C55E"/>],
-    [Status.RETURN_TO_EDIT, <ArrowUturnLeftIcon color="#6B21A8"/>],
+    [Status.RETURN_TO_EDIT, <ArrowUturnLeftIcon color="#FDBA74"/>],
     [Status.DENIED, <XMarkIcon color="#9A1D1D"/>],
-    [Status.WAITING_TO_REVIEW, <ClockIcon color="#60A5FA"/>],
+    [Status.WAITING_TO_REVIEW, <ClockIcon color="#D1D5DA"/>],
 ]);
 
-export default SolutionDetail;
+export default SolutionCard;

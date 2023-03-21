@@ -2,13 +2,13 @@ import React, {useState} from "react";
 import {useQuery} from "@apollo/client";
 import {Challenge, ChallengeKind, ChallengesQuery, getChallengesQuery} from "../../../../lib/graphql/challengeQuery";
 import {useTranslation} from "react-i18next";
-import LoadingSpinner from "../../../LoadingSpinner";
 import ChallengeList from "./ChallengeList";
 import {useParams} from "react-router-dom";
 import ChallengeAsideActionsMenu from "./ChallengeAsideActionsMenu";
 import CollapsibleButton from "../../../CollapsibleButton";
 
 import './ChallengeAside.css';
+import {showErrorToast} from "../../../editor/helpers";
 
 interface Props {
     courseId: number | string
@@ -55,9 +55,15 @@ const HIDDEN = '-18rem';
 const OPEN = '0rem'
 
 const ChallengeAside = ({courseId, semesterId, open = true}: Props) => {
-    const {challengeId} = useParams<'challengeId'>();
-    const {loading, error, data} = useQuery<ChallengesQuery>(getChallengesQuery, {variables: {"semesterId": semesterId}});
     const {t} = useTranslation();
+
+    const {challengeId} = useParams<'challengeId'>();
+    const {loading, data} = useQuery<ChallengesQuery>(getChallengesQuery, {
+        variables: {"semesterId": semesterId},
+        onError: (error) => {
+            showErrorToast(error);
+        }
+    });
 
     const [isOpen, setIsOpen] = useState(open!);
 
@@ -71,11 +77,7 @@ const ChallengeAside = ({courseId, semesterId, open = true}: Props) => {
     }
 
     if (loading) {
-        return <LoadingSpinner />;
-    }
-
-    if (error) {
-        return <p>Error</p>
+        return <></>;
     }
 
     if (!data?.challenges || data.challenges.length === 0) {

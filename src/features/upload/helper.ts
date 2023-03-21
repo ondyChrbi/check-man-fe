@@ -5,9 +5,7 @@ const FIRST_INDEX = 0;
 
 export const generateZip = async (files: UploadedFile[]) => {
     if (checkSingleZip(files)) {
-        const file = files[FIRST_INDEX];
-        //@ts-ignore
-        return new Blob([file], { type: file.type })
+        return files[FIRST_INDEX];
     }
 
     const jszip = new JSZip();

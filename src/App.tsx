@@ -21,6 +21,7 @@ import Error from "./pages/Error";
 import CourseEditor from "./pages/course/CourseEditor";
 import CourseDetail from "./pages/course/CourseDetail";
 import SemesterEditor from "./pages/course/semester/SemesterEditor";
+import TestResultDetail from "./components/course/ui/challenge/solution/test/TestResultDetail";
 
 function App() {
     const authenticationInfo = useAppSelector((state) => state.storage.authentication);
@@ -69,6 +70,11 @@ function App() {
                             <Route path="challenge/:challengeId/solution/:solutionId/review/:reviewId" element={
                                 <AuthorizedRoute mandatoryRoles={[SemesterRole.REVIEW_CHALLENGE]}>
                                     <ReviewEditor />
+                                </AuthorizedRoute>
+                            } />
+                            <Route path="test-result/:testResultId" element={
+                                <AuthorizedRoute mandatoryRoles={[SemesterRole.VIEW_TEST_RESULT]}>
+                                    <TestResultDetail />
                                 </AuthorizedRoute>
                             } />
                         </Route>

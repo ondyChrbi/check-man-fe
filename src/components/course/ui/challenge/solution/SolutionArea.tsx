@@ -1,23 +1,17 @@
-import React, {useState} from 'react';
-import SolutionDetail from "./SolutionDetail";
+import React from 'react';
+import SolutionCard from "./SolutionCard";
 import {useQuery} from "@apollo/client";
 import {getSolutionsQuery, GetSolutionsQuery, GetSolutionsVariables} from "../../../../../lib/graphql/challengeQuery";
 import Loader from "../../../../ui/Loader";
 
-
 interface Props {
     challengeId: number | string
+    courseId: number | string
+    semesterId: number | string
 }
 
-const SolutionArea = ({ challengeId } : Props) => {
-    const [activeTab, setActiveTab] = useState(0);
-
+const SolutionArea = ({ challengeId, courseId, semesterId } : Props) => {
     const {data, loading, error} = useQuery<GetSolutionsQuery, GetSolutionsVariables>(getSolutionsQuery, {
-        onCompleted: (data) => {
-            if (data.solutions.length !== 0) {
-                setActiveTab(data.solutions[0].id);
-            }
-        },
         variables: {challengeId}
     });
 
@@ -31,26 +25,13 @@ const SolutionArea = ({ challengeId } : Props) => {
 
     return (
         <div className="bg-white p-4">
-            <div className="flex">
-                {data.solutions.map(solution => (
-                    <button
-                        key={solution.id}
-                        className={`inline-block px-4 py-2 text-center hover:bg-gray-200 ${
-                            solution.id === activeTab ? 'bg-gray-300' : ''
-                        }`}
-                        onClick={() => setActiveTab(solution.id)}
-                    >
-                        {solution.id}
-                    </button>
-                ))}
-            </div>
-            {data.solutions.map(solution =>
-                solution.id === activeTab ? (
-                    <div key={solution.id} className="mt-4">
-                        <SolutionDetail solutionId={solution.id} />
+            <div className="flex flex-wrap lg:justify-start justify-center items-center w-full">
+                {data.solutions.map((s) =>
+                    <div className="my-5 flex flex-row justify-start items-center w-72">
+                        <SolutionCard solutionId={s.id} courseId={courseId} semesterId={semesterId} />
                     </div>
-                ) : null
-            )}
+                )}
+            </div>
         </div>
     );
 };
