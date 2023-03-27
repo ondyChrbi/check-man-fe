@@ -22,6 +22,24 @@ import CourseEditor from "./pages/course/CourseEditor";
 import CourseDetail from "./pages/course/CourseDetail";
 import SemesterEditor from "./pages/course/semester/SemesterEditor";
 import TestResultDetail from "./components/course/ui/challenge/solution/test/TestResultDetail";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
 function App() {
     const authenticationInfo = useAppSelector((state) => state.storage.authentication);

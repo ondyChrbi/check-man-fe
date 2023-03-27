@@ -147,6 +147,19 @@
       "new" : {
         "title" : "Přidání nového semesteru"
       },
+      "statistics": {
+        "info" : {
+          "empty" : "Zatím nejsou k dispozici žádné statistiky"
+        },
+        "chart": {
+          "ASC" : {
+            "title" : "Top nejlepší feedbacky"
+          },
+          "DESC" : {
+            "title" : "Top nejhorší feedbacky"
+          }
+        }
+      },
       "action" : {
         "note" : {
           "name" : "Poznámka ke kurzu",

@@ -1,6 +1,7 @@
 import {gql} from "@apollo/client";
 import {AppUser} from "./meQuery";
 import {SortOptions} from "./index";
+import {FeedbackStatistics} from "./statisticsQuery";
 
 export const courseQuery = gql`
     query GetCourseSemester($id: ID!) {
@@ -235,17 +236,8 @@ export interface Semester {
     dateEnd: string;
     fulfillmentConditions: CourseRequirements;
     relatedUsers?: Array<AppUser>
-    statistic?: Array<FeedbackStatisticsQL>
+    statistic?: Array<FeedbackStatistics>
 }
-
-export interface FeedbackStatisticsQL {
-    courseId?: string | null | undefined;
-    challengeId?: string | null | undefined;
-    description?: string | null | undefined;
-    feedbackTypeId: string | null | undefined;
-    count: number | null | undefined;
-}
-
 
 export interface CourseRequirements {
     minOptional: number;
@@ -270,7 +262,8 @@ export enum SemesterRole {
     MANAGE_USERS = 'MANAGE_USERS',
     VIEW_USERS = 'VIEW_USERS',
     EDIT_COURSE = 'EDIT_COURSE',
-    VIEW_TEST_RESULT = 'VIEW_TEST_RESULT'
+    VIEW_TEST_RESULT = 'VIEW_TEST_RESULT',
+VIEW_STATISTICS = 'VIEW_STATISTICS'
 }
 
 export enum SemesterSortField {

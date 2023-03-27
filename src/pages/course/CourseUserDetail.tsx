@@ -61,7 +61,7 @@ const CourseUserDetail = () => {
     }
 
     if (loading) {
-        return <div className="w-screen h-screen flex flex-row items-center justify-center">
+        return <div className="w-full h-fit flex flex-row items-center justify-center">
             <LoadingSpinner/>
         </div>
     }

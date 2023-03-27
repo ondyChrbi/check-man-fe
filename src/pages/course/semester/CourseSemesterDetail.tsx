@@ -9,7 +9,7 @@ import {useAppDispatch} from "../../../features/storage/hooks";
 import {addRoles} from "../../../features/storage/storageSlice";
 import CourseSemesterRequirements from "../../../components/course/CourseSemesterRequirements";
 import {useCourseRoles} from "../../../features/authorization/hooks";
-import BarChartExample from "../../../components/ui/chart/BarChartExample";
+import CourseStatistics from "./CourseStatistics";
 
 const CourseSemesterDetail = () => {
     const {courseId, semesterId, challengeId, testResultId} = useParams<'courseId' | 'semesterId' | 'challengeId' | 'testResultId'>();
@@ -43,11 +43,14 @@ const CourseSemesterDetail = () => {
                                                   challengeId={challengeId}/>
                 </div>
                 {(!challengeId && !testResultId) && data?.semester &&
-                    <CourseSemesterRequirements requirements={data?.semester?.fulfillmentConditions}
-                                                editable={roles.includes(SemesterRole.EDIT_COURSE)}
-                                                semester={data.semester} />
+                    <div className="w-full h-fit flex flex-col">
+                        <CourseSemesterRequirements requirements={data?.semester?.fulfillmentConditions}
+                                                    editable={roles.includes(SemesterRole.EDIT_COURSE)}
+                                                    semester={data.semester} />
+                        {roles.includes(SemesterRole.VIEW_STATISTICS) && <CourseStatistics semesterId={semesterId} />}
+                    </div>
                 }
-                <BarChartExample />
+
                 <Outlet />
             </section>
         </div>
