@@ -158,6 +158,17 @@
           "DESC" : {
             "title" : "Top nejhorší feedbacky"
           }
+        },
+        "list" : {
+          "feedback-type" : "",
+          "description": "Název",
+          "count": "Počet"
+        },
+        "search" : {
+          "place-holder" : "Napište název nebo část názvu feedbacku...",
+          "button" : {
+            "title": "Hledat"
+          }
         }
       },
       "action" : {

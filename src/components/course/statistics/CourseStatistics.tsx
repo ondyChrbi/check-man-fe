@@ -4,22 +4,31 @@ import {
     CourseStatisticsVariables,
     GetCourseStatisticsQuery
 } from "../../../lib/graphql/statisticsQuery";
-import {showErrorToast} from "../../../components/editor/helpers";
-import LoadingSpinner from "../../../components/LoadingSpinner";
+import {showErrorToast} from "../../editor/helpers";
+import LoadingSpinner from "../../LoadingSpinner";
 import React from "react";
-import FeedBackChart from "../../../components/ui/chart/FeedBackChart";
+import FeedBackChart from "../../ui/chart/FeedBackChart";
 import {useTranslation} from "react-i18next";
 import {SortOrder} from "../../../lib/graphql";
+import CourseStatisticView from "./CourseStatisticView";
 
 interface Props {
     semesterId: number | string
 }
 
 const CourseStatistics = ({semesterId}: Props) => {
-    return <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 h-fit">
-        {Object.values(SortOrder).map(s => <div className="w-full h-fit flex flex-col md:px-2.5">
-            <Chart semesterId={semesterId} direction={s}/>
-        </div>)}
+
+    return <div className="w-full h-fir flex flex-col">
+        <div className="w-full h-fit flex my-5">
+            <div className="w-full h-fit mt-10 grid grid-cols-1 sm:grid-cols-2 h-fit">
+                {Object.values(SortOrder).map(s => <div className="w-full h-fit flex flex-col md:px-2.5">
+                    <Chart semesterId={semesterId} direction={s}/>
+                </div>)}
+            </div>
+        </div>
+        <div className="w-full h-fit flex my-5">
+            <CourseStatisticView semesterId={semesterId} />
+        </div>
     </div>
 }
 
@@ -31,7 +40,6 @@ interface ChartProps {
 
 const Chart = ({semesterId, direction = SortOrder.ASC, limit = 5}: ChartProps) => {
     const {t} = useTranslation();
-
     const {data, loading} = useQuery<GetCourseStatisticsQuery, CourseStatisticsVariables>(courseStatisticsQuery, {
         variables: {semesterId, direction, limit},
         onError: (error) => { showErrorToast(error) },

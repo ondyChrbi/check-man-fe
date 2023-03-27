@@ -1,4 +1,4 @@
-import {Outlet, useParams} from "react-router-dom";
+import {useOutlet, useParams} from "react-router-dom";
 import {useQuery} from "@apollo/client";
 import ChallengeAside from "../../../components/course/ui/challenge/ChallengeAside";
 import LoadingSpinner from "../../../components/LoadingSpinner";
@@ -9,10 +9,11 @@ import {useAppDispatch} from "../../../features/storage/hooks";
 import {addRoles} from "../../../features/storage/storageSlice";
 import CourseSemesterRequirements from "../../../components/course/CourseSemesterRequirements";
 import {useCourseRoles} from "../../../features/authorization/hooks";
-import CourseStatistics from "./CourseStatistics";
+import CourseStatistics from "../../../components/course/statistics/CourseStatistics";
 
 const CourseSemesterDetail = () => {
-    const {courseId, semesterId, challengeId, testResultId} = useParams<'courseId' | 'semesterId' | 'challengeId' | 'testResultId'>();
+    const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId' | 'testResultId'>();
+    const outlet = useOutlet();
     const dispatch = useAppDispatch();
 
     const {roles} = useCourseRoles(semesterId!!);
@@ -42,7 +43,7 @@ const CourseSemesterDetail = () => {
                     <SemesterAdministratorToolbar courseId={courseId} semesterId={semesterId}
                                                   challengeId={challengeId}/>
                 </div>
-                {(!challengeId && !testResultId) && data?.semester &&
+                {!outlet && data?.semester &&
                     <div className="w-full h-fit flex flex-col">
                         <CourseSemesterRequirements requirements={data?.semester?.fulfillmentConditions}
                                                     editable={roles.includes(SemesterRole.EDIT_COURSE)}
@@ -50,8 +51,7 @@ const CourseSemesterDetail = () => {
                         {roles.includes(SemesterRole.VIEW_STATISTICS) && <CourseStatistics semesterId={semesterId} />}
                     </div>
                 }
-
-                <Outlet />
+                {outlet}
             </section>
         </div>
     </div>
