@@ -70,30 +70,30 @@ interface SolutionStatusIconProps {
 }
 
 const SolutionStatusIcon = ({status}: SolutionStatusIconProps) => {
-    return <div className={`flex flex-col w-12 h-12 p-1.5 rounded-full border-2 ${statusBorderColorMap.get(status)}`}>
+    return <div className={`flex flex-col w-12 h-12 p-3 rounded-full ${statusBackgroundColorMap.get(status)}`}>
         {statusColorIcons.get(status)}
     </div>
 };
 
-const statusBorderColorMap = new Map([
-    [Status.APPROVED, "border-green-500"],
-    [Status.RETURN_TO_EDIT, "border-orange-300"],
-    [Status.DENIED, "border-red-800"],
-    [Status.WAITING_TO_REVIEW, "border-gray-300"],
+const statusBackgroundColorMap = new Map([
+    [Status.APPROVED, "bg-green-600"],
+    [Status.RETURN_TO_EDIT, "bg-return-to-edit"],
+    [Status.DENIED, "bg-red-800"],
+    [Status.WAITING_TO_REVIEW, "bg-gray-600"],
 ]);
 
 const statusFontColorMap = new Map([
-    [Status.APPROVED, "text-green-500"],
-    [Status.RETURN_TO_EDIT, "text-orange-300"],
+    [Status.APPROVED, "text-green-600"],
+    [Status.RETURN_TO_EDIT, "text-return-to-edit"],
     [Status.DENIED, "text-red-800"],
-    [Status.WAITING_TO_REVIEW, "text-gray-300"],
+    [Status.WAITING_TO_REVIEW, "text-gray-600"],
 ]);
 
 const statusColorIcons = new Map([
-    [Status.APPROVED, <CheckIcon color="#22C55E"/>],
-    [Status.RETURN_TO_EDIT, <ArrowUturnLeftIcon color="#FDBA74"/>],
-    [Status.DENIED, <XMarkIcon color="#9A1D1D"/>],
-    [Status.WAITING_TO_REVIEW, <ClockIcon color="#D1D5DA"/>],
+    [Status.APPROVED, <CheckIcon color="#FFFFFF"/>],
+    [Status.RETURN_TO_EDIT, <ArrowUturnLeftIcon color="#FFFFFF"/>],
+    [Status.DENIED, <XMarkIcon color="#FFFFFF"/>],
+    [Status.WAITING_TO_REVIEW, <ClockIcon color="#FFFFFF"/>],
 ]);
 
 export default SolutionCard;

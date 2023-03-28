@@ -31,7 +31,12 @@ module.exports = {
                 '256': '64rem',
             },
             minWidth: {
-                '14' : '3.5rem;'
+                '14' : '3.5rem;',
+            },
+            colors: {
+                'bing' : '#ffffff',
+                'return-to-edit' : '#FFA500',
+                'fail' : '#FF0000',
             }
         },
         fontFamily: {

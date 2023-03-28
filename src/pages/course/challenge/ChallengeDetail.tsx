@@ -55,37 +55,47 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
 
     if (error || !data || !challengeId) return <>Error</>
 
-    return <>
+    return <div className="flex flex-col">
         {data.challenge.published && roles.includes(SemesterRole.REVIEW_CHALLENGE) &&
             <ReviewAlert challengeId={challengeId}/>
         }
 
-        <h1 className="my-7 text-gray-600 font-light text-4xl">{data.challenge.name}</h1>
-        <ChallengeDescription semesterId={semesterId!} challenge={data.challenge}/>
+        <div className="flex flex-col p-5 rounded-2xl bg-white">
+            <h1 className="text-gray-600 font-bold text-4xl">{data.challenge.name}</h1>
 
+            <div className="my-7">
+                <ChallengeDescription semesterId={semesterId!} challenge={data.challenge}/>
+            </div>
 
-        <Requirements challengeId={challengeId} semesterId={semesterId!} onNewRecord={showRequirementEditorHandle}
-                      onEditRecord={editRequirementHandle}
-                      editable={!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE)}
-        />
+            <div>
+                <Requirements challengeId={challengeId} semesterId={semesterId!}
+                              onNewRecord={showRequirementEditorHandle}
+                              onEditRecord={editRequirementHandle}
+                              editable={!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE)}
+                />
+            </div>
 
-        {requirementEditorDisplayed && !data.challenge.published && <>
-            {roles.includes(SemesterRole.EDIT_CHALLENGE) && <>
+            {requirementEditorDisplayed && !data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE) &&
                 <RequirementEditor challengeId={challengeId} onHide={hideRequirementEditorHandle}
                                    requirement={editingRequirement}/>
-            </>}
-        </>}
+            }
+        </div>
 
         {!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE) &&
             <ChallengePublishButton challengeId={challengeId}/>}
-        {data.challenge.published && roles.includes(SemesterRole.SUBMIT_CHALLENGE_SOLUTION) &&
-            <>
-                <h2 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.solution.upload.title')}</h2>
+
+        <div className="flex flex-col mt-5">
+            {data.challenge.published && roles.includes(SemesterRole.SUBMIT_CHALLENGE_SOLUTION) && <>
                 <ChallengeUploadSolutionForm challengeId={challengeId!}/>
+                <SolutionsArea challengeId={challengeId} courseId={courseId!} semesterId={semesterId!}/>
             </>
-        }
-        <SolutionsArea challengeId={challengeId} courseId={courseId!} semesterId={semesterId!}/>
-    </>
+            }
+        </div>
+    </div>
+}
+
+const ChallengeDetailTopView = () => {
+    return
 }
 
 export default ChallengeDetail

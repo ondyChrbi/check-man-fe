@@ -45,7 +45,7 @@ function App() {
     const authenticationInfo = useAppSelector((state) => state.storage.authentication);
     
     return (
-        <div className="w-full flex flex-col h-full">
+        <div className="w-full flex flex-col h-full bg-bing">
             {authenticationInfo?.jwtInfo?.token && <Header />}
             <ToastContainer />
             <main className="flex lg:m-0 flex-row w-full sm:w-full justify-center h-full">
