@@ -11,7 +11,7 @@ import {isBetween, toFormattedDateTime} from "../../features/helper";
 import CollapsibleTable from "../ui/CollapsibleTable";
 import {useQuery} from "@apollo/client";
 import {useTranslation} from "react-i18next";
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../loading/LoadingSpinner";
 import {SortOrder} from "../../lib/graphql";
 
 const DEFAULT_OFFSET = 0;

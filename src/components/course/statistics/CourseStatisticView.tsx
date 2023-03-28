@@ -9,7 +9,7 @@ import {
 } from "../../../lib/graphql/statisticsQuery";
 import {showErrorToast} from "../../editor/helpers";
 import {SortOrder} from "../../../lib/graphql";
-import LoadingSpinner from "../../LoadingSpinner";
+import LoadingSpinner from "../../loading/LoadingSpinner";
 import CourseStatisticList from "./CourseStatisticList";
 
 interface Props {

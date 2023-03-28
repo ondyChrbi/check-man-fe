@@ -4,7 +4,7 @@ import ReviewTable from "../../../../components/course/ui/challenge/solution/rev
 import {useTranslation} from "react-i18next";
 import {useQuery} from "@apollo/client";
 import {ChallengeQuery, getChallengeQuery} from "../../../../lib/graphql/challengeQuery";
-import LoadingSpinner from "../../../../components/LoadingSpinner";
+import LoadingSpinner from "../../../../components/loading/LoadingSpinner";
 
 const SolutionsToReview = () => {
     const {t} = useTranslation();

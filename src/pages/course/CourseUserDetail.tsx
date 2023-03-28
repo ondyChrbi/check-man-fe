@@ -7,7 +7,7 @@ import {
     removeCourseRole,
     RemoveCourseRoleMutation, RemoveCourseRoleVariables
 } from "../../lib/graphql/appUserQuery";
-import LoadingSpinner from "../../components/LoadingSpinner";
+import LoadingSpinner from "../../components/loading/LoadingSpinner";
 import {useParams} from "react-router-dom";
 import MetadataTable from "../../components/ui/MetadataTable";
 import {useTranslation} from "react-i18next";

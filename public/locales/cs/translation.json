@@ -74,9 +74,6 @@
         }
       }
     },
-    "available": {
-      "join": "Zažádat o zapsání"
-    },
     "new": {
       "title" : "Přidat kurz"
     },
@@ -144,6 +141,15 @@
     },
     "semester" : {
       "create" : "Přidat semester",
+      "available" : {
+        "new" : "New",
+        "access" : {
+          "join": "Zažádat o zapsání",
+          "message" : {
+            "send" : "Žádost odeslána"
+          }
+        }
+      },
       "new" : {
         "title" : "Přidání nového semesteru"
       },

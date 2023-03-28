@@ -5,7 +5,7 @@ import {
     ChallengeKind,
 } from "../../../../lib/graphql/challengeQuery";
 import {useParams} from "react-router-dom";
-import LoadingSpinner from "../../../LoadingSpinner";
+import LoadingSpinner from "../../../loading/LoadingSpinner";
 import TextEditor from "../../../editor/TextEditor";
 import {useChallenge} from "../../../../features/hooks/challenge";
 import Input from "../../../editor/input/Input";

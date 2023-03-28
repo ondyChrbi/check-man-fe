@@ -1,7 +1,7 @@
 import {useOutlet, useParams} from "react-router-dom";
 import {useQuery} from "@apollo/client";
 import ChallengeAside from "../../../components/course/ui/challenge/ChallengeAside";
-import LoadingSpinner from "../../../components/LoadingSpinner";
+import LoadingSpinner from "../../../components/loading/LoadingSpinner";
 import React from "react";
 import {courseQuery, SemesterQuery, SemesterRole} from "../../../lib/graphql/courseQuery";
 import SemesterAdministratorToolbar from "../../../components/course/ui/SemesterAdministratorToolbar";

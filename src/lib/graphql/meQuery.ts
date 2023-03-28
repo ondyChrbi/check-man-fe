@@ -1,5 +1,5 @@
 import {gql} from "@apollo/client";
-import {Course} from "./courseQuery";
+import {Course, SemesterAccessRequest} from "./courseQuery";
 
 export const meQuery = gql`
     query Me {
@@ -46,8 +46,8 @@ export const getCourseDashboardQuery = gql`
                 id,
                 note,
                 dateStart,
-                dateEnd
-            }
+                dateEnd,
+            },
         },
         myCourses {
             id,
@@ -94,6 +94,7 @@ export interface CourseDashboardQuery {
     availableCourses: Array<Course>;
     myCourses: Array<Course>;
     courses: Array<Course>;
+    accessRequests: Array<SemesterAccessRequest>;
 }
 
 export interface MeQuery {

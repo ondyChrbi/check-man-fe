@@ -1,91 +1,58 @@
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import {useMutation} from "@apollo/client";
 import {
-    Course, createSemesterAccessRequestMutation,
-    CreateSemesterAccessRequestMutation,
-    Semester,
-    SemesterAccessRequestVariables
+    Course, Semester,
 } from "../../lib/graphql/courseQuery";
+import {useNavigate} from "react-router-dom";
 
 interface Props {
     course: Course,
-    available?: boolean,
-    outdated?: boolean,
+
+    semester: Semester,
+
     disabled?: boolean
+    children?: JSX.Element
+
+    onClick?: (semester: Semester) => void | Promise<void>
 }
 
-const MODAL_OPEN_LIMIT = 1;
-
-const CourseIcon = ({course, available = false}: Props) => {
-    const {t} = useTranslation();
+const CourseIcon = ({course, semester, children = <></>, onClick = () => {}}: Props) => {
     const navigate = useNavigate();
-
-    const [sendAccessRequest] = useMutation<CreateSemesterAccessRequestMutation,
-        SemesterAccessRequestVariables>(createSemesterAccessRequestMutation);
-
-    const [showSign, setShowSign] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
 
-    const semesters = course.semesters ?? [];
-
-    const iconClickHandler = async (event: React.MouseEvent<HTMLElement>) => {
+    const clickHandle = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
-        if (available && course && course.semesters) {
-            await joinCourseHandler(course.semesters[0])
-            return;
-        }
+        await onClick(semester);
 
-        if (semesters.length === MODAL_OPEN_LIMIT) {
-            const semester = semesters[0];
-
-            return navigate(`/courses/${course.id}/semester/${semester.id}`, {replace: true})
-        }
+        return navigate(`/courses/${course.id}/semester/${semester.id}`, {replace: true})
     }
 
-    const joinCourseHandler = async (semester: Semester) => {
-        await sendAccessRequest({variables: {semesterId: semester.id}});
-    }
-
-
-    const mouseIconEnterHandler = (event: React.MouseEvent<HTMLElement>) => {
+    const mouseIconEnterHandle = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
-
-        if (available) {
-            setShowSign(true);
-        }
 
         setIsHovering(true);
     }
 
-    const mouseIconLeaveHandler = (event: React.MouseEvent<HTMLElement>) => {
+    const mouseIconLeaveHandle = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
-
-        if (available) {
-            setShowSign(false);
-        }
 
         setIsHovering(false);
     }
 
-    return <div className="course-container flex flex-col mr-5 hover:cursor-pointer"
-                onClick={iconClickHandler}
-                onMouseEnter={mouseIconEnterHandler}
-                onMouseLeave={mouseIconLeaveHandler}>
+    return <div className="course-container flex flex-col mr-5 hover:cursor-pointer relative"
+                onClick={clickHandle}
+                onMouseEnter={mouseIconEnterHandle}
+                onMouseLeave={mouseIconLeaveHandle}>
         <div className="flex flex-col justify-center course-icon rounded-3xl w-40 h-40"
              style={{backgroundColor: course.template}}>
-            {(course.icon && !available || (available && !showSign)) &&
+            {course.icon &&
                 <img className="m-5" src={course.icon} alt={course.name}/>
-            }
-            {available && showSign &&
-                <button>{t('course.available.join')}</button>
             }
         </div>
         <div className="h-14">
             <div className="my-4 text-center">{course.name}</div>
         </div>
+        {children}
     </div>
 }
 

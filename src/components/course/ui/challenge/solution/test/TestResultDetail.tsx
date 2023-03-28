@@ -1,7 +1,7 @@
 import {useQuery} from "@apollo/client";
 import {TestResultQuery, testResultQuery, TestResultVariables} from "../../../../../../lib/graphql/solutionQuery";
 import {showErrorToast} from "../../../../../editor/helpers";
-import LoadingSpinner from "../../../../../LoadingSpinner";
+import LoadingSpinner from "../../../../../loading/LoadingSpinner";
 import React from "react";
 import {useParams} from "react-router-dom";
 import FeedbackList from "../review/feedback/FeedbackList";

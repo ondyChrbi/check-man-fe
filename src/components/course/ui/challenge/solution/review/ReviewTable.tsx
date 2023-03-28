@@ -6,7 +6,7 @@ import {
     GetSolutionsToReviewQuery,
     GetSolutionsToReviewVariables
 } from "../../../../../../lib/graphql/reviewQuery";
-import LoadingSpinner from "../../../../../LoadingSpinner";
+import LoadingSpinner from "../../../../../loading/LoadingSpinner";
 import React, {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {PencilSquareIcon} from "@heroicons/react/24/solid";

@@ -5,7 +5,7 @@ import {
     GetCourseStatisticsQuery
 } from "../../../lib/graphql/statisticsQuery";
 import {showErrorToast} from "../../editor/helpers";
-import LoadingSpinner from "../../LoadingSpinner";
+import LoadingSpinner from "../../loading/LoadingSpinner";
 import React from "react";
 import FeedBackChart from "../../ui/chart/FeedBackChart";
 import {useTranslation} from "react-i18next";

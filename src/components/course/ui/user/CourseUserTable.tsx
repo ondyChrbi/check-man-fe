@@ -7,7 +7,7 @@ import {
     CourseQueryWithRelatedUserQuery,
     CourseQueryWithRelatedUserVariables
 } from "../../../../lib/graphql/courseQuery";
-import LoadingSpinner from "../../../LoadingSpinner";
+import LoadingSpinner from "../../../loading/LoadingSpinner";
 import {AppUser} from "../../../../lib/graphql/meQuery";
 import CourseUserRolesList from "./CourseUserRolesList";
 import {ArchiveBoxXMarkIcon, CheckIcon, UserPlusIcon} from "@heroicons/react/24/solid";

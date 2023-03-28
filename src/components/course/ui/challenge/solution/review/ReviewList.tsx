@@ -1,6 +1,5 @@
 import {useQuery} from "@apollo/client";
-import LoadingSpinner from "../../../../../LoadingSpinner";
-import TreeView from "react-treeview";
+import LoadingSpinner from "../../../../../loading/LoadingSpinner";
 import React from "react";
 import {
     getSolutionsToReview,

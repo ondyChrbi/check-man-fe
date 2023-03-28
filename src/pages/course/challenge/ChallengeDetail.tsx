@@ -1,6 +1,6 @@
 import {useQuery} from "@apollo/client";
 import {ChallengeQuery, getChallengeQuery} from "../../../lib/graphql/challengeQuery";
-import LoadingSpinner from "../../../components/LoadingSpinner";
+import LoadingSpinner from "../../../components/loading/LoadingSpinner";
 import React, {useState} from "react";
 import {useParams} from "react-router-dom";
 import Requirements from "../../../components/course/ui/challenge/requirement/Requirements";
@@ -22,7 +22,6 @@ interface Props {
 const ChallengeDetail = ({argChallengeId}: Props) => {
     const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId'>();
 
-    const {t} = useTranslation();
     const {roles} = useCourseRoles(semesterId!);
 
     const {loading, error, data} = useQuery<ChallengeQuery>(getChallengeQuery, {
@@ -92,10 +91,6 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
             }
         </div>
     </div>
-}
-
-const ChallengeDetailTopView = () => {
-    return
 }
 
 export default ChallengeDetail

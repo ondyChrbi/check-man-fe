@@ -54,6 +54,7 @@ export const courseQueryWithRelatedUser = gql`
 export const createSemesterAccessRequestMutation = gql`
     mutation CreateSemesterAccessRequestMutation($semesterId: ID!) {
         createSemesterAccessRequest(semesterId: $semesterId) {
+            id
             creationDate
             expirationDate
         }

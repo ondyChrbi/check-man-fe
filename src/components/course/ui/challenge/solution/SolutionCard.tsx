@@ -13,7 +13,7 @@ import {
 } from "@heroicons/react/24/solid";
 import {ClockIcon} from "@heroicons/react/24/outline";
 import {useTranslation} from "react-i18next";
-import LoadingSpinner from "../../../../LoadingSpinner";
+import LoadingSpinner from "../../../../loading/LoadingSpinner";
 import {useCourseRoles} from "../../../../../features/authorization/hooks";
 import {SemesterRole} from "../../../../../lib/graphql/courseQuery";
 import TestResultButton from "./TestResultButton";

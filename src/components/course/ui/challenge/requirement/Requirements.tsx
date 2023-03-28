@@ -1,6 +1,6 @@
 import {useQuery} from "@apollo/client";
 import {getRequirementsQuery, Requirement, RequirementQuery} from "../../../../../lib/graphql/requirementQuery";
-import LoadingSpinner from "../../../../LoadingSpinner";
+import LoadingSpinner from "../../../../loading/LoadingSpinner";
 import React from "react";
 import RequirementCard from "./RequirementCard";
 import FadeIn from "../../../../ui/animated/FadeIn";

@@ -5,7 +5,7 @@ import {
     getCourseDashboardQuery
 } from "../../../lib/graphql/meQuery";
 import {useTranslation} from "react-i18next";
-import LoadingSpinner from "../../../components/LoadingSpinner";
+import LoadingSpinner from "../../../components/loading/LoadingSpinner";
 import DashboardList from "./DashboardList";
 import AddCourseIcon from "../../../components/course/AddCourseIcon";
 
@@ -29,7 +29,7 @@ const CourseDashboard: React.FC = (): ReactElement => {
     }
 
     return <div className="flex flex-col justify-center items-center p-8 h-full">
-        <DashboardList courses={data.myCourses} title={t('dashboard.courses.me')}>
+        <DashboardList courses={data.myCourses} availableCourses={data.availableCourses}>
             <AddCourseIcon />
         </DashboardList>
     </div>
