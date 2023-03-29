@@ -10,9 +10,9 @@ import {useMutation, useQuery} from "@apollo/client";
 import {showErrorToast, showSuccessToast} from "../../../../components/editor/helpers";
 import {useTranslation} from "react-i18next";
 import {
-    getSemesterAccessRequests,
-    GetSemesterAccessRequestsQuery,
-    GetSemesterAccessRequestsVariables
+    getSemesterAccessRequestsAppUser,
+    GetSemesterAccessRequestsAppUserQuery,
+    GetSemesterAccessRequestsAppUserVariables
 } from "../../../../lib/graphql/accessRequestQuery";
 import Loading from "../../../../components/loading/Loading";
 
@@ -32,7 +32,7 @@ const CourseAccessRequest = ({semester}: Props) => {
         },
     });
 
-    const {data, loading: loadingRequest} = useQuery<GetSemesterAccessRequestsQuery, GetSemesterAccessRequestsVariables>(getSemesterAccessRequests, {
+    const {data, loading: loadingRequest} = useQuery<GetSemesterAccessRequestsAppUserQuery, GetSemesterAccessRequestsAppUserVariables>(getSemesterAccessRequestsAppUser, {
         variables: {
             semesterId: semester.id
         },

@@ -5,6 +5,7 @@ import ChallengeDeleteButton from "./challenge/form/ChallengeDeleteButton";
 import ChallengeCreateButton from "./challenge/form/ChallengeCreateButton";
 import ChallengeReviewButton from "./challenge/form/ChallengeReviewButton";
 import ManageCourseSemesterUsersButton from "./ManageCourseSemesterUsersButton";
+import ManageCourseSemesterAccessRequestsButton from "./ManageCourseSemesterAccessRequestsButton";
 
 interface Props {
     courseId: number | string;
@@ -15,18 +16,21 @@ interface Props {
 const SemesterAdministratorToolbar = ({courseId, semesterId, challengeId}: Props) => {
     const {roles} = useCourseRoles(semesterId);
 
-    return <div className="flex flex-row md:h-14 h-fit [&>*]:px-2 ">
-        <div className="px-2">{roles.includes(SemesterRole.CREATE_CHALLENGE) &&
+    return <div className="flex flex-row md:h-14 h-fit">
+        <div className="flex flex-row px-2">{roles.includes(SemesterRole.CREATE_CHALLENGE) &&
             <ChallengeCreateButton semesterId={semesterId} courseId={courseId}/>
         }</div>
-        <div className="px-2">{challengeId && roles.includes(SemesterRole.DELETE_CHALLENGE) &&
+        <div className="flex flex-row px-2">{challengeId && roles.includes(SemesterRole.DELETE_CHALLENGE) &&
             <ChallengeDeleteButton semesterId={semesterId} courseId={courseId} challengeId={challengeId}/>
         }</div>
-        <div className="px-2">{challengeId && roles.includes(SemesterRole.REVIEW_CHALLENGE) &&
+        <div className="flex flex-row px-2">{challengeId && roles.includes(SemesterRole.REVIEW_CHALLENGE) &&
             <ChallengeReviewButton courseId={courseId} semesterId={semesterId} challengeId={challengeId} />
         }</div>
-        <div className="px-2">{roles.includes(SemesterRole.MANAGE_USERS) &&
+        <div className="flex flex-row px-2">{roles.includes(SemesterRole.MANAGE_USERS) &&
             <ManageCourseSemesterUsersButton courseId={courseId} semesterId={semesterId} />
+        }</div>
+        <div className="flex flex-row px-2">{roles.includes(SemesterRole.MANAGE_USERS) &&
+            <ManageCourseSemesterAccessRequestsButton courseId={courseId} semesterId={semesterId} />
         }</div>
     </div>
 }

@@ -145,8 +145,16 @@
         "new" : "New",
         "access" : {
           "join": "Zažádat o zapsání",
+          "approve" : "Schválit",
           "message" : {
             "send" : "Žádost odeslána"
+          },
+          "table" : {
+            "id" : "ID",
+            "stag-id": "Stag ID",
+            "name" : "Jméno",
+            "creation-date" : "Datum vytvoření",
+            "expiration-date" : "Datum expirace"
           }
         }
       },

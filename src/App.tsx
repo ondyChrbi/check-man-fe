@@ -31,6 +31,7 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
+import CourseAccessManager from "./pages/course/semester/CourseAccessManager";
 
 ChartJS.register(
     CategoryScale,
@@ -93,6 +94,11 @@ function App() {
                             <Route path="test-result/:testResultId" element={
                                 <AuthorizedRoute mandatoryRoles={[SemesterRole.VIEW_TEST_RESULT]}>
                                     <TestResultDetail />
+                                </AuthorizedRoute>
+                            } />
+                            <Route path="access-requests" element={
+                                <AuthorizedRoute mandatoryRoles={[SemesterRole.MANAGE_USERS]}>
+                                    <CourseAccessManager />
                                 </AuthorizedRoute>
                             } />
                         </Route>
