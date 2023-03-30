@@ -11,6 +11,7 @@
     "message": {
       "remove": "Úspěšně odebráno",
       "publish": "Úspěšně publikováno",
+      "add": "Úspěšně přidáno",
       "error" : {
         "basic" : "Někde se stala chyba",
         "unauthorized" : "Nemáte oprávnění pro přístup na tuto stránku"
@@ -142,13 +143,18 @@
     "semester" : {
       "create" : "Přidat semester",
       "available" : {
-        "new" : "New",
+        "new" : "K zapsání",
+        "sent" : "Žádost odeslána",
         "access" : {
           "join": "Zažádat o zapsání",
-          "approve" : "Schválit",
+          "approve" : {
+            "student" : "Zapsat jako studenta",
+            "teacher" : "Zapsat jako učitele"
+          },
           "message" : {
             "send" : "Žádost odeslána"
           },
+          "no-requests" : "Žádné žádosti k dispozici",
           "table" : {
             "id" : "ID",
             "stag-id": "Stag ID",

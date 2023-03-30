@@ -25,6 +25,13 @@ export const getSemesterAccessRequests = gql`
             id,
             expirationDate,
             creationDate,
+            semesterId,
+            appUser {
+                id,
+                mail,
+                stagId,
+                displayName,
+            }
         }
     }
 `;
@@ -35,4 +42,19 @@ export interface GetSemesterAccessRequestsQuery {
 
 export interface GetSemesterAccessRequestsVariables {
     semesterId: string | number
+}
+
+export const approveCourseSemesterRequest = gql`
+    mutation ApproveCourseSemesterRequest($id: ID!, $roles: [String!]!) {
+        approveCourseSemesterRequest(id: $id, roles: $roles)
+    }
+`;
+
+export interface ApproveCourseSemesterRequestMutation {
+    approveCourseSemesterRequest: boolean
+}
+
+export interface ApproveCourseSemesterRequestVariables {
+    id: string | number
+    roles: Array<string>
 }

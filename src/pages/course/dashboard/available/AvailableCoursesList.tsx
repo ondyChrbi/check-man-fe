@@ -11,13 +11,18 @@ interface Props {
 
 const AvailableCoursesList = ({availableCourses}: Props) => {
     const {t} = useTranslation();
+    const [sent, setSent] = React.useState<boolean>(false);
 
-    return <div className="mx-5">
-        {availableCourses.map(course => course.semesters?.map(semester => <div className="mx-5">
+    return <div className="flex flex-row mx-5">
+        {availableCourses.map(course => course.semesters?.map(semester =>
+            <div className="mx-5">
                 <CourseIcon key={semester.id} course={course} semester={semester}>
-                    <CourseIconChip title={t('course.semester.available.new').toUpperCase()}/>
+                    <CourseIconChip title={(sent)?
+                        t('course.semester.available.sent').toUpperCase():
+                        t('course.semester.available.new').toUpperCase()
+                    } />
                 </CourseIcon>
-                <CourseAccessRequest semester={semester}/>
+                <CourseAccessRequest semester={semester} onRequestSent={() => setSent(true)} />
             </div>
         ))}
     </div>

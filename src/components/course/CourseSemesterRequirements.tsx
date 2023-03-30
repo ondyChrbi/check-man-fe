@@ -43,15 +43,16 @@ const CourseSemesterRequirements = ({semester, requirements = INIT_REQUIREMENTS,
     return <div className="flex flex-col">
         <h1 className="mt-7 mb-10 text-gray-600 font-light text-4xl">{t('course.requirement.title')}</h1>
         <div className="flex flex-wrap justify-around md:justify-between items-end w-full">
-            {Object.values(ChallengeKind).filter((k) => isDisplayable(editable, k, formValues)).map((k) => <div
-                className="flex flex-col w-fit text-center justify-center items-center align-middle mx-5">
-                <h2 className={`w-fit font-roboto text-gray-700 text-center font-light text-md mb-3 font-bold ${textColorMap.get(k)}`}>
-                    {t(`course.requirement.input.title.${k}`)}
-                </h2>
-                <CounterInput key={k} color={colorMap.get(k)} textColor={textColorMap.get(k)} name={k}
-                              current={getCurrent(k, formValues)}
-                              editable={editable} onValueChange={changeInputHandle}/>
-            </div>)}
+            {Object.values(ChallengeKind).filter((k) => isDisplayable(editable, k, formValues)).map((k) =>
+                <div key={k}
+                    className="flex flex-col w-fit text-center justify-center items-center align-middle mx-5">
+                    <h2 className={`w-fit font-roboto text-gray-700 text-center font-light text-md mb-3 font-bold ${textColorMap.get(k)}`}>
+                        {t(`course.requirement.input.title.${k}`)}
+                    </h2>
+                    <CounterInput color={colorMap.get(k)} textColor={textColorMap.get(k)} name={k}
+                                  current={getCurrent(k, formValues)}
+                                  editable={editable} onValueChange={changeInputHandle}/>
+                </div>)}
         </div>
     </div>
 }

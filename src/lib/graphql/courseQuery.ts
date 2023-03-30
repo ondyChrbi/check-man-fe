@@ -214,10 +214,11 @@ export interface CreateSemesterAccessRequestMutation {
 
 export interface SemesterAccessRequest {
     appUser: AppUser,
-    semester: Semester,
     creationDate: string,
     expirationDate: string
     id: string
+
+    semesterId: number
 }
 
 export interface Course {

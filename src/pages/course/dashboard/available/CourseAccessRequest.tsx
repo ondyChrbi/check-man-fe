@@ -17,13 +17,21 @@ import {
 import Loading from "../../../../components/loading/Loading";
 
 interface Props {
-    semester: Semester
+    semester: Semester,
+
+    onRequestSent?: (request: SemesterAccessRequest) => void | Promise<void>
 }
 
-const CourseAccessRequest = ({semester}: Props) => {
+const CourseAccessRequest = ({
+                                 semester, onRequestSent = () => {
+    }
+                             }: Props) => {
     const {t} = useTranslation();
 
-    const [sendAccessRequest, {loading}] = useMutation<CreateSemesterAccessRequestMutation, SemesterAccessRequestVariables>(createSemesterAccessRequestMutation, {
+    const [sendAccessRequest, {
+        loading,
+        data: mutationData
+    }] = useMutation<CreateSemesterAccessRequestMutation, SemesterAccessRequestVariables>(createSemesterAccessRequestMutation, {
         onError: (error) => {
             showErrorToast(error);
         },
@@ -32,29 +40,42 @@ const CourseAccessRequest = ({semester}: Props) => {
         },
     });
 
-    const {data, loading: loadingRequest} = useQuery<GetSemesterAccessRequestsAppUserQuery, GetSemesterAccessRequestsAppUserVariables>(getSemesterAccessRequestsAppUser, {
+    const {
+        data: queryData,
+        loading: loadingRequest
+    } = useQuery<GetSemesterAccessRequestsAppUserQuery, GetSemesterAccessRequestsAppUserVariables>(getSemesterAccessRequestsAppUser, {
         variables: {
             semesterId: semester.id
+        },
+        onCompleted: (data) => {
+            if (data.semesterAccessRequestsAppUser) {
+                onRequestSent(data.semesterAccessRequestsAppUser)
+            }
         },
         onError: (error) => {
             showErrorToast(error);
         },
     });
 
-    const [request, setRequest] = React.useState<SemesterAccessRequest | undefined | null>(data?.semesterAccessRequestsAppUser);
-
     const sendAccessRequestHandle = async (semester: Semester) => {
         if (!loading) {
             const semesterId = semester.id;
 
             const result = await sendAccessRequest({variables: {semesterId}});
-            setRequest(result.data?.createSemesterAccessRequest);
+            if (result.data) {
+                onRequestSent(result.data.createSemesterAccessRequest);
+            }
         }
     }
 
+    const showLoading = () =>
+        loadingRequest || loading || mutationData?.createSemesterAccessRequest || queryData?.semesterAccessRequestsAppUser;
+
     return <div className="flex flex-col justify-center items-center align-middle">
-        {(!loading && !request) && <SendAccessRequestButton semester={semester} onClick={sendAccessRequestHandle}/>}
-        {(loadingRequest || request) && <Loading />}
+        {showLoading() ?
+            <Loading/> :
+            <SendAccessRequestButton semester={semester} onClick={sendAccessRequestHandle}/>
+        }
     </div>
 }
 
