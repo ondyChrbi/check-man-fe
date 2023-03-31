@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {useQuery} from "@apollo/client";
 import {Challenge, ChallengeKind, ChallengesQuery, getChallengesQuery} from "../../../../lib/graphql/challengeQuery";
-import {useTranslation} from "react-i18next";
 import ChallengeList from "./ChallengeList";
 import {useParams} from "react-router-dom";
 import ChallengeAsideActionsMenu from "./ChallengeAsideActionsMenu";
@@ -55,10 +54,8 @@ const HIDDEN = '-18rem';
 const OPEN = '0rem'
 
 const ChallengeAside = ({courseId, semesterId, open = true}: Props) => {
-    const {t} = useTranslation();
-
     const {challengeId} = useParams<'challengeId'>();
-    const {loading, data} = useQuery<ChallengesQuery>(getChallengesQuery, {
+    const {data} = useQuery<ChallengesQuery>(getChallengesQuery, {
         variables: {"semesterId": semesterId},
         onError: (error) => {
             showErrorToast(error);
@@ -76,17 +73,7 @@ const ChallengeAside = ({courseId, semesterId, open = true}: Props) => {
         setIsOpen(false);
     }
 
-    if (loading) {
-        return <></>;
-    }
-
-    if (!data?.challenges || data.challenges.length === 0) {
-        return <div className="w-full h-full flex items-center justify-center">
-            {t('challenge.not-available')}
-        </div>
-    }
-
-    const challenges = groupChallenges(data.challenges);
+    const challenges = groupChallenges(data?.challenges || []);
 
     return <aside className="flex flex-row justify-start items-start md:w-80 h-full fixed background z-10" style={{left: (isOpen) ? OPEN : HIDDEN}}>
         <menu className="w-72 h-full">

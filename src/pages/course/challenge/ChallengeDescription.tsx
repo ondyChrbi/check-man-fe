@@ -5,17 +5,17 @@ import ChallengeDescriptionEditor from "./ChallengeDescriptionEditor";
 interface Props {
     semesterId: number | string
     challenge: Challenge,
-    editMode?: boolean
+    editable?: boolean
 }
 
-const ChallengeDescription = ({semesterId, challenge, editMode = false}: Props) => {
-    const [editingMode, setEditingMode] = useState(editMode);
+const ChallengeDescription = ({semesterId, challenge, editable = false}: Props) => {
+    const [editingMode, setEditingMode] = useState(editable);
     const [description, setDescription] = useState(challenge.description);
 
     const clickHandle = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
 
-        if (challenge.published) { return }
+        if (challenge.published || !editable) { return }
         setEditingMode(true);
     };
 

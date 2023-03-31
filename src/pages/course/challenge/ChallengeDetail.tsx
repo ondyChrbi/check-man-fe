@@ -4,7 +4,6 @@ import LoadingSpinner from "../../../components/loading/LoadingSpinner";
 import React, {useState} from "react";
 import {useParams} from "react-router-dom";
 import Requirements from "../../../components/course/ui/challenge/requirement/Requirements";
-import {useTranslation} from "react-i18next";
 import RequirementEditor from "../../../components/course/ui/challenge/requirement/RequirementEditor";
 import ChallengeUploadSolutionForm from "../../../components/course/ui/challenge/form/ChallengeUploadSolutionForm";
 import {useCourseRoles} from "../../../features/authorization/hooks";
@@ -63,7 +62,7 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
             <h1 className="text-gray-600 font-bold text-4xl">{data.challenge.name}</h1>
 
             <div className="my-7">
-                <ChallengeDescription semesterId={semesterId!} challenge={data.challenge}/>
+                <ChallengeDescription semesterId={semesterId!} challenge={data.challenge} editable={roles.includes(SemesterRole.EDIT_CHALLENGE)}/>
             </div>
 
             <div>
