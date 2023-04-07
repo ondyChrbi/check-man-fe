@@ -390,6 +390,13 @@
           }
         }
       }
+    },
+    "test" : {
+      "module" : {
+        "editor": {
+          "message": "Vyberte testovací modul:"
+        }
+      }
     }
   },
   "tip" : {
