@@ -12,6 +12,7 @@
       "remove": "Úspěšně odebráno",
       "publish": "Úspěšně publikováno",
       "add": "Úspěšně přidáno",
+      "not-authenticated" : "Platnost vašeho přihlášení vypršela. Prosím přihlašte se znovu.",
       "error" : {
         "basic" : "Někde se stala chyba",
         "unauthorized" : "Nemáte oprávnění pro přístup na tuto stránku"

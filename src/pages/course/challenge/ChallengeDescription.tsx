@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ChallengeDescription = ({semesterId, challenge, editable = false}: Props) => {
-    const [editingMode, setEditingMode] = useState(editable);
+    const [editingMode, setEditingMode] = useState(false);
     const [description, setDescription] = useState(challenge.description);
 
     const clickHandle = (e: React.MouseEvent<HTMLElement>) => {

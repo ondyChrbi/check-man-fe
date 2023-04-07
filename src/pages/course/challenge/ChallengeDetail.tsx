@@ -13,6 +13,7 @@ import SolutionsArea from "../../../components/course/ui/challenge/solution/Solu
 import ReviewAlert from "../../../components/course/ui/challenge/solution/review/ReviewAlert";
 import {Requirement} from "../../../lib/graphql/requirementQuery";
 import ChallengeDescription from "./ChallengeDescription";
+import AutomaticTestEditor from "../../../components/course/ui/challenge/solution/test/AutomaticTestEditor";
 
 interface Props {
     argChallengeId?: number
@@ -89,6 +90,10 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
             </>
             }
         </div>
+
+        {!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE) && <div className="py-5">
+            <AutomaticTestEditor challenge={data.challenge} />
+        </div>}
     </div>
 }
 

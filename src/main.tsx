@@ -7,17 +7,22 @@ import App from "./App";
 import {ApolloProvider} from "@apollo/client";
 import backendClient from "./lib/api/backendClient"
 import './lib/i18next/i18next';
+import {QueryClient, QueryClientProvider} from "react-query";
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <ApolloProvider client={backendClient}>
-        <Provider store={store}>
-            <React.StrictMode>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="*" element={<App/>}/>
-                    </Routes>
-                </BrowserRouter>
-            </React.StrictMode>
-        </Provider>
+        <QueryClientProvider client={queryClient}>
+            <Provider store={store}>
+                <React.StrictMode>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route path="*" element={<App/>}/>
+                        </Routes>
+                    </BrowserRouter>
+                </React.StrictMode>
+            </Provider>
+        </QueryClientProvider>
     </ApolloProvider>
 )
