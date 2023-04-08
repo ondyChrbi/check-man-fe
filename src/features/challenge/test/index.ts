@@ -3,8 +3,8 @@ export interface TestConfiguration {
     templatePath?: string;
     dockerFilePath?: string;
     testModuleClass?: string;
-    active: boolean;
-    creationDate: Date;
+    active?: boolean;
+    creationDate?: Date;
     updateDate?: Date;
 }
 
@@ -16,7 +16,7 @@ export interface TestingModule {
     moduleClass: string;
 }
 
-export interface TestConfigurationInput {
+export interface TestConfigurationModuleInput {
     testModuleClass: string;
 }
 
@@ -24,4 +24,9 @@ const BASE_PATH = "/icons";
 
 export const getTestModuleIcon = (module: TestingModule) => {
     return `${BASE_PATH}/gradle-java-kotlin.svg`;
+}
+
+export const isValidConfiguration = (configuration?: TestConfiguration) => {
+    return configuration && configuration.testModuleClass && configuration.testModuleClass !== ""
+        && configuration.templatePath && configuration.templatePath !== ""
 }

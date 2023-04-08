@@ -3,7 +3,7 @@ import axios from "axios";
 import {useTranslation} from "react-i18next";
 import {showErrorToast, showSuccessToast} from "../../components/editor/helpers";
 import {useMutation, useQuery} from "react-query";
-import {TestConfiguration, TestConfigurationInput, TestingModule} from "../challenge/test";
+import {TestConfiguration, TestConfigurationModuleInput, TestingModule} from "../challenge/test";
 import {Challenge} from "../../lib/graphql/challengeQuery";
 import {SolutionDtoV1} from "./challenge";
 import {useState} from "react";
@@ -27,7 +27,9 @@ export const useTestConfiguration = (challenge: Challenge) => {
         return result.data as Promise<TestConfiguration>;
     };
 
-    const addTestConfiguration = async (challenge: Challenge, testModule: TestConfigurationInput) => {
+    const testConfigurations = useQuery('test-configuration', fetchData);
+
+    const postTestConfiguration = async (challenge: Challenge, testModule: TestConfigurationModuleInput) => {
         if (!authenticationInfo?.token) {
             showErrorToast(t('common.message.not-authenticated'));
             return;
@@ -42,13 +44,34 @@ export const useTestConfiguration = (challenge: Challenge) => {
         return response.data as Promise<TestConfiguration>;
     };
 
-    const testConfigurations = useQuery('test-configuration', fetchData);
-    const addTestConfigurations = useMutation((testModule: TestConfigurationInput) => addTestConfiguration(challenge, testModule));
+    const addTestConfiguration = useMutation((testModule: TestConfigurationModuleInput) => postTestConfiguration(challenge, testModule));
 
-    return { testConfigurations, addTestConfigurations };
+    const patchTestConfiguration = async (input: TestConfiguration) => {
+        if (!authenticationInfo?.token) {
+            showErrorToast(t('common.message.not-authenticated'));
+            return;
+        }
+
+        const {id, ...data} = input;
+        const response = await axios.patch(
+            `${TESTING_SUBSYSTEM_URL}/test-configuration/${id}`,
+            data,
+            {headers: {'Authorization': `${authenticationInfo.token}`}}
+        );
+
+        return response.data as Promise<TestConfiguration>;
+    };
+
+    const editTestConfiguration = useMutation((input: TestConfiguration) => patchTestConfiguration(input));
+
+    return { testConfigurations, addTestConfiguration, editTestConfiguration };
 }
 
-export const useTestingModules = () => {
+interface TestingModulesProps {
+    onDownloadSuccess?: (data: Array<TestingModule>) => void;
+}
+
+export const useTestingModules = ({onDownloadSuccess = () => {}} : TestingModulesProps) => {
     const {t} = useTranslation();
     const authenticationInfo = useAppSelector((state) => state.storage.authentication.jwtInfo);
 
@@ -69,7 +92,7 @@ export const useTestingModules = () => {
         }
     };
 
-    const testingModules = useQuery('test-module', fetchData);
+    const testingModules = useQuery('test-module', fetchData, {onSuccess : onDownloadSuccess});
 
     return { testingModules };
 };

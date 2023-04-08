@@ -392,9 +392,16 @@
       }
     },
     "test" : {
+      "action" : {
+        "set" : "Automatické testy",
+        "active" : {
+          "true" :"Testy jsou aktivní",
+          "false" : "Testy nejsou aktivní"
+        }
+      },
       "module" : {
         "editor": {
-          "message": "Vyberte testovací modul:"
+          "message": "Nastavení automatických testů"
         }
       }
     }

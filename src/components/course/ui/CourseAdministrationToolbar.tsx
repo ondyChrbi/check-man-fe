@@ -1,7 +1,7 @@
 import {Semester} from "../../../lib/graphql/courseQuery";
 import React from "react";
 import SemesterEditor from "../../../pages/course/semester/SemesterEditor";
-import ShowModalButton from "../../ui/ShowModalButton";
+import ShowModalButton from "../../ui/modal/ShowModalButton";
 import {useTranslation} from "react-i18next";
 import {PlusIcon} from "@heroicons/react/24/solid";
 

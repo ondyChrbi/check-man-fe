@@ -24,8 +24,6 @@ const TestConfigurationTemplateEditor = ({testConfiguration} : Props) => {
         await uploadTestConfiguration(file);
 
         showSuccessToast(t('common.message.add'));
-
-        debugger
     };
 
     const deleteFileHandle = (uid: string) => {

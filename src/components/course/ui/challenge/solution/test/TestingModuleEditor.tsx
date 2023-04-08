@@ -7,14 +7,17 @@ import {showErrorToast} from "../../../../../editor/helpers";
 import LoadingSpinner from "../../../../../loading/LoadingSpinner";
 
 interface Props {
+    selected?: string;
     onModuleSelected?: (module: TestingModule) => void | Promise<void>;
 }
 
-const TestingModuleEditor = ({ onModuleSelected = () => {}}: Props) => {
+const TestingModuleEditor = ({ selected, onModuleSelected = () => {}}: Props) => {
     const {t} = useTranslation();
 
-    const { testingModules: {data, isLoading, error} } = useTestingModules();
     const [selectedModule, setSelectedModule] = useState<TestingModule | undefined>(undefined);
+    const { testingModules: {data, isLoading, error} } = useTestingModules({
+        onDownloadSuccess: (data) => setSelectedModule(data.find(module => module.moduleClass === selected))
+    });
 
     const configurationSelectHandle = (module: TestingModule) => {
         setSelectedModule(module);
@@ -32,11 +35,7 @@ const TestingModuleEditor = ({ onModuleSelected = () => {}}: Props) => {
         </div>
     }
 
-    return <div className="flex flex-col">
-        <p className="pb-5">{t('challenge.test.module.editor.message')}</p>
-        <TestingModuleForm items={data} selected={selectedModule} onItemClick={configurationSelectHandle} />
-
-    </div>
+    return <TestingModuleForm items={data} selected={selectedModule} onItemClick={configurationSelectHandle} />
 };
 
 export default TestingModuleEditor;

@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
 import React, {useState} from "react";
-import CoolModal from "../ui/CoolModal";
+import CoolModal from "../ui/modal/CoolModal";
 import {PlusIcon} from "@heroicons/react/24/solid";
 import CourseEditor from "../../pages/course/CourseEditor";
 
