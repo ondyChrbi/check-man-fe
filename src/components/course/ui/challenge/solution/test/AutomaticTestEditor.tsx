@@ -39,8 +39,8 @@ const AutomaticTestEditor = ({challenge}: Props) => {
 
     return <div className="flex flex-col w-full h-fit">
         <div className="py-5">
-            <TestingModuleEditor onModuleSelected={moduleSelectedHandle} />
             {data && <TestConfigurationTemplateEditor testConfiguration={data} />}
+            <TestingModuleEditor onModuleSelected={moduleSelectedHandle} />
         </div>
     </div>
 }

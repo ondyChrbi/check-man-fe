@@ -80,6 +80,10 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
             }
         </div>
 
+        {!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE) && <div className="py-5">
+            <AutomaticTestEditor challenge={data.challenge} />
+        </div>}
+
         {!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE) &&
             <ChallengePublishButton challengeId={challengeId}/>}
 
@@ -90,10 +94,6 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
             </>
             }
         </div>
-
-        {!data.challenge.published && roles.includes(SemesterRole.EDIT_CHALLENGE) && <div className="py-5">
-            <AutomaticTestEditor challenge={data.challenge} />
-        </div>}
     </div>
 }
 
