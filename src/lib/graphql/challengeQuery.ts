@@ -3,6 +3,7 @@ import {AppUser} from "./meQuery";
 import {Requirement} from "./requirementQuery";
 import {TestResult} from "./solutionQuery";
 import {TestConfiguration} from "../../features/challenge/test";
+import {ReviewedRequirement} from "./reviewQuery";
 
 export const getChallengesQuery = gql`
     query GetChallengeQuery($semesterId: ID!) {
@@ -94,6 +95,10 @@ export const getSolutionsQuery = gql`
             id,
             uploadDate,
             status,
+            review {
+                id,
+                description
+            }
         }
     }
 `;
@@ -237,6 +242,7 @@ export interface Review {
     id: number,
     description: string,
     feedbacks: Array<Feedback>
+    requirements: Array<ReviewedRequirement>
 }
 
 export interface Solution {

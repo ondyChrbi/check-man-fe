@@ -352,6 +352,7 @@
       }
     },
     "review": {
+      "reviewer" : "Revizor",
       "new": {
         "alert": {
           "title": "Nové úkoly k opravení",
@@ -365,7 +366,7 @@
         },
         "title": "Odevzdané řešení: {{name}}",
         "description": {
-          "default": "Zadejte nové hodnocení",
+          "default": "Žádné hodnocení nebylo vloženo",
           "error": {
             "required": "Toto pole je povinné"
           }

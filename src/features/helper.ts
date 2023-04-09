@@ -31,3 +31,9 @@ export const isBetween = (startDate: string, endDate: string, toCheck = new Date
 
     return toCheck > from && toCheck < to;
 }
+
+export const removeHtmlTags = (htmlString: string) => {
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(htmlString, 'text/html');
+    return htmlDoc.body.textContent || '';
+}

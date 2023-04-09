@@ -30,6 +30,7 @@ import {
     Legend,
 } from 'chart.js';
 import CourseAccessManager from "./pages/course/semester/CourseAccessManager";
+import ReviewDetail from "./pages/course/challenge/review/ReviewDetail";
 
 ChartJS.register(
     CategoryScale,
@@ -81,7 +82,7 @@ function App() {
                                     <SolutionsToReview/>
                                 </AuthorizedRoute>
                             } />
-                            <Route path="challenge/:challengeId/solution/:solutionId/review/:reviewId" element={
+                            <Route path="challenge/:challengeId/solution/:solutionId/review/:reviewId/edit" element={
                                 <AuthorizedRoute mandatoryRoles={[SemesterRole.REVIEW_CHALLENGE]}>
                                     <ReviewEditor />
                                 </AuthorizedRoute>
@@ -95,6 +96,9 @@ function App() {
                                 <AuthorizedRoute mandatoryRoles={[SemesterRole.MANAGE_USERS]}>
                                     <CourseAccessManager />
                                 </AuthorizedRoute>
+                            } />
+                            <Route path="challenge/:challengeId/solution/:solutionId/review/:reviewId" element={
+                                <ReviewDetail  />
                             } />
                         </Route>
                     </Routes>

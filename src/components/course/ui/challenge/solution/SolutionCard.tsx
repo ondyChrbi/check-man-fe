@@ -18,6 +18,7 @@ import {useCourseRoles} from "../../../../../features/authorization/hooks";
 import {SemesterRole} from "../../../../../lib/graphql/courseQuery";
 import TestResultButton from "./TestResultButton";
 import {toFormattedDateTime} from "../../../../../features/helper";
+import {statusBackgroundColorMap, statusFontColorMap} from "../../../../../features/challenge/solution";
 
 interface Props {
     solutionId: number | string
@@ -69,27 +70,13 @@ interface SolutionStatusIconProps {
     status: Status
 }
 
-const SolutionStatusIcon = ({status}: SolutionStatusIconProps) => {
+export const SolutionStatusIcon = ({status}: SolutionStatusIconProps) => {
     return <div className={`flex flex-col w-12 h-12 p-3 rounded-full ${statusBackgroundColorMap.get(status)}`}>
         {statusColorIcons.get(status)}
     </div>
 };
 
-const statusBackgroundColorMap = new Map([
-    [Status.APPROVED, "bg-green-600"],
-    [Status.RETURN_TO_EDIT, "bg-return-to-edit"],
-    [Status.DENIED, "bg-red-800"],
-    [Status.WAITING_TO_REVIEW, "bg-gray-600"],
-]);
-
-const statusFontColorMap = new Map([
-    [Status.APPROVED, "text-green-600"],
-    [Status.RETURN_TO_EDIT, "text-return-to-edit"],
-    [Status.DENIED, "text-red-800"],
-    [Status.WAITING_TO_REVIEW, "text-gray-600"],
-]);
-
-const statusColorIcons = new Map([
+export const statusColorIcons = new Map([
     [Status.APPROVED, <CheckIcon color="#FFFFFF"/>],
     [Status.RETURN_TO_EDIT, <ArrowUturnLeftIcon color="#FFFFFF"/>],
     [Status.DENIED, <XMarkIcon color="#FFFFFF"/>],

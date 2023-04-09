@@ -4,6 +4,7 @@ import {ClockIcon} from "@heroicons/react/24/outline";
 import {toFormattedDate} from "../../../../features/helper";
 import {useTranslation} from "react-i18next";
 import {PencilIcon} from "@heroicons/react/24/solid";
+import Chip from "../../../ui/Chip";
 
 const CHIP_WIDTH = 15;
 const CHIP_HEIGHT = 15;
@@ -59,20 +60,20 @@ const ChallengeCard = ({challenge, onClick}: Props) => {
                 {isHovering && <div className="flex flex-col mt-2">
                     <p className="text-sm">{challenge.description.slice(0, DESCRIPTION_LENGTH)}...</p>
                     <div className="flex flex-wrap justify-start items-end mt-1">
-                        {challenge.deadlineDate && <ChallengeChip bgColor={'bg-red-600'} textColor={'text-white'}>
+                        {challenge.deadlineDate && <Chip bgColor={'bg-red-600'} textColor={'text-white'}>
                             <ClockIcon className="mr-1" width={CHIP_WIDTH} height={CHIP_HEIGHT}/>
                             {toFormattedDate(challenge.deadlineDate)}
-                        </ChallengeChip>
+                        </Chip>
                         }
-                        <ChallengeChip bgColor={challengeKindColors.get(challenge.challengeKind)}
+                        <Chip bgColor={challengeKindColors.get(challenge.challengeKind)}
                                        textColor={'text-white'}>
                             {t(challengeKindSelectValue.get(challenge.challengeKind))}
-                        </ChallengeChip>
+                        </Chip>
                         {!challenge.published &&
-                            <ChallengeChip bgColor={'bg-yellow-500'} textColor={'text-white'}>
+                            <Chip bgColor={'bg-yellow-500'} textColor={'text-white'}>
                                 <PencilIcon className="mr-1" width={CHIP_WIDTH} height={CHIP_HEIGHT}/>
                                 {t('challenge.not-published')}
-                            </ChallengeChip>
+                            </Chip>
                         }
                     </div>
                 </div>}
@@ -81,17 +82,6 @@ const ChallengeCard = ({challenge, onClick}: Props) => {
     </>
 }
 
-interface ChallengeChipProps {
-    bgColor: string,
-    textColor: string,
-    children: React.ReactNode
-}
 
-const ChallengeChip = ({bgColor, textColor, children}: ChallengeChipProps) => {
-    return <div
-        className={`flex flex-row text-xs font-bold ${bgColor} ${textColor} w-fit px-1.5 py-1 rounded-full ml-0 mr-1 mt-1`}>
-        {children}
-    </div>
-}
 
 export default ChallengeCard

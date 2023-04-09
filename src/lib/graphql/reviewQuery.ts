@@ -1,5 +1,6 @@
 import {gql} from "@apollo/client";
-import {Review, Solution, Status} from "./challengeQuery";
+import {Challenge, Review, Solution, Status} from "./challengeQuery";
+import {Requirement} from "./requirementQuery";
 
 export const getSolutionsCountToReview = gql`
     query GetSolutionCountToReview($challengeId: ID!) {
@@ -57,13 +58,75 @@ export const editReviewPoints = gql`
     }
 `;
 
+export const getSolution = gql`
+    query GetReview($challengeId: ID!, $solutionId: ID!) {
+        challenge(id: $challengeId) {
+            id,
+            name,
+            description,
+            deadlineDate,
+            startDate,
+            challengeKind,
+        },
+        solution(id: $solutionId) {
+            id,
+            uploadDate,
+            status
+            review {
+                id,
+                description,
+                feedbacks {
+                    id,
+                    description,
+                    type
+                }
+                requirements {
+                    id,
+                    description,
+                    points,
+                    requirement {
+                        id,
+                        name,
+                        description,
+                        active,
+                        minPoint,
+                        maxPoint,
+                    }
+                }
+            }
+            author {
+                stagId,
+                mail,
+                displayName,
+            },
+            testResult {
+                id,
+                log,
+                creationDate,
+                updateDate,
+                status
+            }
+        }
+    }
+`;
+
+export interface GetSolutionQuery {
+    challenge: Challenge;
+    solution: Solution;
+}
+
+export interface GetSolutionVariables {
+    solutionId: number | string;
+    challengeId: number | string;
+}
+
 export interface EditReviewPointsMutation {
-    addReviewPoints: Boolean
+    addReviewPoints: Boolean;
 }
 
 export interface EditReviewPointsVariables {
-    reviewId: number | string,
-    requirementId: number | string,
+    reviewId: number | string
+    requirementId: number | string
     reviewPointsInput: ReviewPointsInput
 }
 
@@ -119,4 +182,11 @@ export interface GetSolutionsCountToReviewQuery {
 
 export interface GetSolutionsCountToReviewVariables {
     challengeId: number | string
+}
+
+export interface ReviewedRequirement {
+    id: string;
+    points: number | null;
+    description: string | null;
+    requirement?: Requirement;
 }

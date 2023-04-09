@@ -131,7 +131,7 @@ const ReviewTableActions = ({solution}: ReviewTableActionsProps) => {
                 return;
             }
         }
-        navigate(`/courses/${courseId}/semester/${semesterId}/challenge/${challengeId}/solution/${solutionId}/review/${reviewId}`)
+        navigate(`/courses/${courseId}/semester/${semesterId}/challenge/${challengeId}/solution/${solutionId}/review/${reviewId}/edit`)
     };
 
     return <div className="flex flex-row justify-center items-center align-middle">
