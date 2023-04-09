@@ -25,6 +25,9 @@
         "drop": "Přetáhněte soubory sem",
         "delete": "Smazat",
         "send": "Nahrát"
+      },
+      "error" : {
+        "no-files" : "Nebyly vybrány žádné soubory"
       }
     },
     "field": {
@@ -402,6 +405,14 @@
       "module" : {
         "editor": {
           "message": "Nastavení automatických testů"
+        }
+      },
+      "status" : {
+        "title" : {
+          "WAITING_TO_TEST": "Čeká na test",
+          "RUNNING": "Probíhá test",
+          "FINISHED": "Test dokončen",
+          "ERROR": "Selhání testovacího subsystému"
         }
       }
     }

@@ -1,3 +1,5 @@
+import {TestStatus} from "../../../lib/graphql/solutionQuery";
+
 export interface TestConfiguration {
     id: number;
     templatePath?: string;
@@ -29,4 +31,12 @@ export const getTestModuleIcon = (module: TestingModule) => {
 export const isValidConfiguration = (configuration?: TestConfiguration) => {
     return configuration && configuration.testModuleClass && configuration.testModuleClass !== ""
         && configuration.templatePath && configuration.templatePath !== ""
+}
+
+export const getStatusTranslate = (status: TestStatus | null | undefined = TestStatus.WAITING_TO_TEST) => {
+    if (!status) {
+        return `challenge.test.status.title.WAITING_TO_TEST`;
+    }
+
+    return `challenge.test.status.title.${status}`;
 }

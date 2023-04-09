@@ -2,6 +2,7 @@ import {gql} from "@apollo/client";
 import {AppUser} from "./meQuery";
 import {Requirement} from "./requirementQuery";
 import {TestResult} from "./solutionQuery";
+import {TestConfiguration} from "../../features/challenge/test";
 
 export const getChallengesQuery = gql`
     query GetChallengeQuery($semesterId: ID!) {
@@ -39,6 +40,15 @@ export const getChallengeQuery = gql`
                 minPoint,
                 maxPoint,
                 active
+            }
+            testConfigurations {
+                id,
+                templatePath,
+                dockerFilePath,
+                testModuleClass,
+                active,
+                creationDate,
+                updateDate,
             }
         }
     }
@@ -213,7 +223,8 @@ export interface Challenge {
     published: boolean,
     author? : AppUser,
     challengeKind: ChallengeKind,
-    requirements: Array<Requirement>
+    requirements: Array<Requirement>,
+    testConfigurations: Array<TestConfiguration>
 }
 
 export interface Feedback {

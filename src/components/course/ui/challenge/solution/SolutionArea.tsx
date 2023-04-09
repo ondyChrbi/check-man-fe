@@ -27,7 +27,7 @@ const SolutionArea = ({ challengeId, courseId, semesterId } : Props) => {
         <div className="bg-white p-4">
             <div className="flex flex-wrap lg:justify-start justify-center items-center w-full">
                 {data.solutions.map((s) =>
-                    <div className="my-5 flex flex-row justify-start items-center w-72">
+                    <div key={s.id} className="my-5 flex flex-row justify-start items-center w-72">
                         <SolutionCard solutionId={s.id} courseId={courseId} semesterId={semesterId} />
                     </div>
                 )}

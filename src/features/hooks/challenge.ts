@@ -116,7 +116,7 @@ export const useChallengeUpload = (challengeId: string | number) => {
     const [uploadProgress, setUploadProgress] = useState(0);
     const authenticationInfo = useAppSelector((state) => state.storage.authentication.jwtInfo);
 
-    const uploadSolution = async (solution : any) => {
+    const uploadSolution = async (solution : any, onComplete: () => void | Promise<void>) => {
         if (!solution || !challengeId || !authenticationInfo?.token) {
             return;
         }
@@ -139,6 +139,7 @@ export const useChallengeUpload = (challengeId: string | number) => {
             });
 
             showSuccessToast(t('challenge.solution.upload.action.uploaded'));
+            await onComplete();
             return result.data;
         } catch (error) {
             showErrorToast(error);

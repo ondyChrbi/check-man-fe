@@ -1,5 +1,5 @@
 import {useQuery} from "@apollo/client";
-import {ChallengeQuery, getChallengeQuery} from "../../../lib/graphql/challengeQuery";
+import {Challenge, ChallengeQuery, getChallengeQuery} from "../../../lib/graphql/challengeQuery";
 import LoadingSpinner from "../../../components/loading/LoadingSpinner";
 import React from "react";
 import {useParams} from "react-router-dom";
@@ -58,13 +58,17 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
         </div>}
 
         <div className="flex flex-col mt-5">
-            {data.challenge.published && roles.includes(SemesterRole.SUBMIT_CHALLENGE_SOLUTION) && <>
+            {showSolutionSection(data.challenge, roles) && <>
                 <ChallengeUploadSolutionForm challengeId={challengeId!}/>
                 <SolutionsArea challengeId={challengeId} courseId={courseId!} semesterId={semesterId!}/>
             </>
             }
         </div>
     </div>
+}
+
+const showSolutionSection = (challenge: Challenge, roles: any) => {
+    return challenge.published && roles.includes(SemesterRole.SUBMIT_CHALLENGE_SOLUTION);
 }
 
 export default ChallengeDetail

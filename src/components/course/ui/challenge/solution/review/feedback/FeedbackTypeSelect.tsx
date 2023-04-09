@@ -54,7 +54,7 @@ const FeedbackTypeSelect = ({ onTypeSelected } : FeedbackTypeSelectProps) => {
 
     return <>
         {Array.from(typeIconsMap.keys()).map((type) =>
-            <div className="p-2 pl-0 hover:cursor-pointer"
+            <div key={type} className="p-2 pl-0 hover:cursor-pointer"
                  onClick={(e) => clickHandle(e, type)}>{getIcon(type, type === selectedType)}
             </div>
         )}

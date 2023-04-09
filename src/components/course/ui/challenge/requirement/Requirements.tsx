@@ -31,16 +31,14 @@ const Requirements = ({challengeId, semesterId, onNewRecord, onEditRecord, edita
         </div>
     }
 
-    return <FadeIn>
-        <div className="w-full flex flex-col">
+    return <div className="w-full flex flex-col">
             {data && data.requirements && data.requirements.length !== 0 ?
                 <RequirementList requirements={data?.requirements} challengeId={challengeId} semesterId={semesterId}
                                  onEditRequirementClick={editRequirementClickHandle} editable={editable}
                                  onNewRecord={onNewRecord}/> :
                 <>{editable && <EmptyRequirementsArea onClick={onNewRecord}/>}</>
             }
-        </div>
-    </FadeIn>
+    </div>
 }
 
 interface EmptyRequirementsAreaProps {
