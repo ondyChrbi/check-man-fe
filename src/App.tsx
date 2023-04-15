@@ -31,6 +31,7 @@ import {
 } from 'chart.js';
 import CourseAccessManager from "./pages/course/semester/CourseAccessManager";
 import ReviewDetail from "./pages/course/challenge/review/ReviewDetail";
+import ChallengeAccessEditor from "./pages/course/challenge/access/ChallengeAccessEditor";
 
 ChartJS.register(
     CategoryScale,
@@ -99,6 +100,9 @@ function App() {
                             } />
                             <Route path="challenge/:challengeId/solution/:solutionId/review/:reviewId" element={
                                 <ReviewDetail  />
+                            } />
+                            <Route path="challenge/:challengeId/access-requests" element={
+                                <ChallengeAccessEditor  />
                             } />
                         </Route>
                     </Routes>

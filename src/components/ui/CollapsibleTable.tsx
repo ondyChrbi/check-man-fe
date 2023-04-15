@@ -3,14 +3,18 @@ import {ChevronLeftIcon, ChevronRightIcon} from "@heroicons/react/24/solid";
 
 interface Props<T, > {
     captions: Array<string>,
-    offset: number,
-    max: number,
+    offset?: number,
+    max?: number,
     onPreviousPageClicked?: () => Promise<void> | void,
     onNextPageClicked?: () => Promise<void> | void,
     children?: React.ReactNode
 }
 
-const CollapsibleTable = <T, >({captions, max, offset, onPreviousPageClicked, onNextPageClicked, children}: Props<T>) => {
+const CollapsibleTable = <T, >({captions, max = 10, offset = 0,
+                                   onPreviousPageClicked = () => {},
+                                   onNextPageClicked = () => {},
+                                   children = <></>
+    }: Props<T>) => {
 
     const previousPageHandle = async () => {
         if (offset > 0 && onPreviousPageClicked) {
