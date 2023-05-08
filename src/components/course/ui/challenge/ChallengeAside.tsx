@@ -10,6 +10,9 @@ import './ChallengeAside.css';
 import {showErrorToast} from "../../../editor/helpers";
 import {groupChallenges} from "../../../../features/challenge/helper";
 import Header from "../../../header/Header";
+import {SemesterRole} from "../../../../lib/graphql/courseQuery";
+import ChallengeCreateButton from "./form/ChallengeCreateButton";
+import {useCourseRoles} from "../../../../features/authorization/hooks";
 
 interface Props {
     courseId: number | string
@@ -21,6 +24,8 @@ const HIDDEN = '-18rem';
 const OPEN = '0rem'
 
 const ChallengeAside = ({courseId, semesterId, open = true}: Props) => {
+    const {roles} = useCourseRoles(semesterId);
+
     const {challengeId} = useParams<'challengeId'>();
     const {data} = useQuery<ChallengesQuery>(getChallengesQuery, {
         variables: {"semesterId": semesterId},
@@ -49,10 +54,17 @@ const ChallengeAside = ({courseId, semesterId, open = true}: Props) => {
                     <div className="flex flex-row justify-start align-middle items-start w-full h-fit p-5">
                         <Header />
                     </div>
-                    <div className="mb-5 mt-10">
+                    <div className="mt-10">
+                        <ChallengeAsideActionsMenu courseId={courseId} semesterId={semesterId} />
+                    </div>
+                    <div className="mt-2.5">
                         <ChallengeList challenges={challenges} courseId={courseId} semesterId={semesterId}
                                        challengeId={challengeId!} onChallengePicked={challengePickedHandle}/>
-                        <ChallengeAsideActionsMenu courseId={courseId} semesterId={semesterId} />
+                    </div>
+                    <div className="flex flex-row justify-center items-center align-middle">
+                        {roles.includes(SemesterRole.CREATE_CHALLENGE) &&
+                            <ChallengeCreateButton semesterId={semesterId} courseId={courseId}/>
+                        }
                     </div>
                 </div>
             </menu>

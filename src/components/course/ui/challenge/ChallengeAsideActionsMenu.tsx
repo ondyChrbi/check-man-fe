@@ -1,8 +1,8 @@
 import {useCourseRoles} from "../../../../features/authorization/hooks";
 import React from "react";
-
-const DEFAULT_WIDTH = 64;
-const DEFAULT_HEIGHT = 64;
+import {SemesterRole} from "../../../../lib/graphql/courseQuery";
+import ManageCourseSemesterUsersButton from "../ManageCourseSemesterUsersButton";
+import ManageCourseSemesterAccessRequestsButton from "../ManageCourseSemesterAccessRequestsButton";
 
 interface Props {
     courseId: number | string
@@ -10,10 +10,15 @@ interface Props {
 }
 
 const ChallengeAsideActionsMenu = ({courseId, semesterId} : Props) => {
-
     const {roles} = useCourseRoles(semesterId!);
 
     return <div className="my-2 flex flex-row items-center justify-center">
+        <div className="flex flex-row px-2">{roles.includes(SemesterRole.MANAGE_USERS) &&
+            <ManageCourseSemesterUsersButton courseId={courseId} semesterId={semesterId} />
+        }</div>
+        <div className="flex flex-row px-2">{roles.includes(SemesterRole.MANAGE_USERS) &&
+            <ManageCourseSemesterAccessRequestsButton courseId={courseId} semesterId={semesterId} />
+        }</div>
     </div>
 }
 

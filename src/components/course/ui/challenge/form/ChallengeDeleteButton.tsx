@@ -5,7 +5,7 @@ import {
     DeleteChallengeMutation,
     DeleteChallengeVariables, getChallengesQuery
 } from "../../../../../lib/graphql/challengeQuery";
-import React, {useState} from "react";
+import React from "react";
 import {useTranslation} from "react-i18next";
 import {ArchiveBoxIcon} from "@heroicons/react/24/solid";
 
@@ -18,16 +18,6 @@ interface Props {
 const ChallengeDeleteButton = ({semesterId, challengeId, courseId} : Props) => {
     const {t} = useTranslation();
     const navigate = useNavigate();
-
-    const [isHovering, setIsHovering] = useState(false);
-
-    const handleMouseOver = () => {
-        setIsHovering(true);
-    };
-
-    const handleMouseOut = () => {
-        setIsHovering(false);
-    };
 
     const [deleteChallenge] = useMutation<DeleteChallengeMutation, DeleteChallengeVariables>(
         deleteChallengeMutation,
@@ -48,12 +38,12 @@ const ChallengeDeleteButton = ({semesterId, challengeId, courseId} : Props) => {
         }
     };
 
-    return <button onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} onClick={deleteChallengeHandle}>
-        <div className="w-fit hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full inline-flex items-center">
+    return <div className="cursor-pointer" onClick={deleteChallengeHandle}>
+        <div className="w-fit bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full inline-flex items-center">
             <ArchiveBoxIcon width={20} height={20} />
-            {isHovering && <span>{t('challenge.action.delete')}</span> }
+            <span>{t('challenge.action.delete')}</span>
         </div>
-    </button>
+    </div>
 }
 
 export default ChallengeDeleteButton;
