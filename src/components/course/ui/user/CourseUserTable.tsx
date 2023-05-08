@@ -97,7 +97,7 @@ const CourseUserTableBody = ({user, courseId, semesterId}: CourseUserTableBodyPr
             {user.displayName}
         </td>
         <td className="px-6 py-4">
-            <CourseUserRolesList roles={user.roles} />
+            <CourseUserRolesList roles={user.roles} slice={true} />
         </td>
         <td className="px-6 py-4">
             <CourseUserTableActions courseId={courseId} semesterId={semesterId} userId={user.id} />

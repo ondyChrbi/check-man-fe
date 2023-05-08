@@ -5,15 +5,23 @@ interface Props {
     roles?: Array<CourseSemesterRole>
     onRoleClicked?: (role : CourseSemesterRole) => void | Promise<void>
     itemIcon?: React.ReactNode
+    slice?: boolean
 }
 
-const CourseUserRolesList = ({roles = [], onRoleClicked, itemIcon} : Props) => {
+const CourseUserRolesList = ({roles = [], onRoleClicked, itemIcon, slice = false} : Props) => {
+    const displayRoles = slice ? roles.slice(SLICE_START, SLICE_SIZE) : roles;
+    const showMore = slice && roles?.length > SLICE_SIZE;
+
     return <div className="flex flex-wrap justify-start items-end w-full">
-        {roles?.map(role =>
+        {displayRoles.map(role =>
             <CourseRoleChip key={role.id} role={role} onChipClicked={onRoleClicked}>
                 {itemIcon}
             </CourseRoleChip>
         )}
+        {showMore &&
+            <div className="p-0.5 mx-0.5 rounded-full border-2 text-gray-500 bg-white font-semibold text-sm flex align-center cursor-pointer active:bg-gray-300 transition duration-300 ease w-max my-1">
+                ...
+            </div>}
     </div>
 }
 
@@ -32,10 +40,13 @@ const CourseRoleChip = ({role, onChipClicked, children} : CourseRoleChipProps) =
         }
     };
 
-    return <button onClick={clickHandle} className="p-0.5 mx-0.5 rounded-full border-2 text-gray-500 bg-white font-semibold text-sm flex align-center cursor-pointer active:bg-gray-300 transition duration-300 ease w-max my-1">
+    return <div onClick={clickHandle} className="p-0.5 mx-0.5 rounded-full border-2 text-gray-500 bg-white font-semibold text-sm flex align-center cursor-pointer active:bg-gray-300 transition duration-300 ease w-max my-1">
         {role.name}
         {children}
-    </button>
+    </div>
 }
+
+const SLICE_START = 0;
+const SLICE_SIZE = 5;
 
 export default CourseUserRolesList;
