@@ -6,6 +6,9 @@ import {showErrorToast, showSuccessToast} from "../../../../editor/helpers";
 import {PencilIcon, TrashIcon} from "@heroicons/react/24/solid";
 import {useCourseRoles} from "../../../../../features/authorization/hooks";
 import {SemesterRole} from "../../../../../lib/graphql/courseQuery";
+import AutomaticTestEditor from "../solution/test/AutomaticTestEditor";
+import ShowModalButton from "../../../../ui/modal/ShowModalButton";
+import RequirementEditor from "./RequirementEditor";
 
 const ICON_WIDTH = 30;
 const ICON_HEIGHT = 30;
@@ -60,9 +63,11 @@ const RequirementCard = ({ requirement, challengeId, semesterId, onEditRequireme
                 <button className="w-12 h-12 px-2 hover:bg-gray-100 rounded-full" onClick={removeClickHandle}>
                     <TrashIcon color="#4b5563" width={ICON_WIDTH} height={ICON_HEIGHT} />
                 </button>
-                <button className="w-12 h-12 px-2 hover:bg-gray-100 rounded-full" onClick={editClickHandle}>
-                    <PencilIcon color="#4b5563" width={ICON_WIDTH} height={ICON_HEIGHT} />
-                </button>
+                <ShowModalButton modalTitle={t('challenge.test.module.editor.message')}
+                                 css={"hover:bg-gray-200 text-white font-bold"}
+                                 icon={<PencilIcon color="#4b5563" width={ICON_WIDTH} height={ICON_HEIGHT} />}>
+                    <RequirementEditor challengeId={challengeId} requirement={requirement} />
+                </ShowModalButton>
             </div>
         </>}
     </div>

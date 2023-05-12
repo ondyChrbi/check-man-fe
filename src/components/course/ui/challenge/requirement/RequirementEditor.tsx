@@ -5,7 +5,6 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {showErrorToast} from "../../../../editor/helpers";
 import {Requirement} from "../../../../../lib/graphql/requirementQuery";
 import {useRequirements} from "../../../../../features/hooks/challenge";
-import {XMarkIcon} from "@heroicons/react/24/solid";
 
 interface Inputs {
     name: string,
@@ -20,9 +19,6 @@ interface Props {
     onFinished?: (requirement: Requirement) => void | undefined;
     onHide?: () => Promise<void> | void;
 }
-
-const ICON_WIDTH = 30;
-const ICON_HEIGHT = 30;
 
 const RequirementEditor = ({challengeId, requirement, onFinished, onHide}: Props) => {
     const {t} = useTranslation();
@@ -66,22 +62,8 @@ const RequirementEditor = ({challengeId, requirement, onFinished, onHide}: Props
         }
     }
 
-    const hideClickedHandle = async (e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
-
-        if (onHide) {
-            await onHide();
-        }
-    }
-
     return <div className="w-full my-5 flex flex-row justify-center items-center">
         <form className="bg-gray-100 rounded-2xl" onSubmit={handleSubmit(submitHandler)}>
-            <div className="flex flex-row justify-between">
-                <h2 className="px-4 pt-4 text-gray-600 font-bold text-2xl">{t('challenge.requirement.new.title')}</h2>
-                <button onClick={hideClickedHandle} className="flex flex-col justify-center items-center h-full w-12 h-12 px-2 hover:bg-gray-300 rounded-full">
-                    <XMarkIcon width={ICON_WIDTH} height={ICON_HEIGHT} />
-                </button>
-            </div>
             <div className="flex flex-row">
                 <div className="flex flex-col px-5">
                     <div className="my-5 w-full flex flex-row justify-center">
@@ -120,7 +102,7 @@ const RequirementEditor = ({challengeId, requirement, onFinished, onHide}: Props
                                 </div>
                                 <div className="ml-2">
                                     <button
-                                        className="bg-teal-200 hover:bg-blue-700 text-white text-gray-800 font-bold py-2 px-4 rounded">
+                                        className="bg-teal-200 hover:bg-blue-700 text-gray-800 font-bold py-2 px-4 rounded">
                                         {t((requirement) ? 'common.button.save' : 'common.button.add')}
                                     </button>
                                 </div>

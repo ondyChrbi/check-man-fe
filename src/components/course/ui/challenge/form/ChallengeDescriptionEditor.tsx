@@ -3,15 +3,15 @@ import {
     editChallengeMutation,
     EditChallengeMutation,
     EditChallengeVariables, getChallengesQuery
-} from "../../../lib/graphql/challengeQuery";
+} from "../../../../../lib/graphql/challengeQuery";
 import {useTranslation} from "react-i18next";
 import {useMutation} from "@apollo/client";
-import {showErrorToast, showSuccessToast} from "../../../components/editor/helpers";
+import {showErrorToast, showSuccessToast} from "../../../../editor/helpers";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {toChallengeInput} from "../../../features/challenge/helper";
-import TextEditor from "../../../components/editor/TextEditor";
+import {toChallengeInput} from "../../../../../features/challenge/helper";
+import TextEditor from "../../../../editor/TextEditor";
 import {CheckIcon} from "@heroicons/react/24/solid";
 import React from "react";
 

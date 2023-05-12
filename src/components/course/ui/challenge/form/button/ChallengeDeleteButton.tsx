@@ -4,7 +4,7 @@ import {
     deleteChallengeMutation,
     DeleteChallengeMutation,
     DeleteChallengeVariables, getChallengesQuery
-} from "../../../../../lib/graphql/challengeQuery";
+} from "../../../../../../lib/graphql/challengeQuery";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {ArchiveBoxIcon} from "@heroicons/react/24/solid";

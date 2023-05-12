@@ -1,36 +1,20 @@
-import {Challenge, ChallengeKind} from "../../../../lib/graphql/challengeQuery";
+import {Challenge} from "../../../../lib/graphql/challengeQuery";
 import React, {useState} from "react";
-import {ClockIcon} from "@heroicons/react/24/outline";
-import {toFormattedDate} from "../../../../features/helper";
-import {useTranslation} from "react-i18next";
-import {PencilIcon} from "@heroicons/react/24/solid";
-import Chip from "../../../ui/Chip";
+import ChallengeChips from "./ChallengeChips";
 
-const CHIP_WIDTH = 15;
-const CHIP_HEIGHT = 15;
-
+const ICON_WIDTH = 15;
+const ICON_HEIGHT = 15;
 const DESCRIPTION_LENGTH = 60;
 
 interface Props {
     challenge: Challenge
     onClick: (challenge: Challenge) => void
     selected?: boolean
+    iconWidth?: number,
+    iconHeight?: number,
 }
 
-const challengeKindSelectValue = new Map();
-challengeKindSelectValue.set(ChallengeKind.OPTIONAL, 'challenge.action.challenge-kind.option.optional');
-challengeKindSelectValue.set(ChallengeKind.MANDATORY, 'challenge.action.challenge-kind.option.mandatory');
-challengeKindSelectValue.set(ChallengeKind.CREDIT, 'challenge.action.challenge-kind.option.credit');
-challengeKindSelectValue.set(ChallengeKind.EXAM, 'challenge.action.challenge-kind.option.exam');
-
-const challengeKindColors = new Map();
-challengeKindColors.set(ChallengeKind.OPTIONAL, 'bg-blue-300');
-challengeKindColors.set(ChallengeKind.MANDATORY, 'bg-blue-600');
-challengeKindColors.set(ChallengeKind.CREDIT, 'bg-purple-600');
-challengeKindColors.set(ChallengeKind.EXAM, 'bg-gray-800');
-
-const ChallengeCard = ({challenge, onClick}: Props) => {
-    const {t} = useTranslation();
+const ChallengeCard = ({challenge, onClick, iconWidth = ICON_WIDTH, iconHeight = ICON_HEIGHT}: Props) => {
     const [isHovering, setIsHovering] = useState(false);
 
     const onChallengeClickHandler = (event: React.MouseEvent<HTMLElement>) => {
@@ -60,21 +44,7 @@ const ChallengeCard = ({challenge, onClick}: Props) => {
                 {isHovering && <div className="flex flex-col mt-2">
                     <p className="text-sm">{challenge.description.slice(0, DESCRIPTION_LENGTH)}...</p>
                     <div className="flex flex-wrap justify-start items-end mt-1">
-                        {challenge.deadlineDate && <Chip bgColor={'bg-red-600'} textColor={'text-white'}>
-                            <ClockIcon className="mr-1" width={CHIP_WIDTH} height={CHIP_HEIGHT}/>
-                            {toFormattedDate(challenge.deadlineDate)}
-                        </Chip>
-                        }
-                        <Chip bgColor={challengeKindColors.get(challenge.challengeKind)}
-                                       textColor={'text-white'}>
-                            {t(challengeKindSelectValue.get(challenge.challengeKind))}
-                        </Chip>
-                        {!challenge.published &&
-                            <Chip bgColor={'bg-yellow-500'} textColor={'text-white'}>
-                                <PencilIcon className="mr-1" width={CHIP_WIDTH} height={CHIP_HEIGHT}/>
-                                {t('challenge.not-published')}
-                            </Chip>
-                        }
+                        <ChallengeChips challenge={challenge} iconWidth={iconWidth} iconHeight={iconHeight} />
                     </div>
                 </div>}
             </div>

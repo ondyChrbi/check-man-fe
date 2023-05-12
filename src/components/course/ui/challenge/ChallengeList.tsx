@@ -2,8 +2,8 @@ import {Challenge} from "../../../../lib/graphql/challengeQuery";
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {ChallengeMap} from "./ChallengeAside";
 import ChallengeCard from "./ChallengeCard";
+import {ChallengeMap} from "../../../../features/challenge";
 
 interface Props {
     challenges: ChallengeMap,
@@ -28,25 +28,25 @@ const ChallengeList = ({challenges, courseId, semesterId, challengeId, onChallen
 
     return <div className="">
         {showCaptions && challenges.optional.length !== 0 && <h1 className="text-center text-white">{t('challenge.optional')}</h1>}
-        {challenges.optional.map((challenge) =>
+        {challenges.optional.map((challenge: Challenge) =>
             <ChallengeCard onClick={challengeCardClickHandler}
                            selected={challenge.id.toString() === challengeId} key={challenge.id}
                            challenge={challenge}/>
         )}
         {showCaptions && challenges.mandatory.length !== 0 && <h1 className="text-center text-white">{t('challenge.mandatory')}</h1>}
-        {challenges.mandatory.map((challenge) =>
+        {challenges.mandatory.map((challenge: Challenge) =>
             <ChallengeCard onClick={challengeCardClickHandler}
                            selected={challenge.id.toString() === challengeId} key={challenge.id}
                            challenge={challenge}/>
         )}
         {showCaptions && challenges.credit.length !== 0 && <h1 className="text-center text-white">{t('challenge.credit')}</h1>}
-        {challenges.credit.map((challenge) =>
+        {challenges.credit.map((challenge: Challenge) =>
             <ChallengeCard onClick={challengeCardClickHandler}
                            selected={challenge.id.toString() === challengeId} key={challenge.id}
                            challenge={challenge}/>
         )}
         {showCaptions && challenges.exam.length !== 0 && <h1 className="text-center text-white">{t('challenge.exam')}</h1>}
-        {challenges.exam.map((challenge) =>
+        {challenges.exam.map((challenge: Challenge) =>
             <ChallengeCard onClick={challengeCardClickHandler}
                            selected={challenge.id.toString() === challengeId} key={challenge.id}
                            challenge={challenge}/>

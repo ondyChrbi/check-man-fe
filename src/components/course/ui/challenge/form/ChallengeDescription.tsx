@@ -1,4 +1,4 @@
-import {Challenge} from "../../../lib/graphql/challengeQuery";
+import {Challenge} from "../../../../../lib/graphql/challengeQuery";
 import React, {useState} from "react";
 import ChallengeDescriptionEditor from "./ChallengeDescriptionEditor";
 

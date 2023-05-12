@@ -13,12 +13,8 @@ import ReviewPublishButton from "../../../../../components/course/ui/challenge/s
 import ReviewDescriptionEditor from "../../../../../components/course/ui/challenge/solution/review/ReviewDescriptionEditor";
 import RequirementPointsEditor
     from "../../../../../components/course/ui/challenge/solution/review/requirement/RequirementPointsEditor";
-import {useTranslation} from "react-i18next";
-import AuthorMetadata from "./AuthorMetadata";
-import ChallengeMetadata from "./ChallengeMetadata";
 
 const ReviewEditor = () => {
-    const {t} = useTranslation();
     const {challengeId, solutionId, reviewId} = useParams<'challengeId' | 'solutionId' | 'reviewId'>();
 
     const {
@@ -40,20 +36,19 @@ const ReviewEditor = () => {
 
     return <div className="flex flex-col w-full h-full">
         <h1 className="my-7 text-gray-600 font-light text-4xl">{challengeData?.challenge.name}</h1>
-        <div className="flex flex-row justify-between">
-            {challengeData?.challenge && <ChallengeMetadata challenge={challengeData?.challenge} />}
-            {solutionData.solution.author && <AuthorMetadata author={solutionData.solution.author} />}
+        <div className="my-8">
+            <div className="grid md:grid-cols-3 sm:grid-cols-2">
+                {challengeData?.challenge.requirements.map(r =>
+                    <div className="flex flex-col mx-2">
+                        <RequirementPointsEditor reviewId={reviewId!} requirement={r}/>
+                    </div>
+                )}
+            </div>
         </div>
-        <div className="my-2">
-            <h2 className="my-3 text-gray-600 font-light text-2xl">{t('challenge.requirement.title')}</h2>
-            {challengeData?.challenge.requirements.map(r =>
-                <RequirementPointsEditor reviewId={reviewId!} requirement={r}/>
-            )}
-        </div>
-        <div className="my-2">
+        <div className="my-8">
             <FeedbacksView review={solutionData.solution.review} solutionId={solutionId!}/>
         </div>
-        <div className="my-2 w-full">
+        <div className="my-8 w-full">
             <ReviewDescriptionEditor review={solutionData.solution.review}>
                 <SolutionEditorActions solution={solutionData.solution}/>
             </ReviewDescriptionEditor>

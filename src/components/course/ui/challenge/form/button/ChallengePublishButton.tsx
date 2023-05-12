@@ -4,8 +4,8 @@ import {
     PublishChallengeMutation,
     PublishChallengeMutationVariables,
     publishChallengeMutation
-} from "../../../../../lib/graphql/challengeQuery";
-import {showErrorToast, showSuccessToast} from "../../../../editor/helpers";
+} from "../../../../../../lib/graphql/challengeQuery";
+import {showErrorToast, showSuccessToast} from "../../../../../editor/helpers";
 import React from "react";
 import {useTranslation} from "react-i18next";
 import {RocketLaunchIcon} from "@heroicons/react/24/solid";

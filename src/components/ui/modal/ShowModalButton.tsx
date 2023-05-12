@@ -35,7 +35,7 @@ export const ShowModalButton = ({
     }
 
     return <div onClick={clickedHandle}>
-        <button className={`rounded-full w-fit font-bold py-2 px-4 inline-flex items-center ${css}`}>
+        <button className={`rounded-full w-fit font-bold py-2 px-2 inline-flex items-center ${css}`}>
             {icon}
             {buttonTitle && <span className="ml-2.5">{buttonTitle}</span>}
         </button>

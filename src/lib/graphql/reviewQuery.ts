@@ -58,6 +58,16 @@ export const editReviewPoints = gql`
     }
 `;
 
+export const requirementReview = gql`
+    query GetRequirementReview($reviewId: ID!, $requirementId: ID!) {
+        requirementReview(reviewId: $reviewId, requirementId: $requirementId) {
+            id,
+            description,
+            points,
+        }
+    }
+`;
+
 export const getSolution = gql`
     query GetReview($challengeId: ID!, $solutionId: ID!) {
         challenge(id: $challengeId) {
@@ -131,7 +141,7 @@ export interface EditReviewPointsVariables {
 }
 
 export interface ReviewPointsInput {
-    points: number
+    points: number | string
 }
 
 export interface EditReviewMutation {
@@ -182,6 +192,15 @@ export interface GetSolutionsCountToReviewQuery {
 
 export interface GetSolutionsCountToReviewVariables {
     challengeId: number | string
+}
+
+export interface GetRequirementReviewVariables {
+    reviewId: number | string
+    requirementId: number | string
+}
+
+export interface GetRequirementReview {
+    requirementReview? : ReviewedRequirement | null | undefined
 }
 
 export interface ReviewedRequirement {

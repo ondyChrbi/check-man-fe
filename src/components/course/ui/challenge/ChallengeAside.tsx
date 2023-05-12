@@ -11,7 +11,7 @@ import {showErrorToast} from "../../../editor/helpers";
 import {groupChallenges} from "../../../../features/challenge/helper";
 import Header from "../../../header/Header";
 import {SemesterRole} from "../../../../lib/graphql/courseQuery";
-import ChallengeCreateButton from "./form/ChallengeCreateButton";
+import ChallengeCreateButton from "./form/button/ChallengeCreateButton";
 import {useCourseRoles} from "../../../../features/authorization/hooks";
 
 interface Props {

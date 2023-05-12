@@ -6,22 +6,16 @@ import {useParams} from "react-router-dom";
 import ChallengeUploadSolutionForm from "../../../components/course/ui/challenge/form/ChallengeUploadSolutionForm";
 import {useCourseRoles} from "../../../features/authorization/hooks";
 import {SemesterRole} from "../../../lib/graphql/courseQuery";
-import ChallengePublishButton from "../../../components/course/ui/challenge/form/ChallengePublishButton";
 import SolutionsArea from "../../../components/course/ui/challenge/solution/SolutionArea";
 import ReviewAlert from "../../../components/course/ui/challenge/solution/review/ReviewAlert";
-import AutomaticTestEditor from "../../../components/course/ui/challenge/solution/test/AutomaticTestEditor";
-import ShowModalButton from "../../../components/ui/modal/ShowModalButton";
-import {useTranslation} from "react-i18next";
-import {WrenchIcon} from "@heroicons/react/24/solid";
 import ChallengeTaskDefinition from "./ChallengeTaskDefinition";
+import ChallengeAdministrationToolbar from "../../../components/course/ui/challenge/form/ChallengeAdministrationToolbar";
 
 interface Props {
     argChallengeId?: number
 }
 
 const ChallengeDetail = ({argChallengeId}: Props) => {
-    const {t} = useTranslation();
-
     const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId'>();
     const {roles} = useCourseRoles(semesterId!);
 
@@ -40,22 +34,10 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
     return <div className="flex flex-col">
         {data.challenge.published && roles.includes(SemesterRole.REVIEW_CHALLENGE) && <ReviewAlert challengeId={challengeId}/>}
 
-        {data.challenge && <ChallengeTaskDefinition semesterId={semesterId!!} challenge={data.challenge} />}
-
-        {!data.challenge.published && <div className="py-5 flex flex-row gap-2">
-            {roles.includes(SemesterRole.EDIT_CHALLENGE) &&
-                <ChallengePublishButton challengeId={challengeId}/>
-            }
-
-            {roles.includes(SemesterRole.EDIT_CHALLENGE) &&
-                <ShowModalButton buttonTitle={t('challenge.test.action.set')}
-                             modalTitle={t('challenge.test.module.editor.message')}
-                             css={"bg-gray-300 hover:bg-gray-500 text-black hover:text-white font-bold"}
-                             icon={<WrenchIcon width={20} height={20}></WrenchIcon>}>
-                    <AutomaticTestEditor challenge={data.challenge} />
-                </ShowModalButton>
-            }
-        </div>}
+        {data.challenge && <>
+            <ChallengeTaskDefinition semesterId={semesterId!!} challenge={data.challenge} />
+            <ChallengeAdministrationToolbar semesterId={semesterId!} challenge={data.challenge}/>
+        </>}
 
         <div className="flex flex-col mt-5">
             {showSolutionSection(data.challenge, roles) && <>

@@ -46,7 +46,7 @@ const FeedbackEditor = ({reviewId, solutionId, selectedFeedbacks = []} : Props) 
         setSuggestions([...suggestions.filter(s => s.id != feedback.id)]);
     }
 
-    return <div className="flex flex-col w-full bg-gray-200 rounded-2xl p-2">
+    return <div className="flex flex-col w-full rounded-2xl p-2">
         <FeedbackForm reviewId={reviewId} solutionId={solutionId} onInputChange={onInputChangeHandle} />
         <div className="flex flex-wrap justify-start items-end">
             {suggestions.map((sF) =>

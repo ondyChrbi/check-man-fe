@@ -1,8 +1,8 @@
 import {SemesterRole} from "../../../lib/graphql/courseQuery";
 import React from "react";
 import {useCourseRoles} from "../../../features/authorization/hooks";
-import ChallengeDeleteButton from "./challenge/form/ChallengeDeleteButton";
-import ChallengeReviewButton from "./challenge/form/ChallengeReviewButton";
+import ChallengeDeleteButton from "./challenge/form/button/ChallengeDeleteButton";
+import ChallengeReviewButton from "./challenge/form/button/ChallengeReviewButton";
 
 interface Props {
     courseId: number | string;
