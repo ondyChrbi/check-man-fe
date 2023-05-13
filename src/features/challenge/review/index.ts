@@ -13,6 +13,7 @@ import * as yup from "yup";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useTranslation} from "react-i18next";
 import {Requirement} from "../../../lib/graphql/requirementQuery";
+import exp from "constants";
 
 interface Inputs {
     points: number,
@@ -78,4 +79,20 @@ export const useRequirementReview = (reviewId : string | number, requirement : R
         submitHandler,
         addPoints
     }
+}
+
+export const getColorProps = (current: number | null | undefined, requirement: Requirement, noReview = false) => {
+    if (noReview) {
+        return "border-teal-600";
+    }
+
+    if (!current && current !== 0) {
+        return "";
+    }
+
+    if (current > requirement.minPoint!) {
+        return "border-8 border-teal-300";
+    }
+
+    return "border-8 border-red-400";
 }

@@ -90,13 +90,12 @@ export const getSolution = gql`
                     description,
                     type
                 }
-                requirements {
+                reviewRequirements {
                     id,
                     description,
                     points,
                     requirement {
                         id,
-                        name,
                         description,
                         active,
                         minPoint,

@@ -1,7 +1,7 @@
 import {Requirement} from "../../../../../../../lib/graphql/requirementQuery";
 import React from "react";
 import Input from "../../../../../../editor/input/Input";
-import {useRequirementReview} from "../../../../../../../features/challenge/review";
+import {getColorProps, useRequirementReview} from "../../../../../../../features/challenge/review";
 import {useTranslation} from "react-i18next";
 
 interface Props {
@@ -43,18 +43,6 @@ const RequirementPointsEditor = ({reviewId, requirement}: Props) => {
             </div>
         </form>
     </div>
-}
-
-const getColorProps = (current: number | null | undefined, requirement: Requirement) => {
-    if (!current && current !== 0) {
-        return "";
-    }
-
-    if (current > requirement.minPoint!) {
-        return "border-2 border-teal-300";
-    }
-
-    return "border-2 border-red-400";
 }
 
 export default RequirementPointsEditor;

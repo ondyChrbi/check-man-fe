@@ -43,12 +43,11 @@ interface RequirementListProps {
     editable?: boolean | null | undefined
 }
 
-const RequirementList = ({requirements, challengeId, semesterId, onEditRequirementClick, editable = false}: RequirementListProps) => {
+const RequirementList = ({requirements, challengeId, semesterId, editable = false}: RequirementListProps) => {
     return <div className="flex flex-wrap lg:justify-start justify-center items-center w-full">
         {requirements.map((requirement) =>
             <RequirementCard key={requirement.id} requirement={requirement} challengeId={challengeId}
-                             semesterId={semesterId}
-                             onEditRequirementClick={onEditRequirementClick} editable={editable}/>
+                             semesterId={semesterId} editable={editable}  />
         )}
     </div>
 }

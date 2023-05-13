@@ -70,7 +70,7 @@ export const useChallenge = ({semesterId}: UseChallengeProps) => {
 }
 
 interface UseRequirementsProps {
-    challengeId: string | number
+    challengeId?: string | number
 }
 
 export const useRequirements = ({ challengeId } : UseRequirementsProps) => {

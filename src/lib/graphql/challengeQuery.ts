@@ -242,7 +242,8 @@ export interface Review {
     id: number,
     description: string,
     feedbacks: Array<Feedback>
-    requirements: Array<ReviewedRequirement>
+    requirements: Array<Requirement>
+    reviewRequirements: Array<ReviewedRequirement>
 }
 
 export interface Solution {

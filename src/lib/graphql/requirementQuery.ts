@@ -25,7 +25,7 @@ export const createRequirementMutation = gql`
 
 export const editRequirementMutation = gql`
     mutation EditRequirementMutation($requirementId: ID!, $input: RequirementInput!) {
-        editRequirement(requirementId: $requirementId, input: $input) {
+        editRequirement(id: $requirementId, input: $input) {
             id,
             description,
             minPoint,
@@ -36,7 +36,7 @@ export const editRequirementMutation = gql`
 
 export const removeRequirementMutation = gql`
     mutation RemoveRequirementMutation($requirementId: ID!) {
-        removeRequirement(requirementId: $requirementId) {
+        deleteRequirement(id: $requirementId) {
             id,
             description,
             minPoint,

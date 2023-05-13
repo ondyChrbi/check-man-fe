@@ -8,12 +8,9 @@ import {statusColorIcons} from "../../../../components/course/ui/challenge/solut
 import {statusBackgroundColorMap, statusBackgroundTextColorMap} from "../../../../features/challenge/solution";
 import FeedbackList from "../../../../components/course/ui/challenge/solution/review/feedback/FeedbackList";
 import {removeHtmlTags} from "../../../../features/helper";
-import Chip from "../../../../components/ui/Chip";
-import {useTranslation} from "react-i18next";
-import {UserIcon} from "@heroicons/react/24/solid";
+import RequirementCard from "../../../../components/course/ui/challenge/requirement/RequirementCard";
 
 const ReviewDetail = () => {
-    const {t} = useTranslation();
     const {solutionId, challengeId} = useParams<'solutionId' | 'challengeId'>();
 
     const {data, loading} = useQuery<GetSolutionQuery, GetSolutionVariables>(getSolution, {
@@ -57,18 +54,26 @@ const ReviewDetail = () => {
                 </div>
             </div>
         }
+
+        {
+            <div className="flex flex-wrap justify-start items-end">
+                {data?.solution.review.reviewRequirements.map((r) =>
+                    <RequirementCard key={r.id} requirement={r.requirement!!} points={r.points} challengeId={challengeId} />
+                )}
+            </div>
+        }
+
         {feedbacks &&
             <div className="my-5">
                 <FeedbackList feedbacks={feedbacks} />
             </div>
         }
+
         {
             review &&
-                <div className="flex flex-row w-full h-fit">
-                    {review.description}
+                <div className="flex flex-row w-full h-fit" dangerouslySetInnerHTML={{__html: review.description}}>
                 </div>
         }
-        <div className="my-7 text-gray-600 font-light text-md">{JSON.stringify(data)}</div>
     </div>
 }
 

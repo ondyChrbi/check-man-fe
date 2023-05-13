@@ -1,6 +1,6 @@
 import {useAppSelector} from "../storage/hooks";
 
-export const useCourseRoles = (semesterId: number | string) => {
+export const useCourseRoles = (semesterId?: number | string) => {
     const storageSelector = useAppSelector((state) => state.storage.coursesPermission);
 
     const courseRoles = storageSelector.coursesRoles
