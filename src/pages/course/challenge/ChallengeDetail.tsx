@@ -10,6 +10,7 @@ import SolutionsArea from "../../../components/course/ui/challenge/solution/Solu
 import ReviewAlert from "../../../components/course/ui/challenge/solution/review/ReviewAlert";
 import ChallengeTaskDefinition from "./ChallengeTaskDefinition";
 import ChallengeAdministrationToolbar from "../../../components/course/ui/challenge/form/ChallengeAdministrationToolbar";
+import SemesterAdministratorToolbar from "../../../components/course/ui/SemesterAdministratorToolbar";
 
 interface Props {
     argChallengeId?: number
@@ -32,6 +33,11 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
     if (error || !data || !challengeId) return <>Error</>
 
     return <div className="flex flex-col">
+        <div className="my-5 w-full md:h-14 flex flex-col items-end justify-center align-middle">
+            <SemesterAdministratorToolbar courseId={courseId!!} semesterId={semesterId!!}
+                                          challenge={data.challenge} />
+        </div>
+
         {data.challenge.published && roles.includes(SemesterRole.REVIEW_CHALLENGE) && <ReviewAlert challengeId={challengeId}/>}
 
         {data.challenge && <>

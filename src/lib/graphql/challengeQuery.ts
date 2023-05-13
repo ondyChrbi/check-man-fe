@@ -91,7 +91,7 @@ export const getSolutionQuery = gql`
 
 export const getSolutionsQuery = gql`
     query GetSolutionsQuery($challengeId : ID!) {
-        solutions(challengeId: $challengeId) {
+        mySolutions(challengeId: $challengeId) {
             id,
             uploadDate,
             status,
@@ -213,7 +213,7 @@ export interface GetSolutionQuery {
 }
 
 export interface GetSolutionsQuery {
-    solutions: Array<Solution>
+    mySolutions: Array<Solution>
 }
 
 export interface PublishChallengeMutation {
@@ -230,6 +230,7 @@ export interface Challenge {
     challengeKind: ChallengeKind,
     requirements: Array<Requirement>,
     testConfigurations: Array<TestConfiguration>
+    relatedUsers: Array<AppUser>
 }
 
 export interface Feedback {

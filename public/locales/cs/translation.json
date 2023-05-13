@@ -241,6 +241,8 @@
       "create": "Přidat úkol",
       "delete": "Odebrat úkol",
       "review": "Revize",
+      "access-request": "Přístup",
+      "summary": "Přehled",
       "name": {
         "name": "Název úlohy",
         "place-holder": "",

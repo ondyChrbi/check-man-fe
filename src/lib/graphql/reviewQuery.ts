@@ -14,9 +14,10 @@ export const getSolutionsToReview = gql`
         solutionsToReview(challengeId: $challengeId, offset: $offset, size: $size) {
             id,
             uploadDate,
+            status,
             review {
                 id,
-                description
+                description,
             }
             author {
                 id

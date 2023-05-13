@@ -31,6 +31,8 @@ const ChallengeEditor = () => {
     const {register, handleSubmit, control, formState: {errors}} = useForm<Inputs>({resolver});
 
     const submitHandler: SubmitHandler<Inputs> = async input => {
+        debugger
+
         if (semesterId) {
             try {
                 challengeId ? await editChallenge({variables: {challengeId, input}})
@@ -85,18 +87,20 @@ const ChallengeEditor = () => {
                     <DateTime propertyName="startDate" defaultValue={defaultInputs.startDate} register={register}
                               label={t('challenge.action.start-date.name')} control={control}
                     />
+                    {errors.startDate?.message}
                 </div>
 
                 <div className="m-0 lg:ml-5 mt-1 lg:mt-0 flex flex-col items-start justify-start">
                     <DateTime propertyName="deadlineDate" defaultValue={defaultInputs.deadlineDate} register={register}
                               label={t('challenge.action.end-date.name')} control={control}
                     />
+                    {errors.deadlineDate?.message}
                 </div>
             </div>
 
             <div className="my-5 grid grid-cols-1">
-                <div className="flex flex items-start justify-start w-full h-20">
-                    <button
+                <div className="flex items-start justify-start w-full h-20">
+                    <button type="submit"
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{t('common.button.save')}</button>
                 </div>
             </div>

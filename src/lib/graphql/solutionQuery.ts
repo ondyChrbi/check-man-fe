@@ -1,5 +1,5 @@
 import {gql} from "@apollo/client";
-import {Feedback} from "./challengeQuery";
+import {Feedback, Solution} from "./challengeQuery";
 
 export const testResultQuery = gql`
     query TestResultQuery($id: ID!) {
@@ -17,6 +17,35 @@ export const testResultQuery = gql`
         }
     }
 `;
+
+export const solutionsQuery = gql`
+    query SolutionQuery($challengeId: ID!) {
+        solutions(challengeId: $challengeId) {
+            id,
+            uploadDate,
+            status,
+            review {
+                id,
+                description,
+            }
+            author {
+                id,
+                stagId,
+                displayName,
+                mail,
+            }
+        }
+    }
+`;
+
+export interface SolutionsQuery {
+    solutions: Array<Solution>
+}
+
+
+export interface SolutionsQueryVariables {
+    challengeId: number | string
+}
 
 export interface TestResultQuery {
     testResult?: TestResult

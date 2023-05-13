@@ -69,7 +69,7 @@ const ReviewTable = ({challengeId}: Props) => {
                               onPreviousPageClicked={previousPageHandle}
                               max={Math.floor(data?.countToReview || 0 / DEFAULT_SIZE)}>
                 {data.solutionsToReview.map((solution) =>
-                    <ReviewTableBody solution={solution} />
+                    <ReviewTableBody key={solution.id} solution={solution} />
                 )}
             </CollapsibleTable>
         </div>

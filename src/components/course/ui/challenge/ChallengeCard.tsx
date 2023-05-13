@@ -1,6 +1,7 @@
 import {Challenge} from "../../../../lib/graphql/challengeQuery";
 import React, {useState} from "react";
 import ChallengeChips from "./ChallengeChips";
+import {removeHtmlTags} from "../../../../features/helper";
 
 const ICON_WIDTH = 15;
 const ICON_HEIGHT = 15;
@@ -42,7 +43,7 @@ const ChallengeCard = ({challenge, onClick, iconWidth = ICON_WIDTH, iconHeight =
             <div className="flex flex-col w-full text-white">
                 <h2 className={`text-md ${isHovering && 'font-bold'}`}>{challenge.name}</h2>
                 {isHovering && <div className="flex flex-col mt-2">
-                    <p className="text-sm">{challenge.description.slice(0, DESCRIPTION_LENGTH)}...</p>
+                    <p className="text-sm">{removeHtmlTags(challenge.description.slice(0, DESCRIPTION_LENGTH))}...</p>
                     <div className="flex flex-wrap justify-start items-end mt-1">
                         <ChallengeChips challenge={challenge} iconWidth={iconWidth} iconHeight={iconHeight} />
                     </div>

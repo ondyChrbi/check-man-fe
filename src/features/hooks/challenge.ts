@@ -56,13 +56,13 @@ export const useChallenge = ({semesterId}: UseChallengeProps) => {
         "challengeKind": yup.mixed()
             .oneOf(Object.values(ChallengeKind))
             .required(t('challenge.action.challenge-kind.error.required')),
-        "startDate": yup.date()
+        "startDate": yup.string()
             .transform(function (value) {
-                return value.toISOString();
+                return value
             }),
-        "deadlineDate": yup.date()
+        "deadlineDate": yup.string()
             .transform(function (value) {
-                return value.toISOString();
+                return value
             }),
     }));
 

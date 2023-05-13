@@ -1,5 +1,6 @@
 import {gql} from "@apollo/client";
 import {Course, SemesterAccessRequest} from "./courseQuery";
+import {ChallengeSummary} from "./challengeSummaryQuery";
 
 export const meQuery = gql`
     query Me {
@@ -84,6 +85,7 @@ export interface AppUser {
     roles? : Array<CourseSemesterRole>
     registrationDate: string | undefined,
     lastAccessDate: string | undefined,
+    challengeSummary: ChallengeSummary
 }
 
 export interface AvailableCoursesQuery {
