@@ -1,8 +1,8 @@
 import {useTranslation} from "react-i18next";
 import React, {useState} from "react";
 import CoolModal from "../ui/modal/CoolModal";
-import {PlusIcon} from "@heroicons/react/24/solid";
 import CourseEditor from "../../pages/course/CourseEditor";
+import {PlusIcon} from "@heroicons/react/24/solid";
 
 const ICON_WIDTH = 80;
 const ICON_HEIGHT = 80;
@@ -16,7 +16,7 @@ interface Props {
 const AddCourseIcon = ({}: Props) => {
     const {t} = useTranslation();
     const [clicked, setClicked] = useState(false);
-    const [isHovering, setIsHovering] = useState(false);
+    const [isHovering, setIsHovering] = useState(true);
 
     const closeClickedHandle = () => {
         setClicked(false);
@@ -43,7 +43,7 @@ const AddCourseIcon = ({}: Props) => {
     const mouseIconLeaveHandler = (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
-        setIsHovering(false);
+        setIsHovering(true);
     }
 
     return <div className="course-container flex flex-col mr-5 hover:cursor-pointer"

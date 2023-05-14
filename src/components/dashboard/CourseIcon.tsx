@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 interface Props {
     course: Course,
 
-    semester: Semester,
+    semester?: Semester,
 
     disabled?: boolean
     children?: JSX.Element
@@ -15,16 +15,17 @@ interface Props {
     onClick?: (semester: Semester) => void | Promise<void>
 }
 
-const CourseIcon = ({course, semester, children = <></>, onClick = () => {}}: Props) => {
+const CourseIcon = ({course, semester, children = <></>, onClick = () => {}, disabled}: Props) => {
     const navigate = useNavigate();
     const [isHovering, setIsHovering] = useState(false);
 
     const clickHandle = async (event: React.MouseEvent<HTMLElement>) => {
         event.preventDefault();
 
-        await onClick(semester);
-
-        return navigate(`/courses/${course.id}/semester/${semester.id}`, {replace: true})
+        if (!disabled && semester) {
+            await onClick(semester);
+            return navigate(`/courses/${course.id}/semester/${semester.id}`, {replace: true})
+        }
     }
 
     const mouseIconEnterHandle = (event: React.MouseEvent<HTMLElement>) => {

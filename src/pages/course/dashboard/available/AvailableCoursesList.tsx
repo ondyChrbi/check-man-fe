@@ -16,7 +16,7 @@ const AvailableCoursesList = ({availableCourses}: Props) => {
     return <div className="flex flex-row mx-5">
         {availableCourses.map(course => course.semesters?.map(semester =>
             <div key={semester.id} className="mx-5">
-                <CourseIcon course={course} semester={semester}>
+                <CourseIcon course={course} semester={semester} disabled={true}>
                     <CourseIconChip title={(sent)?
                         t('course.semester.available.sent').toUpperCase():
                         t('course.semester.available.new').toUpperCase()

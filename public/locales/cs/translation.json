@@ -103,7 +103,8 @@
         "name": "Barva pozadí"
       },
       "users": "Uživatelé",
-      "request": "Žádosti"
+      "request": "Žádosti",
+      "manage": "Správa"
     },
     "users": {
       "title" : "Správa uživatelů",
