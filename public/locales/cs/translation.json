@@ -232,6 +232,15 @@
     "name": "Název úlohy",
     "start-date": "Datum vytvoření",
     "deadline-date": "Deadline",
+    "summary" : {
+      "title" : "Přehled odevzdaných úkolů",
+      "display-name": "Název",
+      "stag-id" : "Stag ID",
+      "denied" : "Zamítnuto",
+      "approved" : "Schváleno",
+      "return-to-edit" : "Vráceno k opravě",
+      "waiting-to-review" : "Čeká na opravu"
+    },
     "metadata" : {
       "title" : "Metadata úlohy"
     },

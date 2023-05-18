@@ -9,9 +9,9 @@ export const getSolutionsCountToReview = gql`
 `;
 
 export const getSolutionsToReview = gql`
-    query GetSolutionsToReview($challengeId: ID!, $offset: Int, $size: Int, ) {
+    query GetSolutionsToReview($challengeId: ID!, $page: Int, $pageSize: Int, ) {
         countToReview(challengeId: $challengeId)
-        solutionsToReview(challengeId: $challengeId, offset: $offset, size: $size) {
+        solutionsToReview(challengeId: $challengeId, page: $page, pageSize: $pageSize) {
             id,
             uploadDate,
             status,
@@ -182,8 +182,8 @@ export interface GetSolutionsToReviewQuery {
 
 export interface GetSolutionsToReviewVariables {
     challengeId: number | string
-    offset?: number | undefined
-    size?: number | undefined
+    page?: number | undefined
+    pageSize?: number | undefined
 }
 
 export interface GetSolutionsCountToReviewQuery {

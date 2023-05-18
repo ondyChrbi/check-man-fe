@@ -85,7 +85,7 @@ export interface AppUser {
     roles? : Array<CourseSemesterRole>
     registrationDate: string | undefined,
     lastAccessDate: string | undefined,
-    challengeSummary: ChallengeSummary
+    challengeSummary: Array<ChallengeSummary>
 }
 
 export interface AvailableCoursesQuery {

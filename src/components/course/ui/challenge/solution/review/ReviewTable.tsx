@@ -6,18 +6,15 @@ import {
     GetSolutionsToReviewQuery,
     GetSolutionsToReviewVariables
 } from "../../../../../../lib/graphql/reviewQuery";
-import LoadingSpinner from "../../../../../loading/LoadingSpinner";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {PencilSquareIcon} from "@heroicons/react/24/solid";
 import {useNavigate, useParams} from "react-router-dom";
 import {Solution} from "../../../../../../lib/graphql/challengeQuery";
 import {showErrorToast} from "../../../../../editor/helpers";
-import CollapsibleTable from "../../../../../ui/CollapsibleTable";
 import {toFormattedDateTime} from "../../../../../../features/helper";
-
-const DEFAULT_OFFSET = 0;
-const DEFAULT_SIZE = 10;
+import {CustomPaging, PagingState} from "@devexpress/dx-react-grid";
+import {Grid, PagingPanel, Table, TableHeaderRow} from "@devexpress/dx-react-grid-material-ui";
 
 interface Props {
     challengeId: number | string
@@ -26,52 +23,51 @@ interface Props {
 const ReviewTable = ({challengeId}: Props) => {
     const {t} = useTranslation();
 
-    const [offset, setOffset] = useState<number>(DEFAULT_OFFSET);
-    const {data, loading, error} = useQuery<GetSolutionsToReviewQuery, GetSolutionsToReviewVariables>(getSolutionsToReview, {
-        variables: {challengeId, offset, size: DEFAULT_SIZE}
+    const [page, setPage] = useState(0);
+    const [pageSize, setPageSize] = useState(1);
+    const [pageSizes] = useState([1, 2, 3]);
+
+    const {
+        data, loading, refetch
+    } = useQuery<GetSolutionsToReviewQuery, GetSolutionsToReviewVariables>(getSolutionsToReview, {
+        variables: {challengeId, page: page, pageSize: pageSize}
     });
 
-    const CAPTIONS = [
-        t('challenge.review.editor.author.stag-id'),
-        t('challenge.review.editor.author.upload-date'),
-        t('challenge.review.editor.author.mail'),
-        t('challenge.review.editor.author.display-name'),
-        t('challenge.review.editor.action.title'),
-    ];
-
-    const previousPageHandle = () => {
-        if (offset > 0) {
-            setOffset(offset - 1);
+    useEffect(() => {
+        if (!loading) {
+            refetch({challengeId, page: page, pageSize: pageSize});
         }
-    }
+    }, [challengeId, page, pageSize])
 
-    const nextPageHandle = () => {
-        const max = Math.floor(data?.countToReview || 0 / DEFAULT_SIZE);
+    const [columns] = useState([
+        {name: "id", title: t('challenge.review.editor.author.stag-id')},
+        {name: "uploadDate", title: t('challenge.review.editor.author.upload-date'), getCellValue: (row : Solution) => toFormattedDateTime(row.uploadDate)},
+        {name: "mail", title: t('challenge.review.editor.author.mail'), getCellValue: (row : Solution) => row.author.mail},
+        {name: "displayName", title: t('challenge.review.editor.author.display-name'), getCellValue: (row : Solution) => row.author.displayName}
+    ]);
 
-        if (offset < max) {
-            setOffset(offset + 1);
-        }
-    }
-
-    if (loading) {
-        return <div className="w-full h-full flex flex-row items-center justify-center">
-            <LoadingSpinner/>
-        </div>
-    }
-
-    if (error || !data) {
-        return <p>Error</p>
-    }
 
     return <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
         <div className="flex flex-col justify-center">
-            <CollapsibleTable captions={CAPTIONS} offset={offset} onNextPageClicked={nextPageHandle}
-                              onPreviousPageClicked={previousPageHandle}
-                              max={Math.floor(data?.countToReview || 0 / DEFAULT_SIZE)}>
-                {data.solutionsToReview.map((solution) =>
-                    <ReviewTableBody key={solution.id} solution={solution} />
-                )}
-            </CollapsibleTable>
+            <Grid
+                rows={data?.solutionsToReview || []}
+                columns={columns}
+            >
+                <PagingState
+                    currentPage={page}
+                    onCurrentPageChange={setPage}
+                    pageSize={pageSize}
+                    onPageSizeChange={setPageSize}
+                />
+                <CustomPaging
+                    totalCount={data?.countToReview || 0}
+                />
+                <Table/>
+                <TableHeaderRow/>
+                <PagingPanel
+                    pageSizes={pageSizes}
+                />
+            </Grid>
         </div>
     </div>
 }
@@ -95,7 +91,7 @@ const ReviewTableBody = ({solution}: ReviewTableBodyProps) => {
             {solution.author.displayName}
         </td>
         <td className="px-6 py-4">
-            <ReviewTableActions solution={solution} />
+            <ReviewTableActions solution={solution}/>
         </td>
     </tr>
 }

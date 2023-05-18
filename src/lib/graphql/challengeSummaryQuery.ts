@@ -1,10 +1,11 @@
 import {gql} from "@apollo/client";
-import {Challenge} from "./challengeQuery";
+import {Challenge, Status} from "./challengeQuery";
 
 export const getChallengeSummaryQuery = gql`
     query GetChallengeQuery($id: ID!) {
         challenge(id: $id) {
             id,
+            name,
             relatedUsers {
                 id,
                 mail,
@@ -31,7 +32,7 @@ export interface ChallengeSummary {
     courseId: number;
     challengeId: number;
     statusId: number;
-    statusName: string;
+    statusName: Status;
     appUserId: number;
     count: number;
 }
