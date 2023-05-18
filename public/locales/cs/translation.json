@@ -372,12 +372,15 @@
           "description": "Jako revizor máte možnost opravit {{count}} řešení od studentů."
         }
       },
+      "action" : {
+        "edit" : "Zahájit revizi"
+      },
       "editor": {
         "no-solution": {
           "title": "Žádné úlohy k opravě",
           "description": "Motivujte více studenty k plnění úkolů"
         },
-        "title": "Odevzdané řešení: {{name}}",
+        "title": "Odevzdané řešení",
         "description": {
           "default": "Žádné hodnocení nebylo vloženo",
           "error": {

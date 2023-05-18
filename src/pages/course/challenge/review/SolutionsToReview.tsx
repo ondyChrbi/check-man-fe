@@ -25,7 +25,8 @@ const SolutionsToReview = () => {
     }
 
     return <div className="flex flex-col items-start justify-start">
-        <h1 className="my-7 text-gray-600 font-light text-4xl">{t('challenge.review.editor.title', {name: data.challenge.name})}</h1>
+        <h1 className="my-2.5 text-gray-600 font-light text-4xl">{t('challenge.review.editor.title')}</h1>
+        <h2 className="font-roboto text-gray-500 text-xl text-left pb-7">{data?.challenge.name}</h2>
         <ReviewTable challengeId={challengeId} />
         {solutionId && <div className="flex w-full">
             <Outlet />
