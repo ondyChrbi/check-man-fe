@@ -10,18 +10,19 @@ import {useCourseRoles} from "../../../../../features/authorization/hooks";
 import RequirementEditor from "../requirement/RequirementEditor";
 
 interface Props {
+    courseId: string | number;
     semesterId: string | number;
     challenge: Challenge;
 }
 
-const ChallengeAdministrationToolbar = ({semesterId, challenge}: Props) => {
+const ChallengeAdministrationToolbar = ({courseId, semesterId, challenge}: Props) => {
     const {t} = useTranslation();
     const {roles} = useCourseRoles(semesterId!);
 
     return <>
         {!challenge.published && <div className="py-5 flex flex-row gap-2">
             {roles.includes(SemesterRole.EDIT_CHALLENGE) &&
-                <ChallengePublishButton challengeId={challenge.id}/>
+                <ChallengePublishButton courseId={courseId} semesterId={semesterId!} challengeId={challenge.id} />
             }
 
             {roles.includes(SemesterRole.EDIT_CHALLENGE) &&

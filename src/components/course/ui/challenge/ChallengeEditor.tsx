@@ -22,7 +22,7 @@ interface Inputs {
 }
 
 const ChallengeEditor = () => {
-    const {semesterId, challengeId} = useParams<'semesterId' | 'challengeId'>();
+    const {semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId'>();
     const {t} = useTranslation();
 
     const {getChallenge, createChallenge, editChallenge, challengeKindSelectValue, resolver} = useChallenge({semesterId});
@@ -31,12 +31,14 @@ const ChallengeEditor = () => {
     const {register, handleSubmit, control, formState: {errors}} = useForm<Inputs>({resolver});
 
     const submitHandler: SubmitHandler<Inputs> = async input => {
-        debugger
-
         if (semesterId) {
             try {
-                challengeId ? await editChallenge({variables: {challengeId, input}})
-                    : await createChallenge({variables: {semesterId, input}});
+                if (challengeId) {
+                    await editChallenge({variables: {challengeId, input}});
+                } else {
+                    const challenge = await createChallenge({variables: {semesterId, input}});
+                }
+
             } catch (error) {
                 showErrorToast(error);
             }

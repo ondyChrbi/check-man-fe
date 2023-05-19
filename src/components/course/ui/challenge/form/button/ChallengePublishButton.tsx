@@ -11,10 +11,12 @@ import {useTranslation} from "react-i18next";
 import {RocketLaunchIcon} from "@heroicons/react/24/solid";
 
 interface Props {
+    courseId: string | number;
+    semesterId: string | number;
     challengeId: number | string;
 }
 
-const ChallengePublishButton = ({challengeId}: Props) => {
+const ChallengePublishButton = ({courseId, semesterId, challengeId}: Props) => {
     const {t} = useTranslation();
 
     const [publish] = useMutation<PublishChallengeMutation, PublishChallengeMutationVariables>(publishChallengeMutation, {
@@ -30,6 +32,8 @@ const ChallengePublishButton = ({challengeId}: Props) => {
     const onClickHandle = async (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault();
         await publish({variables: {challengeId}});
+
+        window.location.reload();
     };
 
 

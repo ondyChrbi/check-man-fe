@@ -44,7 +44,13 @@ export const useTestConfiguration = (challenge: Challenge) => {
         return response.data as Promise<TestConfiguration>;
     };
 
-    const addTestConfiguration = useMutation((testModule: TestConfigurationModuleInput) => postTestConfiguration(challenge, testModule));
+    const addTestConfiguration = useMutation((
+        testModule: TestConfigurationModuleInput) => postTestConfiguration(challenge, testModule),
+        {onSuccess: async () => {
+            await testConfigurations.refetch();
+            showSuccessToast(t('common.message.add'));
+        }}
+    );
 
     const patchTestConfiguration = async (input: TestConfiguration) => {
         if (!authenticationInfo?.token) {

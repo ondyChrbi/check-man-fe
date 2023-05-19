@@ -42,7 +42,7 @@ const ChallengeDetail = ({argChallengeId}: Props) => {
 
         {data.challenge && <>
             <ChallengeTaskDefinition semesterId={semesterId!!} challenge={data.challenge} />
-            <ChallengeAdministrationToolbar semesterId={semesterId!} challenge={data.challenge}/>
+            <ChallengeAdministrationToolbar courseId={courseId!} semesterId={semesterId!} challenge={data.challenge}/>
         </>}
 
         <div className="flex flex-col mt-5">

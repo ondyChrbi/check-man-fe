@@ -18,8 +18,6 @@ export const saveCourseRolesToLocalStorage = (courseRoles: Array<CourseRoles>) =
 };
 
 export const saveGlobalRolesToLocalStorage = (globalRoles: Array<GlobalRole>) => {
-    console.log(globalRoles)
-    debugger;
     localStorage.setItem(GLOBAL_ROLES_KEY, JSON.stringify(globalRoles));
 };
 
