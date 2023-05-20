@@ -20,7 +20,7 @@ const CourseStatistics = ({semesterId}: Props) => {
 
     return <div className="w-full h-fir flex flex-col">
         <div className="w-full h-fit flex my-5">
-            <div className="w-full h-fit mt-10 grid grid-cols-1 sm:grid-cols-2 h-fit">
+            <div className="w-full h-fit mt-10 grid grid-cols-1 sm:grid-cols-1 h-fit">
                 {Object.values(SortOrder).map(s => <div key={s} className="w-full h-fit flex flex-col md:px-2.5">
                     <Chart semesterId={semesterId} direction={s}/>
                 </div>)}

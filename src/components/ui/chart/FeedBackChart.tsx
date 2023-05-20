@@ -8,7 +8,7 @@ interface Props {
     backgroundColor?: string
 }
 
-const FeedBackChart = ({data = [], charTitle = "", datasetLabel = undefined, backgroundColor = 'rgba(255, 99, 132, 0.5)'} : Props) => {
+const FeedBackChart = ({data = [], charTitle = "", datasetLabel = "", backgroundColor = 'rgba(255, 99, 132, 0.5)'} : Props) => {
     const chartData = {
         labels: data.map(d => d.description),
         datasets: [
@@ -29,8 +29,8 @@ const FeedBackChart = ({data = [], charTitle = "", datasetLabel = undefined, bac
                 text: charTitle,
             },
         },
-        height: 1000,
-        width: 1000,
+        height: null,
+        width: null,
     };
 
     return (

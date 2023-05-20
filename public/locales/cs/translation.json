@@ -19,6 +19,10 @@
         "unauthorized" : "Nemáte oprávnění pro přístup na tuto stránku"
       }
     },
+    "search" : {
+      "placeholder" : "Hledat",
+      "button" : "Hledat"
+    },
     "upload": {
       "title": "Nahrát řešení",
       "action": {

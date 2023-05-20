@@ -8,7 +8,6 @@ import {showErrorToast} from "../../../../../editor/helpers";
 import LoadingSpinner from "../../../../../loading/LoadingSpinner";
 import React from "react";
 import {useParams} from "react-router-dom";
-import FeedbackList from "../review/feedback/FeedbackList";
 import TestStatusIcon from "./TestStatusIcon";
 
 
@@ -31,11 +30,6 @@ const TestResultDetail = () => {
     const testResult = data?.testResult
 
     return <div className="flex flex-col w-full min-h-full">
-        {data?.testResult?.feedbacks &&
-            <div className="flex flex-col">
-                <FeedbackList feedbacks={data?.testResult?.feedbacks || []} />
-            </div>
-        }
         <TestStatusIcon result={data?.testResult} />
         <code>{testResult?.log}</code>
     </div>

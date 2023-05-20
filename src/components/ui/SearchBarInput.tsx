@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
+import {useTranslation} from "react-i18next";
 
 interface SearchBarProps {
     onSearch: (query: string) => void;
@@ -6,7 +7,8 @@ interface SearchBarProps {
     buttonTitle?: string
 }
 
-const SearchBarInput: React.FC<SearchBarProps> = ({ onSearch, placeholder = 'Search...', buttonTitle = "Search" }) => {
+const SearchBarInput: React.FC<SearchBarProps> = ({ onSearch, placeholder, buttonTitle }) => {
+    const {t} = useTranslation();
     const [searchQuery, setSearchQuery] = useState<string>('');
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +27,7 @@ const SearchBarInput: React.FC<SearchBarProps> = ({ onSearch, placeholder = 'Sea
                     className="relative m-0 -mr-px block w-[30%] min-w-0 flex-auto rounded-l border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-1.5 text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
                     value={searchQuery}
                     onChange={handleInputChange}
-                    placeholder={placeholder}
+                    placeholder={placeholder || t('common.search.placeholder')}
                     aria-label="Search"
                     aria-describedby="button-addon3"/>
                 <button
@@ -34,7 +36,7 @@ const SearchBarInput: React.FC<SearchBarProps> = ({ onSearch, placeholder = 'Sea
                     id="button-addon3"
                     onClick={handleSearch}
                     data-te-ripple-init="">
-                    {buttonTitle}
+                    {buttonTitle || t('common.search.button')}
                 </button>
             </div>
         </div>
