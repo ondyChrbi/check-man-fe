@@ -41,7 +41,6 @@ const CourseSemesterRequirements = ({semester, requirements = INIT_REQUIREMENTS,
     }
 
     return <div className="flex flex-col">
-        <h1 className="mt-7 mb-10 text-gray-600 font-light text-4xl">{t('course.requirement.title')}</h1>
         <div className="flex flex-wrap justify-around md:justify-between items-end w-full">
             {Object.values(ChallengeKind).filter((k) => isDisplayable(editable, k, formValues)).map((k) =>
                 <div key={k}

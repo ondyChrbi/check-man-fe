@@ -28,13 +28,13 @@ const FeedbacksView = ({review, solutionId}: Props) => {
     }
 
     return <div className="flex flex-col">
+        <FeedbackEditor reviewId={review.id} solutionId={solutionId} selectedFeedbacks={review.feedbacks} />
+
         {review && review.feedbacks && review.feedbacks.length !== 0 &&
             <div className="flex flex-wrap justify-start items-end">
                 <FeedbackList feedbacks={review.feedbacks} reviewId={review.id} onChipClick={chipClickHandle} />
             </div>
         }
-
-        <FeedbackEditor reviewId={review.id} solutionId={solutionId} selectedFeedbacks={review.feedbacks} />
     </div>
 }
 

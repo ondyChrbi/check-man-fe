@@ -11,7 +11,7 @@ import {useCourseRoles} from "../../../features/authorization/hooks";
 import CourseStatistics from "../../../components/course/statistics/CourseStatistics";
 
 const CourseSemesterDetail = () => {
-    const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId' | 'testResultId'>();
+    const {courseId, semesterId} = useParams<'courseId' | 'semesterId' | 'testResultId'>();
     const outlet = useOutlet();
     const dispatch = useAppDispatch();
 
@@ -37,7 +37,7 @@ const CourseSemesterDetail = () => {
     return <div className="w-full flex flex-col justify-center items-center align-middle">
         <div className="w-full lg:w-256 h-full flex flex-row">
             <ChallengeAside semesterId={semesterId} courseId={courseId} open={false} />
-            <section className="w-full my-2 pl-10 pr-1 lg:m-0 lg:my-0 lg:m-10 lg:m-8 pt-10">
+            <section className="w-full my-2 pl-10 pr-1 lg:my-0 lg:m-8 pt-10">
                 {!outlet && data?.semester &&
                     <div className="w-full h-fit flex flex-col">
                         <CourseSemesterRequirements requirements={data?.semester?.fulfillmentConditions}

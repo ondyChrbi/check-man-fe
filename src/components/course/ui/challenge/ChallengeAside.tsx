@@ -54,7 +54,7 @@ const ChallengeAside = ({courseId, semesterId, open = true}: Props) => {
                     <div className="flex flex-row justify-start align-middle items-start w-full h-fit p-5">
                         <Header />
                     </div>
-                    <div className="mt-10">
+                    <div className="mt-20">
                         <ChallengeAsideActionsMenu courseId={courseId} semesterId={semesterId} />
                     </div>
                     <div className="mt-2.5">

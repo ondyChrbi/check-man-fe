@@ -13,6 +13,7 @@ import ReviewPublishButton from "../../../../../components/course/ui/challenge/s
 import ReviewDescriptionEditor from "../../../../../components/course/ui/challenge/solution/review/ReviewDescriptionEditor";
 import RequirementPointsEditor
     from "../../../../../components/course/ui/challenge/solution/review/requirement/RequirementPointsEditor";
+import SolutionDownloadButton from "../../../../../components/course/ui/challenge/solution/SolutionDownloadButton";
 
 const ReviewEditor = () => {
     const {challengeId, solutionId, reviewId} = useParams<'challengeId' | 'solutionId' | 'reviewId'>();
@@ -62,7 +63,12 @@ export interface SolutionEditorActionsProps {
 
 const SolutionEditorActions = ({solution}: SolutionEditorActionsProps) => {
     return <div className="flex flex-row justify-start items-center align-middle">
-        <ReviewPublishButton reviewId={solution.review.id}/>
+        <div className="mr-1.5">
+            <ReviewPublishButton reviewId={solution.review.id}/>
+        </div>
+        <div className="mx-1.5">
+            <SolutionDownloadButton solution={solution} />
+        </div>
     </div>
 }
 

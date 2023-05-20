@@ -29,6 +29,8 @@ export const getTestModuleIcon = (module: TestingModule) => {
 }
 
 export const isValidConfiguration = (configuration?: TestConfiguration) => {
+    debugger
+
     return configuration && configuration.testModuleClass && configuration.testModuleClass !== ""
         && configuration.templatePath && configuration.templatePath !== ""
 }

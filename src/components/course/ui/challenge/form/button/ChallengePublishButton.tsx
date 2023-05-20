@@ -16,7 +16,7 @@ interface Props {
     challengeId: number | string;
 }
 
-const ChallengePublishButton = ({courseId, semesterId, challengeId}: Props) => {
+const ChallengePublishButton = ({challengeId}: Props) => {
     const {t} = useTranslation();
 
     const [publish] = useMutation<PublishChallengeMutation, PublishChallengeMutationVariables>(publishChallengeMutation, {

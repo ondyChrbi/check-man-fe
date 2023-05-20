@@ -23,7 +23,7 @@ const ReviewTable = ({challengeId}: Props) => {
 
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(1);
-    const [pageSizes] = useState([1, 2, 3]);
+    const [pageSizes] = useState([5, 10, 15]);
 
     const {data, loading, refetch} =
         useQuery<GetSolutionsToReviewQuery, GetSolutionsToReviewVariables>(getSolutionsToReview, {

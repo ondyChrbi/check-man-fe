@@ -28,6 +28,7 @@
     "chart.js": "^4.2.1",
     "date-fns": "^2.29.3",
     "escape-html": "^1.0.3",
+    "file-saver": "^2.0.5",
     "graphql": "^16.5.0",
     "i18next": "^21.8.14",
     "i18next-http-backend": "^1.4.1",
@@ -56,6 +57,7 @@
   },
   "devDependencies": {
     "@reduxjs/toolkit": "^1.8.2",
+    "@types/file-saver": "^2.0.5",
     "@types/node": "^17.0.41",
     "@types/react": "^18.0.0",
     "@types/react-color": "^3.0.6",

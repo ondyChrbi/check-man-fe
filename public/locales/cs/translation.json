@@ -3,6 +3,7 @@
     "button": {
       "save": "Uložit",
       "publish": "Publikovat",
+      "download": "Stáhnout",
       "add": "Přidat",
       "remove": "Odebrat",
       "edit": "Editovat",
@@ -41,6 +42,10 @@
     "name": "Check Man",
     "subtitle": "Find your programming identity",
     "instructions": "Přihlašte se jednou z níže uvedených možností"
+  },
+  "credit" : {
+    "title" : "Použité zdroje",
+    "link" : "Použité zdroje"
   },
   "authentication": {
     "title": "Přihlešte se ke svému účtu",
@@ -148,6 +153,13 @@
     },
     "semester" : {
       "create" : "Přidat semester",
+      "summary" : {
+        "title" : "Správa kurzu",
+        "id": "ID",
+        "note": "Poznámka",
+        "date-start" : "Datum zahájení",
+        "date-end" : "Datum ukončení"
+      },
       "available" : {
         "new" : "K zapsání",
         "sent" : "Žádost odeslána",

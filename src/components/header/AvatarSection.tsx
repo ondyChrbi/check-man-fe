@@ -3,6 +3,7 @@ import Avatar from "react-avatar";
 import React from "react";
 import {useQuery} from "@apollo/client";
 import LoadingSpinner from "../loading/LoadingSpinner";
+import LogoutButton from "./LogoutButton";
 
 const AVATAR_DEFAULT_SIZE = '40';
 
@@ -19,11 +20,18 @@ const AvatarSection = ({size = AVATAR_DEFAULT_SIZE} : Props) => {
         </div>
     }
 
-    return <div className="flex flex-row justify-start items-center align-start py-5">
-        <Avatar className="mt-0.5" name={data?.me.displayName} round={true} size={size.toString()} />
-        <div className="flex-col justify-center align-middle items-center px-5">
-            <p className="font-bold text-gray-200">{data?.me.displayName}</p>
-            <p className="text-xs text-gray-400">{data?.me.mail}</p>
+    return <div className="flex flex-col">
+        <div className="flex flex-row justify-start items-center align-start py-5">
+            <Avatar className="mt-0.5" name={data?.me.displayName} round={true} size={size.toString()} />
+            <div className="flex flex-col justify-start items-start ml-2">
+                <div className="flex-col justify-center align-middle items-center px-5">
+                    <p className="font-bold text-gray-200">{data?.me.displayName}</p>
+                    <p className="text-xs text-gray-400">{data?.me.mail}</p>
+                </div>
+                <div className="flex flex-row justify-center items-center align-start py-1.5 px-2.5">
+                    <LogoutButton />
+                </div>
+            </div>
         </div>
     </div>;
 };

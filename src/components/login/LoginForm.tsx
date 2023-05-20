@@ -4,6 +4,7 @@ import {setJwtToken} from "../../features/storage/storageSlice";
 import MicrosoftAuthenticationService from "../../features/authentication/services/microsoft-authentication-service";
 import AuthenticationService from "../../features/authentication/services/authentication-service";
 import {useTranslation} from "react-i18next";
+import {Link} from "react-router-dom";
 
 const LoginForm = () => {
     const {t} = useTranslation();
@@ -46,8 +47,10 @@ const LoginForm = () => {
                         </button>
                     }
                 </div>
-                <div className="flex flex-row justify-center align-middle text-xs text-center mt-8 text-gray-500">
-                    <div>{t('authentication.troubleshooting.login')}</div>
+                <div className="flex flex-col justify-center align-middle text-xs text-center mt-8 text-gray-500">
+                    <Link to="/credit">
+                        <p className="hover:text-gray-700 cursor-pointer">{t('credit.link')}</p>
+                    </Link>
                 </div>
             </div>
         </div>

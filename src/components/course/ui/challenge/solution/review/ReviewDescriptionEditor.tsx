@@ -2,7 +2,7 @@ import {useTranslation} from "react-i18next";
 import {yupResolver} from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {showErrorToast} from "../../../../../editor/helpers";
+import {showErrorToast, showSuccessToast} from "../../../../../editor/helpers";
 import TextEditor from "../../../../../editor/TextEditor";
 import React from "react";
 import {Review} from "../../../../../../lib/graphql/challengeQuery";
@@ -24,9 +24,12 @@ interface Props {
 
 const ReviewDescriptionEditor = ({review, children}: Props) => {
     const {t} = useTranslation();
-    const [save] = useMutation<EditReviewMutation, EditReviewVariables>(editReviewMutation, {
+    const [save] = useMutation<EditReviewMutation, EditReviewVariables>(editReviewMutation,{
         onError: (error) => {
             showErrorToast(error);
+        },
+        onCompleted: () => {
+            showSuccessToast(t('common.message.publish'));
         },
     });
 
@@ -41,6 +44,7 @@ const ReviewDescriptionEditor = ({review, children}: Props) => {
     const {register, handleSubmit, control, formState: {errors}} = useForm<Inputs>({resolver});
 
     const submitHandler: SubmitHandler<Inputs> = async input => {
+        debugger;
         try {
             await save({variables: {id: review.id, input: {description: input.description}}})
         } catch (error) {

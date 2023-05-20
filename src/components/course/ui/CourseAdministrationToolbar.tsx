@@ -19,7 +19,9 @@ const CourseAdministrationToolbar = ({}: Props) => {
         <div className="pl-2">
             <ShowModalButton buttonTitle={t('course.semester.create')} modalTitle={t('course.semester.new.title')}
             icon={<PlusIcon width={ICON_WIDTH} height={ICON_HEIGHT} />}>
-                <SemesterEditor/>
+                <div className="p-5">
+                    <SemesterEditor/>
+                </div>
             </ShowModalButton>
         </div>
     </div>

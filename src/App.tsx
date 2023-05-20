@@ -34,6 +34,7 @@ import ReviewDetail from "./pages/course/challenge/review/ReviewDetail";
 import ChallengeAccessEditor from "./pages/course/challenge/access/ChallengeAccessEditor";
 import ChallengeSummary from "./pages/course/challenge/ChallengeSummary";
 import CourseManager from "./pages/course/CourseManager";
+import Credit from "./pages/Credit";
 
 ChartJS.register(
     CategoryScale,
@@ -54,6 +55,7 @@ function App() {
                         <Route path="/login" element={<UnauthenticatedRoute redirectUrl={"/dashboard"}><Login /></UnauthenticatedRoute>} />
                         <Route path="/" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
                         <Route path="/error" element={<Error />} />
+                        <Route path="/credit" element={<Credit />} />
                         <Route path="/dashboard" element={<ProtectedRoute><CourseDashboard/></ProtectedRoute>} />
                         <Route path="/courses/add" element={<ProtectedRoute><CourseEditor /></ProtectedRoute>} />
                         <Route path="/courses/:courseId" element={<CourseDetail />} />
