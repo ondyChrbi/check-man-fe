@@ -10,16 +10,21 @@ import {
 import {showErrorToast, showSuccessToast} from "../../../../../editor/helpers";
 import ReviewPublishOptions from "./ReviewPublishOptions";
 import {Status} from "../../../../../../lib/graphql/challengeQuery";
+import {useNavigate} from "react-router-dom";
 
 const ICON_WIDTH = 20;
 const ICON_HEIGHT = 20;
 
 interface Props {
-    reviewId: number | string
+    reviewId: number | string,
+    semesterId: number | string;
+    courseId: number | string;
+    challengeId?: number | string;
 }
 
-const ReviewPublishButton = ({reviewId}: Props) => {
+const ReviewPublishButton = ({reviewId, semesterId, courseId, challengeId}: Props) => {
     const {t} = useTranslation();
+    const navigate = useNavigate();
 
     const [publish] = useMutation<PublishReviewMutation, PublishReviewVariables>(publishReviewMutation, {
         onError: (error) => {
@@ -36,6 +41,8 @@ const ReviewPublishButton = ({reviewId}: Props) => {
 
     const finishPublishClickHandle = async (status: Status) => {
         await publish({variables: {id: reviewId, status }});
+
+        navigate(`/courses/${courseId}/semester/${semesterId}/challenge/${challengeId}`);
     }
 
     return <div className="flex flex-col justify-center items-start my-5">

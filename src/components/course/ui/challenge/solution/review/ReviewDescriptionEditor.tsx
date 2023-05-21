@@ -44,7 +44,6 @@ const ReviewDescriptionEditor = ({review, children}: Props) => {
     const {register, handleSubmit, control, formState: {errors}} = useForm<Inputs>({resolver});
 
     const submitHandler: SubmitHandler<Inputs> = async input => {
-        debugger;
         try {
             await save({variables: {id: review.id, input: {description: input.description}}})
         } catch (error) {

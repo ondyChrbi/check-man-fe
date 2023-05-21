@@ -304,8 +304,8 @@
         "name": "Typ úlohy",
         "place-holder": "",
         "option": {
-          "optional": "Dobrovolný",
-          "mandatory": "Povinný",
+          "optional": "Dobrovolná",
+          "mandatory": "Povinná",
           "credit": "Zápočet",
           "exam": "Zkouška"
         },
@@ -392,12 +392,15 @@
       "action" : {
         "edit" : "Zahájit revizi"
       },
+      "to-edit": {
+        "title": "Odevzdané řešení"
+      },
       "editor": {
         "no-solution": {
           "title": "Žádné úlohy k opravě",
           "description": "Motivujte více studenty k plnění úkolů"
         },
-        "title": "Odevzdané řešení",
+        "title": "Revize",
         "description": {
           "default": "Žádné hodnocení nebylo vloženo",
           "error": {
