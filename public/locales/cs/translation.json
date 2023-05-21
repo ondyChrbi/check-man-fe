@@ -157,6 +157,7 @@
     },
     "semester" : {
       "create" : "Přidat semester",
+      "manage": "Správa kurzu",
       "summary" : {
         "title" : "Správa kurzu",
         "id": "ID",

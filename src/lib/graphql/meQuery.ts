@@ -36,6 +36,14 @@ export const getAvailableCoursesQuery = gql`
 
 export const getCourseDashboardQuery = gql`
     query GetCourseDashboard {
+        me {
+            mail
+            displayName
+            globalRoles {
+                id
+                name
+            }
+        }
         availableCourses {
             id,
             stagId,
@@ -93,6 +101,7 @@ export interface AvailableCoursesQuery {
 }
 
 export interface CourseDashboardQuery {
+    me: AppUser;
     availableCourses: Array<Course>;
     myCourses: Array<Course>;
     courses: Array<Course>;

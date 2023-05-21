@@ -1,7 +1,7 @@
-import {Course} from "../../../../lib/graphql/courseQuery";
-import CourseIcon from "../../../../components/dashboard/CourseIcon";
+import {Course} from "../../../lib/graphql/courseQuery";
+import CourseIcon from "../../../components/dashboard/CourseIcon";
 import React from "react";
-import CourseIconChip from "../../../../components/dashboard/CourseIconChip";
+import CourseIconChip from "../../../components/dashboard/CourseIconChip";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 

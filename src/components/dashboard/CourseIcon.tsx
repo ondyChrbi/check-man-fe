@@ -40,7 +40,7 @@ const CourseIcon = ({course, semester, children = <></>, onClick = () => {}, dis
         setIsHovering(false);
     }
 
-    return <div className="course-container flex flex-col mr-5 hover:cursor-pointer relative"
+    return <div className="course-container flex flex-col items-center align-middle mr-5 hover:cursor-pointer relative"
                 onClick={clickHandle}
                 onMouseEnter={mouseIconEnterHandle}
                 onMouseLeave={mouseIconLeaveHandle}>
@@ -51,7 +51,7 @@ const CourseIcon = ({course, semester, children = <></>, onClick = () => {}, dis
             }
         </div>
         <div className="h-14">
-            <div className="my-4 text-center">{course.name}</div>
+            <div className="my-4 text-center font-bold text-gray-600">{course.name}</div>
         </div>
         {children}
     </div>

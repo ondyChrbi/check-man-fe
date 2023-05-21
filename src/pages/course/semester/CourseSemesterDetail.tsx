@@ -11,14 +11,14 @@ import {useCourseRoles} from "../../../features/authorization/hooks";
 import CourseStatistics from "../../../components/course/statistics/CourseStatistics";
 
 const CourseSemesterDetail = () => {
-    const {courseId, semesterId} = useParams<'courseId' | 'semesterId' | 'testResultId'>();
+    const {courseId, semesterId, challengeId} = useParams<'courseId' | 'semesterId' | 'challengeId' | 'testResultId'>();
     const outlet = useOutlet();
     const dispatch = useAppDispatch();
 
     const {roles} = useCourseRoles(semesterId!!);
 
     const {data, loading, error} = useQuery<SemesterQuery>(courseQuery, {
-        variables: {"id": semesterId},
+        variables: {"semesterId": semesterId, "courseId": courseId!},
         onCompleted: ({courseRoles: roles}) => {
             if (courseId) {
                 dispatch(addRoles({semesterId: courseId, roles}));
@@ -38,11 +38,14 @@ const CourseSemesterDetail = () => {
         <div className="w-full lg:w-256 h-full flex flex-row">
             <ChallengeAside semesterId={semesterId} courseId={courseId} open={false} />
             <section className="w-full my-2 pl-10 pr-1 lg:my-0 lg:m-8 pt-10">
+                {!challengeId && <div className="flex flex-col w-full">
+                    <h1 className="my-7 text-gray-600 font-light text-4xl">{data?.course?.name}</h1>
+                </div>}
                 {!outlet && data?.semester &&
                     <div className="w-full h-fit flex flex-col">
-                        <CourseSemesterRequirements requirements={data?.semester?.fulfillmentConditions}
+                        {roles.includes(SemesterRole.EDIT_COURSE) && <CourseSemesterRequirements requirements={data?.semester?.fulfillmentConditions}
                                                     editable={roles.includes(SemesterRole.EDIT_COURSE)}
-                                                    semester={data.semester} />
+                                                    semester={data.semester} /> }
                         {roles.includes(SemesterRole.VIEW_STATISTICS) && <CourseStatistics semesterId={semesterId} />}
                     </div>
                 }

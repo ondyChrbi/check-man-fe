@@ -21,7 +21,7 @@ const SendAccessRequestButton = ({semester, onClick = () => {}}: SendAccessReque
     }
 
     return <button onClick={clickHandle}
-                   className="flex flex-row justify-center align-middle items-center bg-transparent text-teal-700 font-semibold py-2 px-4 border border-teal-500 rounded-full">
+                   className="w-fit bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-full inline-flex items-center">
         <CreditCardIcon width={ICON_WIDTH} height={ICON_HEIGHT}/>
         <span className="ml-2">{t('course.semester.available.access.join')}</span>
     </button>

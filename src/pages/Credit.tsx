@@ -11,6 +11,7 @@ const Credit = () => {
         <a href="https://www.flaticon.com/free-icons/kick" title="kick icons">Kick icons created by Freepik - Flaticon</a>
         <a href="https://www.flaticon.com/free-icons/test" title="test icons">Test icons created by Freepik - Flaticon</a>
         <a href="https://www.flaticon.com/free-icons/steam" title="steam icons">Steam icons created by Freepik - Flaticon</a>
+        <a href="https://www.flaticon.com/free-icons/3d-cube" title="3d cube icons">3d cube icons created by Freepik - Flaticon</a>
     </div>
 };
 

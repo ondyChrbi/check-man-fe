@@ -4,8 +4,13 @@ import {SortOptions} from "./index";
 import {FeedbackStatistics} from "./statisticsQuery";
 
 export const courseQuery = gql`
-    query GetCourseSemester($id: ID!) {
-        semester(id: $id) {
+    query GetCourseSemester($semesterId: ID! $courseId: ID!) {
+        course(id: $courseId) {
+            id,
+            stagId,
+            name
+        }
+        semester(id: $semesterId) {
             id,
             note,
             dateStart,
@@ -24,7 +29,7 @@ export const courseQuery = gql`
                 count
             }
         }
-        courseRoles(id: $id)
+        courseRoles(id: $semesterId)
     }
 `
 export const courseQueryWithRelatedUser = gql`
@@ -249,6 +254,7 @@ export interface CourseRequirements {
 }
 
 export interface SemesterQuery {
+    course?: Course;
     semester?: Semester;
     courseRoles: SemesterRole[];
 }

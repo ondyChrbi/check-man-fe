@@ -44,7 +44,7 @@ const SolutionCard = ({solutionId, courseId, semesterId}: Props) => {
         return <p>Error</p>
     }
 
-    return <div className="flex flex-col">
+    return <div className="flex flex-col bg-gray-100 rounded-2xl p-3.5">
         <div className="flex flex-row justify-start items-start">
             <div className="mr-5">
                 <SolutionStatusIcon status={data.solution.status}/>
@@ -53,13 +53,13 @@ const SolutionCard = ({solutionId, courseId, semesterId}: Props) => {
                 <p className={`font-bold ${statusFontColorMap.get(data.solution.status)}`}>
                     {t(`challenge.solution.status.title.${data.solution.status}`)}
                 </p>
-                <h2 className="mt-0.5 text-gray-600 font-light text-sm">
+                <h2 className="mt-0.5 text-gray-800 font-light text-sm">
                     {toFormattedDateTime(data.solution.uploadDate)}
                 </h2>
             </div>
         </div>
         {roles.includes(SemesterRole.VIEW_TEST_RESULT) && data.solution.testResult &&
-            <div className="flex flex-col my-3.5">
+            <div className="flex flex-col justify-center items-center align-middle mt-5">
                 <TestResultButton testResult={data.solution.testResult} courseId={courseId} semesterId={semesterId} />
             </div>
         }

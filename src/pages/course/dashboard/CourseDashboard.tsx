@@ -11,6 +11,7 @@ import Logo from "../../../components/header/Logo";
 import {useGlobalRoles} from "../../../features/authorization/hooks";
 import AddCourseIcon from "../../../components/course/AddCourseIcon";
 import {Course} from "../../../lib/graphql/courseQuery";
+import AvatarIcon from "../../../components/dashboard/AvatarIcon";
 
 const CourseDashboard = (): ReactElement => {
     const {t} = useTranslation();
@@ -37,7 +38,10 @@ const CourseDashboard = (): ReactElement => {
     const coursesToManage = getCoursesToManage(data);
 
     return <div className="flex flex-col justify-center items-center p-8 h-full">
-        <div className="mb-16">
+        <div className="flex flex-row mb-16">
+            <div className="mr-24">
+                <AvatarIcon />
+            </div>
             <Logo/>
         </div>
         <DashboardList coursesToManage={coursesToManage}

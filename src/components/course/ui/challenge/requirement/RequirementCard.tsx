@@ -40,7 +40,7 @@ const RequirementCard = ({ requirement, points, challengeId, semesterId, editabl
     };
 
     return <div className="my-5 flex flex-row justify-start items-center w-96">
-        <div className={`${ (getStyle(requirement)) } flex flex-row justify-center items-center align-middle w-24 h-24 rounded-full border-8 mr-5`}>
+        <div className={`${ (getStyle(requirement)) } flex flex-row justify-center items-center align-middle w-24 h-24 rounded-full border-8 mr-2`}>
             <Points requirement={requirement} points={points} />
         </div>
         <div className="flex flex-col justify-center align-top w-48">
