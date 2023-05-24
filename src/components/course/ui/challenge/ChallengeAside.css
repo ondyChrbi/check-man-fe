@@ -1,0 +1,8 @@
+.background {
+    background: rgb(15,32,39);
+    background: linear-gradient(0deg, rgba(15,32,39,1) 0%, rgba(32,58,67,1) 75%, rgba(44,83,100,1) 100%);
+}
+
+.background > menu > div {
+    margin-top: 3.25rem;
+}

@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authenticationReducer from './authenticationSlice'
+import storageReducer from './storageSlice'
 
 const store = configureStore({
     reducer: {
-        authentication: authenticationReducer
+        storage: storageReducer
     }
 })
 

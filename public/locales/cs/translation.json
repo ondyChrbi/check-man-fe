@@ -1,0 +1,475 @@
+{
+  "common": {
+    "button": {
+      "save": "Uložit",
+      "publish": "Publikovat",
+      "download": "Stáhnout",
+      "add": "Přidat",
+      "remove": "Odebrat",
+      "edit": "Editovat",
+      "update": "Aktulizovat"
+    },
+    "message": {
+      "remove": "Úspěšně odebráno",
+      "publish": "Úspěšně publikováno",
+      "add": "Úspěšně přidáno",
+      "not-authenticated" : "Platnost vašeho přihlášení vypršela. Prosím přihlašte se znovu.",
+      "error" : {
+        "basic" : "Někde se stala chyba",
+        "unauthorized" : "Nemáte oprávnění pro přístup na tuto stránku"
+      }
+    },
+    "search" : {
+      "placeholder" : "Hledat",
+      "button" : "Hledat"
+    },
+    "upload": {
+      "title": "Nahrát řešení",
+      "action": {
+        "drag": "Přetáhněte soubory sem nebo klikněte pro vybrání",
+        "drop": "Přetáhněte soubory sem",
+        "delete": "Smazat",
+        "send": "Nahrát"
+      },
+      "error" : {
+        "no-files" : "Nebyly vybrány žádné soubory"
+      }
+    },
+    "field": {
+      "upload-date": "Datum nahrání"
+    },
+    "title" : {
+      "settings" : "Nastavení"
+    }
+  },
+  "application": {
+    "name": "Check Man",
+    "subtitle": "Find your programming identity",
+    "instructions": "Přihlašte se jednou z níže uvedených možností"
+  },
+  "credit" : {
+    "title" : "Použité zdroje",
+    "link" : "Použité zdroje"
+  },
+  "authentication": {
+    "title": "Přihlešte se ke svému účtu",
+    "login": {
+      "button": "Microsoft účet"
+    },
+    "logout": {
+      "button": "Odhlásit se"
+    },
+    "troubleshooting": {
+      "login": "Nemůžete se přihlásit?",
+      "report-bug": "Nahlásit chybu"
+    },
+    "error": {
+      "not-valid-account": "Tento účet není pod správou Univerzity Pardubice",
+      "already-authenticated": "Uživatel je již přihlášen"
+    }
+  },
+  "dashboard": {
+    "courses": {
+      "me": "Zapsané kurzy",
+      "not-available": "Žádné kurzy nejsou dostupné",
+      "available": "Dostupné kurzy",
+      "manager" : "Správa kurzů"
+    }
+  },
+  "course": {
+    "requirement": {
+      "title" : "Požadavky pro splnění kurzu",
+      "input" : {
+        "title" : {
+          "OPTIONAL" : "Dobrovolná úloha",
+          "MANDATORY" : "Povinná úloha",
+          "CREDIT" : "Zápočtová úloha",
+          "EXAM" : "Zkoušková úloha"
+        }
+      }
+    },
+    "new": {
+      "title" : "Přidat kurz"
+    },
+    "action": {
+      "name" : {
+        "name": "Název kurzu",
+        "place-holder": "Název kurzu",
+        "error" : {
+          "max-length" : "Maximální možná délka tohoto pole je 256",
+          "required" : "Toto pole je povinné"
+        }
+      },
+      "stag-id" : {
+        "name": "Stag ID",
+        "place-holder": "Stag ID",
+        "error" : {
+          "max-length" : "Maximální možná délka tohoto pole je 128",
+          "required" : "Toto pole je povinné"
+        }
+      },
+      "template": {
+        "name": "Barva pozadí"
+      },
+      "users": "Uživatelé",
+      "request": "Žádosti",
+      "manage": "Správa"
+    },
+    "users": {
+      "title" : "Správa uživatelů",
+      "metadata" : {
+        "title" : "User metadata"
+      },
+      "roles" : {
+        "list" : {
+          "title" : "Role"
+        },
+        "add" : {
+          "title" : "Přidal roli"
+        },
+        "editor" : {
+          "action" : {
+            "name" : {
+              "place-holder" : "Zadejte roli",
+              "error" : {
+                "max-length" : "Maximální možná délka tohoto pole je 128",
+                "required" : "Toto pole je povinné"
+              }
+            }
+          }
+        }
+      },
+      "manager" : {
+        "stag-id": "Stag ID",
+        "mail": "Email",
+        "display-name": "Jméno a přijímení",
+        "roles": "Role",
+        "actions": "Akce",
+        "registration-date": "Datum registrace",
+        "lastAccess-date": "Poslední přihlášení"
+      }
+    },
+    "manager" : {
+      "title" : "Editor kurzu: {{name}}",
+      "id": "ID",
+      "date-start" : "Datum zahájení",
+      "date-end" : "Datum ukončení"
+    },
+    "semester" : {
+      "create" : "Přidat semester",
+      "manage": "Správa kurzu",
+      "summary" : {
+        "title" : "Správa kurzu",
+        "id": "ID",
+        "note": "Poznámka",
+        "date-start" : "Datum zahájení",
+        "date-end" : "Datum ukončení"
+      },
+      "available" : {
+        "new" : "K zapsání",
+        "sent" : "Žádost odeslána",
+        "access" : {
+          "join": "Zažádat o zapsání",
+          "error" : "Přihlašování do kurzu je nedostupné. Kontaktuje správce systému.",
+          "approve" : {
+            "student" : "Zapsat jako studenta",
+            "teacher" : "Zapsat jako učitele"
+          },
+          "message" : {
+            "send" : "Žádost odeslána"
+          },
+          "no-requests" : "Žádné žádosti k dispozici",
+          "table" : {
+            "id" : "ID",
+            "stag-id": "Stag ID",
+            "name" : "Jméno",
+            "creation-date" : "Datum vytvoření",
+            "expiration-date" : "Datum expirace"
+          }
+        }
+      },
+      "new" : {
+        "title" : "Přidání nového semesteru"
+      },
+      "statistics": {
+        "info" : {
+          "empty" : "Zatím nejsou k dispozici žádné statistiky"
+        },
+        "chart": {
+          "POSITIVE" : {
+            "title" : "Top nejlepší feedbacky"
+          },
+          "NEUTRAL" : {
+            "title" : "Top neutrální feedbacky"
+          },
+          "EXTREMELY_POSITIVE" : {
+            "title" : "Top super nejlepší feedbacky"
+          },
+          "NEGATIVE" : {
+            "title" : "Top nejhorší feedbacky"
+          }
+        },
+        "list" : {
+          "feedback-type" : "",
+          "description": "Název",
+          "count": "Počet"
+        },
+        "search" : {
+          "place-holder" : "Napište název nebo část názvu feedbacku...",
+          "button" : {
+            "title": "Hledat"
+          }
+        }
+      },
+      "action" : {
+        "note" : {
+          "name" : "Poznámka ke kurzu",
+          "place-holder": "Poznámka ke kurzu",
+          "error" : {
+            "max-length" : "Maximální možná délka tohoto pole je 1024",
+            "required" : "Toto pole je povinné"
+          }
+        },
+        "dateStart" : {
+          "name" : "Datum začátku kurzu",
+          "error" : {
+            "required" : "Toto pole je povinné"
+          }
+        },
+        "dateEnd" : {
+          "name" : "Datum konce kurzu",
+          "error" : {
+            "required" : "Toto pole je povinné"
+          }
+        }
+      }
+    }
+  },
+  "challenge": {
+    "not-available": "Žádné úkoly",
+    "optional": "Dobrovolné úkoly",
+    "mandatory": "Povinné úkoly",
+    "credit": "Zápočtové úkoly",
+    "exam": "Zkouškové úkoly",
+    "not-published": "Rozepsané",
+    "id": "ID",
+    "name": "Název úlohy",
+    "start-date": "Datum vytvoření",
+    "deadline-date": "Deadline",
+    "summary" : {
+      "title" : "Přehled odevzdaných úkolů",
+      "display-name": "Název",
+      "stag-id" : "Stag ID",
+      "denied" : "Zamítnuto",
+      "approved" : "Schváleno",
+      "return-to-edit" : "Vráceno k opravě",
+      "waiting-to-review" : "Čeká na opravu"
+    },
+    "metadata" : {
+      "title" : "Metadata úlohy"
+    },
+    "new": {
+      "title": "Vytvořit novovu úlohu"
+    },
+    "action": {
+      "create": "Přidat úkol",
+      "delete": "Odebrat úkol",
+      "review": "Revize",
+      "access-request": "Přístup",
+      "summary": "Přehled",
+      "name": {
+        "name": "Název úlohy",
+        "place-holder": "",
+        "error": {
+          "required": "Toto pole je povinné",
+          "max-length": "Maximální možná délka tohoto pole je 20"
+        }
+      },
+      "description": {
+        "name": "Zadání úlohy",
+        "place-holder": "",
+        "error": {
+          "required": "Toto pole je povinné",
+          "max-length": "Maximální možná délka tohoto pole je 4098"
+        }
+      },
+      "start-date": {
+        "name": "Začátek plnění",
+        "place-holder": "",
+        "error": {
+          "required": "Toto pole je povinné"
+        }
+      },
+      "end-date": {
+        "name": "Konec plnění",
+        "place-holder": "",
+        "error": {
+          "required": "Toto pole je povinné"
+        }
+      },
+      "challenge-kind": {
+        "name": "Typ úlohy",
+        "place-holder": "",
+        "option": {
+          "optional": "Dobrovolná",
+          "mandatory": "Povinná",
+          "credit": "Zápočet",
+          "exam": "Zkouška"
+        },
+        "error": {
+          "required": "Toto pole je povinné"
+        }
+      }
+    },
+    "solution": {
+      "upload": {
+        "title": "Nahrát řešení",
+        "action": {
+          "send": "Odevzdat řešení",
+          "uploaded" : "Řešení bylo odesláno k revizi"
+        }
+      },
+      "status" : {
+        "title" : {
+          "APPROVED": "Akceptováno",
+          "RETURN_TO_EDIT": "Vráceno k opravě",
+          "DENIED": "Zamítnuto",
+          "WAITING_TO_REVIEW": "Čeká na revizi"
+        },
+        "action" : {
+          "APPROVED": "Akceptovat",
+          "RETURN_TO_EDIT": "Vrátit k opravě",
+          "DENIED": "Zamítnout",
+          "WAITING_TO_REVIEW": "Vrátit k čekání na opravu"
+        }
+      },
+      "test-result" : {
+        "action" : {
+          "go-to" : "Výsledky testu"
+        }
+      }
+    },
+    "requirement": {
+      "title": "Požadavky",
+      "action": {
+        "name": {
+          "name": "Název požadavku",
+          "place-holder": "Název požadavku",
+          "error": {
+            "required": "Toto pole je povinné",
+            "max-length": "Maximální možná délka tohoto pole je 20"
+          }
+        },
+        "description": {
+          "name": "Dodatečný popisek",
+          "place-holder": "Dodatečný popisek",
+          "error": {}
+        },
+        "minPoint": {
+          "name": "Minimální počet bodů",
+          "place-holder": "Minimální počet bodů",
+          "error": {}
+        },
+        "maxPoint": {
+          "name": "Maximální počet bodů",
+          "place-holder": "Maximální počet bodů",
+          "error": {}
+        },
+        "point": {
+          "name": "Počet bodů",
+          "place-holder": "",
+          "error": {
+            "required": "Toto pole je povinné",
+            "max-length": "Maximální možná délka tohoto pole je 20"
+          }
+        }
+      },
+      "new": {
+        "title": "Přidat nový požadavek"
+      }
+    },
+    "review": {
+      "reviewer" : "Revizor",
+      "new": {
+        "alert": {
+          "title": "Nové úkoly k opravení",
+          "description": "Jako revizor máte možnost opravit {{count}} řešení od studentů."
+        }
+      },
+      "action" : {
+        "edit" : "Zahájit revizi"
+      },
+      "to-edit": {
+        "title": "Odevzdané řešení"
+      },
+      "editor": {
+        "no-solution": {
+          "title": "Žádné úlohy k opravě",
+          "description": "Motivujte více studenty k plnění úkolů"
+        },
+        "title": "Revize",
+        "description": {
+          "default": "Žádné hodnocení nebylo vloženo",
+          "error": {
+            "required": "Toto pole je povinné"
+          }
+        },
+        "author": {
+          "upload-date": "Datum nahrání",
+          "stag-id": "Stag ID",
+          "mail": "Email",
+          "display-name": "Jméno a přijímení"
+        },
+        "action": {
+          "title": "Akce"
+        },
+        "feedback": {
+          "error" : "Search engine není dostupný. Zkontrolujte službu nebo kontaktujte správce",
+          "title": "Hodnocení",
+          "action": {
+            "description": {
+              "name": "Hodnocení",
+              "place-holder": "Zadejte hodnocení",
+              "error": {
+                "max-length": "Maximální možná délka tohoto pole je 128",
+                "required": "Toto pole je povinné"
+              }
+            }
+          }
+        }
+      }
+    },
+    "test" : {
+      "action" : {
+        "set" : "Automatické testy",
+        "active" : {
+          "true" :"Testy jsou aktivní",
+          "false" : "Testy nejsou aktivní"
+        }
+      },
+      "module" : {
+        "editor": {
+          "message": "Nastavení automatických testů"
+        }
+      },
+      "status" : {
+        "title" : {
+          "WAITING_TO_TEST": "Čeká na test",
+          "RUNNING": "Probíhá test",
+          "FINISHED": "Test dokončen",
+          "ERROR": "Selhání testovacího subsystému"
+        }
+      }
+    }
+  },
+  "tip" : {
+    "0" : "Časová složitost algoritmu buble sort je zhruba O(n^2). Quick sortu O(n log n).",
+    "1" : "Interface je pouze předpis metod. Při jeho využití musí třída implementovat dané metody nebo být označena jako abstraktní.",
+    "2" : "Strategy je behaviorální návrhový vzor určující, který algoritmus bude použit pro konkrétní situaci.",
+    "3" : "Deadlock je nežádoucí stav, kdy vlákna navzájem čekají na přístup k prostředku, který je v držení toho druhého.",
+    "4" : "Pole v Javě má pevnou velikost. Nelze jej dynamicky rozšiřovat. Jiné jazyky jako například JavaScript toto umožňují.",
+    "5" : "Normalizace je proces kdy je tabulka přeorganizována tak aby maximálně využila výhody relačního modelu.",
+    "6" : "Přetížení je deklarace metody se stejným názvem ale jinými parametry. Změna názvů parametrů ovšem nestačí.",
+    "7" : "Kdo se moc ptá málo Googlí. Kdo googlí příliš, nezná AI."
+  }
+}
