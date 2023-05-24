@@ -170,6 +170,7 @@
         "sent" : "Žádost odeslána",
         "access" : {
           "join": "Zažádat o zapsání",
+          "error" : "Přihlašování do kurzu je nedostupné. Kontaktuje správce systému.",
           "approve" : {
             "student" : "Zapsat jako studenta",
             "teacher" : "Zapsat jako učitele"
@@ -195,10 +196,16 @@
           "empty" : "Zatím nejsou k dispozici žádné statistiky"
         },
         "chart": {
-          "ASC" : {
+          "POSITIVE" : {
             "title" : "Top nejlepší feedbacky"
           },
-          "DESC" : {
+          "NEUTRAL" : {
+            "title" : "Top neutrální feedbacky"
+          },
+          "EXTREMELY_POSITIVE" : {
+            "title" : "Top super nejlepší feedbacky"
+          },
+          "NEGATIVE" : {
             "title" : "Top nejhorší feedbacky"
           }
         },
@@ -417,6 +424,7 @@
           "title": "Akce"
         },
         "feedback": {
+          "error" : "Search engine není dostupný. Zkontrolujte službu nebo kontaktujte správce",
           "title": "Hodnocení",
           "action": {
             "description": {

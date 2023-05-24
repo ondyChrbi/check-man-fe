@@ -33,7 +33,7 @@ const CourseAccessRequest = ({
         data: mutationData
     }] = useMutation<CreateSemesterAccessRequestMutation, SemesterAccessRequestVariables>(createSemesterAccessRequestMutation, {
         onError: (error) => {
-            showErrorToast(error);
+            showErrorToast(t('course.semester.available.access.message.error'));
         },
         onCompleted: () => {
             showSuccessToast(t('course.semester.available.access.message.send'));
@@ -53,7 +53,7 @@ const CourseAccessRequest = ({
             }
         },
         onError: (error) => {
-            showErrorToast(error);
+            showErrorToast(t('course.semester.available.access.message.error'));
         },
     });
 

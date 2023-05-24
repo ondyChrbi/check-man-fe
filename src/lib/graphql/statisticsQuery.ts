@@ -1,9 +1,10 @@
 import {gql} from "@apollo/client";
 import {SortOrder} from "./index";
+import {FeedbackType} from "./challengeQuery";
 
 export const courseStatisticsQuery = gql`
-    query GetCourseStatisticsQuery($semesterId: ID!, $direction: Order, $limit: Int, $description: String) {
-        statistic(semesterId: $semesterId, direction: $direction, limit: $limit, description: $description) {
+    query GetCourseStatisticsQuery($semesterId: ID!, $direction: Order, $limit: Int, $description: String, $type: String) {
+        statistic(semesterId: $semesterId, direction: $direction, limit: $limit, description: $description, type: $type) {
             semesterId
             challengeId
             description
@@ -22,7 +23,8 @@ export interface CourseStatisticsVariables {
     semesterId: number | string
     direction?: SortOrder
     limit?: number
-    description?: string
+    description?: string,
+    type?: FeedbackType
 }
 
 export interface FeedbackStatistics {
